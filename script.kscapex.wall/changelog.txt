@@ -1,3 +1,6 @@
+[B]0.15.5[/B] (06-11-2026)
+- Version alignée sur la skin (aucun changement dans l'add-on du mur).
+
 [B]0.15.4[/B] (06-11-2026)
 - Version alignée sur la skin (aucun changement dans l'add-on du mur).
 

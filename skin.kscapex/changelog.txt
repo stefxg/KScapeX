@@ -1,3 +1,6 @@
+[B]0.15.5[/B] (06-11-2026)
+- Playback info ouvre TinyPPI (script.tinyppi) quand il est installé et activé : toutes les données avdvplus (Dolby Vision RPU / EL / version CM, métadonnées L1 / L5 / L6, VS10, files d'attente, objets Atmos, logos et disposition des enceintes). Un second appui le referme. Sans TinyPPI, l'écran d'infos de Kodi reste utilisé.
+
 [B]0.15.4[/B] (06-11-2026)
 - Playback info se ferme de nouveau : le panneau se rouvrait aussitôt après chaque fermeture (condition d'affichage au niveau de la fenêtre, que Kodi applique comme « ouvert tant que la lecture dure »). Le bouton Playback info ou la touche O l'affichent et le masquent.
 - Playback info : RAM et cache avant le CPU (la liste des 6 cœurs repoussait la RAM hors de la ligne) ; format de pixel « unknown » masqué.
