@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Player process info (the O key during playback): what Kodi's video player is doing - video
-     and audio decoders, resolution, frame rate, deinterlacing, audio format, CPU, memory and cache.
+     and audio decoders, resolution, frame rate, dynamic range (KScapeX: Dolby Vision, HDR10, HDR10+,
+     HLG or SDR, in amber when HDR), deinterlacing, audio format, CPU, memory and cache.
      Information only; it has no Kodi controls to drive. -->
 <window type="dialog">
 	<depth>DepthOSD</depth>
@@ -71,7 +72,7 @@
 					<aligny>center</aligny>
 					<font>kscape_list_value</font>
 					<textcolor>kscape_text</textcolor>
-					<label>$INFO[Player.Process(deintmethod),$LOCALIZE[16038]: ,]</label>
+					<label>$VAR[KScapeHdrLabel]$INFO[Player.Process(deintmethod),  ·  $LOCALIZE[16038]: ,]</label>
 				</control>
 				<control type="label">
 					<left>30</left>

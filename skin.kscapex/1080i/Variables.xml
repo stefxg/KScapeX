@@ -68,6 +68,16 @@
 	<variable name="KScapeHwDecoder">
 		<value condition="Player.Process(videohwdecoder)"> · HW</value>
 	</variable>
+	<!-- KScapeX: the playing video's dynamic range (VideoPlayer.HdrType), as the player process
+	     info shows it; SDR when Kodi reports none. -->
+	<variable name="KScapeHdrLabel">
+		<value condition="String.IsEqual(VideoPlayer.HdrType,dolbyvision)">[COLOR kscape_amber]Dolby Vision[/COLOR]</value>
+		<value condition="String.IsEqual(VideoPlayer.HdrType,hdr10plus)">[COLOR kscape_amber]HDR10+[/COLOR]</value>
+		<value condition="String.IsEqual(VideoPlayer.HdrType,hdr10)">[COLOR kscape_amber]HDR10[/COLOR]</value>
+		<value condition="String.IsEqual(VideoPlayer.HdrType,hlg)">[COLOR kscape_amber]HLG[/COLOR]</value>
+		<value condition="!String.IsEmpty(VideoPlayer.HdrType)">[COLOR kscape_amber]$INFO[VideoPlayer.HdrType][/COLOR]</value>
+		<value>SDR</value>
+	</variable>
 	<!-- Home caption: the background movie's running time after its title ("  ·  1h 47m"). -->
 	<variable name="KScapeHomeDuration">
 		<value condition="String.IsEmpty(Container(9100).ListItem.Duration)"></value>
