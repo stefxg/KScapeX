@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Video library browser. View 50 is the cover wall. -->
+<!-- Video browser. View 50 is the cover wall for library titles (movies, TV shows, sets,
+     seasons) and, KScapeX, a one-column list for everything else: sources, shares, folders and
+     files (Home > System > Videos), library nodes. The two sets of layouts have opposite
+     conditions: Kodi re-picks a container's layouts only when the condition of the one in use
+     changes, so the list layouts must not be unconditional. -->
 <window>
 	<defaultcontrol always="true">50</defaultcontrol>
 	<views>50</views>
@@ -32,7 +36,7 @@
 				<scrolltime tween="cubic" easing="out">220</scrolltime>
 				<preloaditems>2</preloaditems>
 				<viewtype label="31012">panel</viewtype>
-				<itemlayout width="170" height="250">
+				<itemlayout width="170" height="250" condition="[String.StartsWith(Container.FolderPath,videodb://) | String.StartsWith(Container.FolderPath,library://)] + [Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(musicvideos)]">
 					<control type="group">
 						<visible>!ListItem.IsParentFolder | Integer.IsGreater(Container(50).NumItems,0)</visible>
 						<include content="PosterCard">
@@ -40,7 +44,7 @@
 						</include>
 					</control>
 				</itemlayout>
-				<focusedlayout width="170" height="250">
+				<focusedlayout width="170" height="250" condition="[String.StartsWith(Container.FolderPath,videodb://) | String.StartsWith(Container.FolderPath,library://)] + [Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(musicvideos)]">
 					<control type="group">
 						<description>Kodi adds ".." to empty listings even with parent items off; draw nothing for it.</description>
 						<visible>!ListItem.IsParentFolder | Integer.IsGreater(Container(50).NumItems,0)</visible>
@@ -62,6 +66,58 @@
 							<texture colordiffuse="FFF2F2F2">white.png</texture>
 						</control>
 						<include content="PosterCard"/>
+					</control>
+				</focusedlayout>
+				<!-- KScapeX: list rows (sources, folders, files): name on the left, Kodi's label2 (size,
+				     date...) on the right; ".." stays, as the way up a share. -->
+				<itemlayout width="1860" height="62" condition="![[String.StartsWith(Container.FolderPath,videodb://) | String.StartsWith(Container.FolderPath,library://)] + [Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(musicvideos)]]">
+					<control type="label">
+						<left>24</left>
+						<width>1290</width>
+						<height>62</height>
+						<aligny>center</aligny>
+						<font>kscape_list_row</font>
+						<textcolor>kscape_text</textcolor>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="label">
+						<left>1330</left>
+						<width>506</width>
+						<height>62</height>
+						<align>right</align>
+						<aligny>center</aligny>
+						<font>kscape13</font>
+						<textcolor>kscape_text_dim</textcolor>
+						<label>$INFO[ListItem.Label2]</label>
+					</control>
+				</itemlayout>
+				<focusedlayout width="1860" height="62" condition="![[String.StartsWith(Container.FolderPath,videodb://) | String.StartsWith(Container.FolderPath,library://)] + [Container.Content(movies) | Container.Content(tvshows) | Container.Content(sets) | Container.Content(seasons) | Container.Content(musicvideos)]]">
+					<control type="image">
+						<top>3</top>
+						<width>1860</width>
+						<height>56</height>
+						<texture colordiffuse="kscape_blue_focus">white.png</texture>
+						<visible>Control.HasFocus(50)</visible>
+					</control>
+					<control type="label">
+						<left>24</left>
+						<width>1290</width>
+						<height>62</height>
+						<aligny>center</aligny>
+						<font>kscape_list_row</font>
+						<textcolor>white</textcolor>
+						<scroll>true</scroll>
+						<label>$INFO[ListItem.Label]</label>
+					</control>
+					<control type="label">
+						<left>1330</left>
+						<width>506</width>
+						<height>62</height>
+						<align>right</align>
+						<aligny>center</aligny>
+						<font>kscape13</font>
+						<textcolor>white</textcolor>
+						<label>$INFO[ListItem.Label2]</label>
 					</control>
 				</focusedlayout>
 			</control>

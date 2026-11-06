@@ -1,5 +1,6 @@
 [B]0.15.2[/B] (06-11-2026)
 - Suit l'add-on du mur 0.15.2 (défilement vertical ligne par ligne, cadre au milieu).
+- Système > Vidéos : sources, partages, dossiers et fichiers en liste (nom à gauche, taille ou date à droite) au lieu de la grille d'affiches ; la grille reste pour les films, séries, sagas et saisons de la bibliothèque.
 
 [B]0.15.1[/B] (06-11-2026)
 - Accueil épuré : plus de logo KScape, d'horloge ni de météo dans la barre ; onglets centrés.
