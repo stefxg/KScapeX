@@ -182,14 +182,14 @@
 						<onclick>ActivateWindow(subtitlesearch)</onclick>
 					</control>
 					<control type="button" id="205">
-						<include content="OSDButton"><param name="width" value="170"/></include>
+						<include content="OSDButton"><param name="width" value="180"/></include>
 						<label>$LOCALIZE[31088]</label>
 						<onclick>ActivateWindow(videobookmarks)</onclick>
 						<visible>!VideoPlayer.Content(livetv)</visible>
 					</control>
 					<control type="button" id="206">
 						<description>The movie's information over the video (the OSD closes first)</description>
-						<include content="OSDButton"><param name="width" value="195"/></include>
+						<include content="OSDButton"><param name="width" value="200"/></include>
 						<label>$LOCALIZE[31089]</label>
 						<onclick>Dialog.Close(videoosd,true)</onclick>
 						<onclick>Action(Info)</onclick>
@@ -197,7 +197,7 @@
 					<control type="button" id="207">
 						<description>Player process info, top left: on / off. The OSD closes first, so the
 						action reaches the full-screen video, which toggles the dialog.</description>
-						<include content="OSDButton"><param name="width" value="195"/></include>
+						<include content="OSDButton"><param name="width" value="200"/></include>
 						<label>$LOCALIZE[31090]</label>
 						<onclick>Dialog.Close(videoosd,true)</onclick>
 						<onclick>Action(PlayerProcessInfo)</onclick>
