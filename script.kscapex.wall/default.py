@@ -57,6 +57,8 @@ def now_playing():
 
 
 def main(args):
+    from resources.lib import regional
+    regional.from_kodi()            # KScapeX: language and regional formats (dates, clock, titles)
     if args[:2] == ['scene', 'mark']:
         from resources.lib import scenes
         scenes.mark()

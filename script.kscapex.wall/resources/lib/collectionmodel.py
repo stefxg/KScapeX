@@ -22,6 +22,8 @@ import os
 import re
 from datetime import datetime, timedelta
 
+from . import regional as R
+
 BUILTIN = ('new', 'paused', 'played')
 SPECIAL = ('scenes', 'demos')        # built in too, but listing scenes and Demo Scripts (scenes.py)
 BUILTINS = {'movies': BUILTIN + SPECIAL, 'music': ('new', 'played'), 'tv': BUILTIN + SPECIAL}
@@ -33,8 +35,6 @@ def is_builtin(cid):
 DEFAULT_NEW_DAYS = 30
 NEW_DAYS_CHOICES = (7, 14, 30, 60, 90, 180)
 DATE_RE = re.compile(r'(\d{4})-(\d{2})-(\d{2})(?:[ T](\d{2}):(\d{2})(?::(\d{2}))?)?')
-MONTHS = ('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
-          'October', 'November', 'December')
 
 
 def parse_date(text):
@@ -96,13 +96,11 @@ def builtin_movies(cid, movies, days=DEFAULT_NEW_DAYS, now=None):
 
 
 def _clock(d):
-    h = d.hour % 12 or 12
-    return f"{h}:{d.minute:02d} {'am' if d.hour < 12 else 'pm'}"
+    return R.clock(d)                 # KScapeX: 24-hour when Kodi is set so ('2:05 pm' otherwise)
 
 
 def _day(d, now):
-    text = f'{MONTHS[d.month - 1]} {d.day}'
-    return text if d.year == now.year else f'{text}, {d.year}'
+    return R.day(d, now)              # KScapeX: '6 novembre' in French ('November 6' otherwise)
 
 
 def describe(cid, movie, tr=None, now=None):

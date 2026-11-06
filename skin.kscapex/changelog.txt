@@ -1,3 +1,8 @@
+[B]0.16.0[/B] (06-11-2026)
+- Français : toute la skin est traduite (resource.language.fr_fr) ; elle suit la langue de Kodi (Paramètres > Interface > Régional > Langue).
+- Commandes de lecture en français ; largeurs des boutons ajustées (Infos techniques, Scène précédente).
+- Accueil : durée du film au format français (1 h 40).
+
 [B]0.15.5[/B] (06-11-2026)
 - Playback info ouvre TinyPPI (script.tinyppi) quand il est installé et activé : toutes les données avdvplus (Dolby Vision RPU / EL / version CM, métadonnées L1 / L5 / L6, VS10, files d'attente, objets Atmos, logos et disposition des enceintes). Un second appui le referme. Sans TinyPPI, l'écran d'infos de Kodi reste utilisé.
 

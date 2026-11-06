@@ -146,6 +146,11 @@ def runtime_short(seconds):
     if minutes <= 0:
         return ''
     h, m = divmod(minutes, 60)
+    from . import regional
+    if regional.french():             # KScapeX: '2 h 43', '2 h', '43 min'
+        if h and m:
+            return f'{h} h {m:02d}'
+        return f'{h} h' if h else f'{m} min'
     if h and m:
         return f'{h}h {m}m'
     return f'{h}h' if h else f'{m}m'

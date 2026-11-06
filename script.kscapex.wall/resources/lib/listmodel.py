@@ -11,6 +11,8 @@ ListSpec (MOVIES, MUSIC, TV at the end of this module). Functions default to MOV
 """
 from collections import namedtuple
 
+from . import regional as R
+
 Column = namedtuple('Column', 'key label width')
 
 SCROLL_W = 1060                    # visible width right of the title column
@@ -24,8 +26,7 @@ ROW_H = 58
 BAND_H = 236
 FOCUS_POS = 5
 
-# Kodi's default sort tokens: titles sort as if these leading words were absent.
-SORT_TOKENS = ('the ', 'the.', 'the_')
+# Leading articles titles sort without: regional.article_length (The; Le, La, Les, L' in French).
 
 Row = namedtuple('Row', 'movie group')     # `movie` is the row's item: a movie, album or show
 
@@ -116,8 +117,7 @@ def runtime_clock(seconds):
 
 def sort_letter(title):
     """Index of the character a title is sorted by ('The Lion King' -> 4), or None."""
-    low = title.lower()
-    start = next((len(t) for t in SORT_TOKENS if low.startswith(t)), 0)
+    start = R.article_length(title)   # KScapeX: 'The ' (and Le, La, Les, L' with Kodi in French)
     return next((i for i in range(start, len(title)) if title[i].isalnum()), None)
 
 
@@ -133,6 +133,9 @@ def _rating_key(movie):
     r = rating_short(movie.mpaa)
     if r in MPAA_ORDER:
         return (0, MPAA_ORDER.index(r), '')
+    fr = R.french_rating_rank(r)      # KScapeX: Tous publics, -10, -12, -16, -18 in that order
+    if fr is not None:
+        return (0, fr, '')
     return (1 if r else 2, 0, r.casefold())
 
 

@@ -7,6 +7,7 @@ out, never shown empty. `tr` maps a string id to its localized text; `lang` turn
 code into its name.
 """
 from . import info
+from . import regional as R
 from . import s as S
 from . import streaminfo as SI
 
@@ -69,6 +70,7 @@ def person_summary(row, tr):
 def life_line(person, tr):
     """'Born 1964-09-02 in Beirut, Lebanon' / 'Born ... · Died ...' from a TMDB person record."""
     born, died, place = person.get('birthday'), person.get('deathday'), person.get('place')
+    born, died = R.date_text(born), R.date_text(died)    # KScapeX: '2 septembre 1964' in French
     parts = []
     if born and place:
         parts.append(tr(S.P_BORN_IN).format(born, place))
@@ -122,7 +124,7 @@ def _languages(streamdetails, kind, lang):
 
 
 def _date_time(stamp):
-    return (stamp or '')[:16] if stamp and not stamp.startswith('0000') else ''
+    return R.stamp_text(stamp)        # KScapeX: '6 novembre 2026, 14:05' ('YYYY-MM-DD HH:MM' in tests)
 
 
 def _video_line(d):
@@ -170,7 +172,7 @@ def movie_rows(d, extra, tr, lang=lambda c: c):
     return _rows(
         (S.D_ORIGINAL_TITLE, original),
         (S.D_TAGLINE, d.get('tagline') or extra.get('tagline')),
-        (S.D_RELEASED, d.get('premiered') or extra.get('released') or (str(d['year']) if d.get('year') else '')),
+        (S.D_RELEASED, R.date_text(d.get('premiered') or extra.get('released')) or (str(d['year']) if d.get('year') else '')),
         (S.D_RUNTIME, info.runtime_words(d.get('runtime'), tr)),
         (S.D_GENRES, join(d.get('genre'))),
         (S.D_DIRECTORS, join(d.get('director'))),
@@ -205,7 +207,7 @@ def show_rows(d, seasons, tr):
     d = d or {}
     return _rows(
         (S.D_ORIGINAL_TITLE, d.get('originaltitle') if d.get('originaltitle') != d.get('title') else ''),
-        (S.D_FIRST_AIRED, d.get('premiered') or (str(d['year']) if d.get('year') else '')),
+        (S.D_FIRST_AIRED, R.date_text(d.get('premiered')) or (str(d['year']) if d.get('year') else '')),
         (S.D_NETWORK, join(d.get('studio'))),
         (S.D_STATUS, d.get('status') or ''),
         (S.D_GENRES, join(d.get('genre'))),
@@ -229,7 +231,7 @@ def episode_rows(d, tr, lang=lambda c: c):
     sd = d.get('streamdetails')
     return _rows(
         (S.D_SEASON_EPISODE, f'S{d.get("season", 0):02d}E{d.get("episode", 0):02d}'),
-        (S.D_AIRED, d.get('firstaired') or ''),
+        (S.D_AIRED, R.date_text(d.get('firstaired'))),
         (S.D_RUNTIME, info.runtime_words(d.get('runtime'), tr)),
         (S.D_DIRECTORS, join(d.get('director'))),
         (S.D_WRITERS, join(d.get('writer'))),

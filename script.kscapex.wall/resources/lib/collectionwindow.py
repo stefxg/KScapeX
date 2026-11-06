@@ -34,7 +34,7 @@ from .favourites import Favourites
 from .library import rpc
 from .listwindow import show_list
 from .search import search
-from .window import LibraryMonitor, load_library
+from .window import LibraryMonitor, in_title_order, load_library
 
 ADDON = xbmcaddon.Addon('script.kscapex.wall')
 TABS = 9100
@@ -567,7 +567,7 @@ class CollectionsWindow(xbmcgui.WindowXML):
         while True:
             self.reload_again = False
             total = self.kind.total()
-            items = self.kind.fetch_all() if total else []
+            items = in_title_order(self.kind, self.kind.fetch_all() if total else [])
             if not self.reload_again:
                 break
         with self.lock:

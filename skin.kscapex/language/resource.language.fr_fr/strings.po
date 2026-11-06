@@ -1,0 +1,299 @@
+# Kodi Media Center language file
+# Addon Name: KScapeX
+# Addon id: skin.kscapex
+# Addon Provider: stefxg
+msgid ""
+msgstr ""
+"Project-Id-Version: skin.kscapex\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
+
+msgctxt "#31001"
+msgid "KScape"
+msgstr "KScape"
+
+msgctxt "#31010"
+msgid "Your movie library is empty"
+msgstr "Votre médiathèque de films est vide"
+
+msgctxt "#31011"
+msgid "Add a movie source and scan it into the library, then return here."
+msgstr "Ajoutez une source de films et analysez-la dans la médiathèque, puis revenez ici."
+
+msgctxt "#31012"
+msgid "Wall"
+msgstr "Mur"
+
+msgctxt "#31013"
+msgid "Back"
+msgstr "Retour"
+
+#. Minutes suffix for runtime, e.g. "117 min"
+msgctxt "#31014"
+msgid "min"
+msgstr "min"
+
+msgctxt "#31015"
+msgid "Loading library…"
+msgstr "Chargement de la médiathèque…"
+
+msgctxt "#31016"
+msgid "Switch skin"
+msgstr "Changer de skin"
+
+msgctxt "#31020"
+msgid "Play"
+msgstr "Lecture"
+
+msgctxt "#31021"
+msgid "Pause"
+msgstr "Pause"
+
+msgctxt "#31022"
+msgid "Back 30 s"
+msgstr "Retour 30 s"
+
+msgctxt "#31023"
+msgid "Forward 30 s"
+msgstr "Avance 30 s"
+
+msgctxt "#31024"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "#31025"
+msgid "Subtitles"
+msgstr "Sous-titres"
+
+msgctxt "#31026"
+msgid "Off"
+msgstr "Non"
+
+msgctxt "#31027"
+msgid "Stop"
+msgstr "Arrêt"
+
+#. Subtitles on, language unknown
+msgctxt "#31028"
+msgid "On"
+msgstr "Oui"
+
+#. Followed by the clock time the movie finishes
+msgctxt "#31029"
+msgid "Ends at"
+msgstr "Fin à"
+
+msgctxt "#31040"
+msgid "Event log"
+msgstr "Journal des événements"
+
+#. Skin settings: radio button, skin setting ReducedMotion
+msgctxt "#31041"
+msgid "Reduce motion"
+msgstr "Réduire les animations"
+
+#. Skin settings: section heading
+msgctxt "#31042"
+msgid "Home screen"
+msgstr "Écran d'accueil"
+
+#. Skin settings: radio button, skin setting HomeNoArtwork
+msgctxt "#31043"
+msgid "Hide the background artwork"
+msgstr "Masquer l'image de fond"
+
+#. Skin settings: radio button, skin setting HomeNoClock
+msgctxt "#31044"
+msgid "Hide the clock"
+msgstr "Masquer l'horloge"
+
+#. Skin settings: radio button, skin setting HomeNoCaption
+msgctxt "#31045"
+msgid "Hide the movie title over the background"
+msgstr "Masquer le titre du film sur le fond"
+
+#. Home: view card
+msgctxt "#31050"
+msgid "List"
+msgstr "Liste"
+
+#. Home: view card
+msgctxt "#31051"
+msgid "Covers"
+msgstr "Jaquettes"
+
+#. Home: view card (music)
+msgctxt "#31053"
+msgid "Now Playing"
+msgstr "En cours de lecture"
+
+#. Home: Now Playing card with no music
+msgctxt "#31054"
+msgid "Nothing playing"
+msgstr "Aucune lecture en cours"
+
+#. Home: top-left player strip
+msgctxt "#31055"
+msgid "NOW PLAYING"
+msgstr "EN LECTURE"
+
+#. Home: top-left player strip
+msgctxt "#31056"
+msgid "PAUSED"
+msgstr "EN PAUSE"
+
+#. Home: view card (movies)
+msgctxt "#31057"
+msgid "Collections"
+msgstr "Collections"
+
+#. Skin settings: section heading
+msgctxt "#31046"
+msgid "Colours"
+msgstr "Couleurs"
+
+#. Skin settings: the main colour of the theme
+msgctxt "#31047"
+msgid "Theme colour"
+msgstr "Couleur du thème"
+
+#. Skin settings: the highlight colour (selection frame, badges)
+msgctxt "#31048"
+msgid "Highlight colour"
+msgstr "Couleur de surbrillance"
+
+msgctxt "#31058"
+msgid "No bookmarks yet. Add one while the video plays."
+msgstr "Aucun signet pour l'instant. Ajoutez-en un pendant la lecture."
+
+msgctxt "#31059"
+msgid "Colour"
+msgstr "Couleur"
+
+msgctxt "#31061"
+msgid "Local subtitle available"
+msgstr "Sous-titre local disponible"
+
+msgctxt "#31062"
+msgid "Video"
+msgstr "Vidéo"
+
+msgctxt "#31063"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "#31064"
+msgid "Player"
+msgstr "Lecteur"
+
+msgctxt "#31065"
+msgid "General"
+msgstr "Général"
+
+msgctxt "#31066"
+msgid "Movie versions"
+msgstr "Versions des films"
+
+msgctxt "#31067"
+msgid "Display & aspect ratio"
+msgstr "Affichage et format d'image"
+
+msgctxt "#31068"
+msgid "Format badges on covers"
+msgstr "Badges de format sur les jaquettes"
+
+msgctxt "#31069"
+msgid "Version Play starts"
+msgstr "Version lancée par Lecture"
+
+msgctxt "#31070"
+msgid "Prefer 3D versions"
+msgstr "Préférer les versions 3D"
+
+msgctxt "#31071"
+msgid "Interface aspect ratio"
+msgstr "Format de l'interface"
+
+msgctxt "#31072"
+msgid "CinemaScope poster wall"
+msgstr "Mur d'affiches CinemaScope"
+
+msgctxt "#31073"
+msgid "Vertical UI offset"
+msgstr "Décalage vertical de l'interface"
+
+msgctxt "#31074"
+msgid "Horizontal UI offset"
+msgstr "Décalage horizontal de l'interface"
+
+msgctxt "#31075"
+msgid "Safe area / overscan"
+msgstr "Zone de sécurité / overscan"
+
+msgctxt "#31076"
+msgid "Preview layout"
+msgstr "Aperçu de la mise en page"
+
+msgctxt "#31077"
+msgid "Motion of the walls and screens."
+msgstr "Les animations des murs et des écrans."
+
+msgctxt "#31078"
+msgid "The theme colour and the highlight colour of every screen."
+msgstr "La couleur du thème et la couleur de surbrillance de tous les écrans."
+
+msgctxt "#31079"
+msgid "What the Home screen shows behind its navigation bar."
+msgstr "Ce que l'écran d'accueil affiche derrière sa barre de navigation."
+
+msgctxt "#31080"
+msgid "Movies with several versions (Kodi's Manage versions, or copies of one film) show once: which version Play starts, and the format badges."
+msgstr "Les films en plusieurs versions (Gérer les versions de Kodi, ou copies d'un même film) n'apparaissent qu'une fois : quelle version Lecture lance, et les badges de format."
+
+msgctxt "#31081"
+msgid "For ultrawide screens and CinemaScope projector screens. Auto adapts to the screen Kodi draws on; a 2.35, 2.39 or 2.40 screen fed a 16:9 signal must be chosen by hand."
+msgstr "Pour les écrans ultra-larges et les écrans de projection CinemaScope. Auto s'adapte à l'écran sur lequel Kodi dessine ; un écran 2,35, 2,39 ou 2,40 alimenté en 16:9 doit être choisi à la main."
+
+msgctxt "#31082"
+msgid "Shown"
+msgstr "Affichés"
+
+msgctxt "#31083"
+msgid "Hidden"
+msgstr "Masqués"
+
+#. KScapeX: playback controls, second row - Kodi's audio settings during playback
+msgctxt "#31084"
+msgid "Audio settings"
+msgstr "Réglages audio"
+
+#. KScapeX: playback controls, second row - Kodi's video settings during playback
+msgctxt "#31085"
+msgid "Video settings"
+msgstr "Réglages vidéo"
+
+#. KScapeX: playback controls, second row - Kodi's subtitle settings during playback
+msgctxt "#31086"
+msgid "Subtitle settings"
+msgstr "Réglages sous-titres"
+
+#. KScapeX: playback controls, second row - search and download subtitles
+msgctxt "#31087"
+msgid "Find subtitles"
+msgstr "Sous-titres en ligne"
+
+#. KScapeX: playback controls, second row - bookmarks and chapters
+msgctxt "#31088"
+msgid "Bookmarks"
+msgstr "Signets"
+
+#. KScapeX: playback controls, second row - the movie's information over the video
+msgctxt "#31089"
+msgid "Information"
+msgstr "Informations"
+
+#. KScapeX: playback controls, second row - Kodi's player process info (decoder, resolution, HDR...)
+msgctxt "#31090"
+msgid "Playback info"
+msgstr "Infos techniques"

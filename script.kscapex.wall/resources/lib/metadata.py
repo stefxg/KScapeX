@@ -22,6 +22,8 @@ import xbmc
 import xbmcaddon
 import xbmcvfs
 
+from . import regional as R
+
 ADDON = xbmcaddon.Addon('script.kscapex.wall')
 PATH = xbmcvfs.translatePath('special://profile/addon_data/script.kscapex.wall/metadata.json')
 FRESH_S = 30 * 24 * 3600
@@ -150,7 +152,17 @@ def money(amount):
         amount = int(amount)
     except (TypeError, ValueError):
         return ''
-    return f'${amount:,}' if amount > 0 else ''
+    if amount <= 0:
+        return ''
+    if R.french():                    # KScapeX: '150 000 000 $'
+        return f'{amount:,}'.replace(',', '\u00a0') + '\u00a0$'
+    return f'${amount:,}'
+
+
+def tmdb_language():
+    """KScapeX: TMDB answers in Kodi's language ('fr-FR'), US English otherwise."""
+    lang = R.language()
+    return {'': 'en-US', 'en': 'en-US', 'fr': 'fr-FR'}.get(lang, lang)
 
 
 def shape_movie(tmdb, omdb=None):
@@ -234,12 +246,12 @@ def movie_extra(tmdb_id, imdb, done):
         return
 
     def fetch():
-        tmdb = tmdb_get(f'/movie/{tmdb_id}', language='en-US') if tk and tmdb_id else None
+        tmdb = tmdb_get(f'/movie/{tmdb_id}', language=tmdb_language()) if tk and tmdb_id else None
         omdb = _get('https://www.omdbapi.com/?' + urllib.parse.urlencode({'i': imdb, 'apikey': ok})) \
             if ok and imdb else None
         return shape_movie(tmdb, omdb)
 
-    request(f'movie:{tmdb_id or imdb}', fetch, done)
+    request(f'movie:{tmdb_language()}:{tmdb_id or imdb}', fetch, done)
 
 
 def wiki_lookup_enabled():
@@ -267,17 +279,32 @@ def person(name, department, done):
         hit = pick_person(found, name, department)
         if not hit:
             return {}
-        return shape_person(tmdb_get(f'/person/{hit["id"]}', append_to_response='combined_credits'))
+        lang = tmdb_language()
+        data = tmdb_get(f'/person/{hit["id"]}', append_to_response='combined_credits', language=lang)
+        if not (data.get('biography') or '').strip() and lang != 'en-US':
+            # KScapeX: TMDB often has no biography in French; the English one then
+            try:
+                data['biography'] = tmdb_get(f'/person/{hit["id"]}', language='en-US').get('biography') or ''
+            except Exception:
+                pass
+        return shape_person(data)
 
     if source == 'tmdb':
-        request(f'person:{name.casefold()}', fetch_tmdb, done)
+        request(f'person:{tmdb_language()}:{name.casefold()}', fetch_tmdb, done)
     else:
-        request(f'wiki:{name.casefold()}:{department}', lambda: wiki_person(name, department), done)
+        request(f'wiki:{R.language() or "en"}:{name.casefold()}:{department}', lambda: wiki_person(name, department), done)
 
 
 # ---- Wikipedia / Wikidata: a person without any key --------------------------------------------
 
 WIKI = 'https://en.wikipedia.org'
+WIKI_FR = 'https://fr.wikipedia.org'
+FILM_WORDS_FR = ('acteur', 'actrice', 'comédien', 'réalisat', 'producteur', 'productrice', 'scénariste',
+                 'écrivain', 'cinéaste', 'humoriste', 'doubl', 'chanteu', 'musicien', 'compositeu', 'animat',
+                 'cascad', 'présentat', 'télévision', 'film', 'mannequin', 'rappeu', 'metteu')
+SUFFIXES_FR = {'Acting': ('', ' (acteur)', ' (actrice)'),
+               'Directing': (' (réalisateur)', ' (réalisatrice)', ''),
+               'Writing': (' (scénariste)', ' (écrivain)', '')}
 WIKIDATA = 'https://www.wikidata.org'
 FILM_WORDS = ('actor', 'actress', 'director', 'producer', 'screenwriter', 'writer', 'filmmaker', 'comedian',
               'voice', 'singer', 'musician', 'composer', 'cinematograph', 'animator', 'stunt', 'presenter',
@@ -287,19 +314,20 @@ SUFFIXES = {'Acting': ('', ' (actor)', ' (actress)', ' (voice actor)'),
             'Writing': (' (screenwriter)', ' (writer)', '')}
 
 
-def wiki_titles(name, department):
+def wiki_titles(name, department, suffixes=None):
     """Page titles to try, most likely first: the plain name, then the disambiguated ones."""
-    order = SUFFIXES.get(department) or SUFFIXES['Acting']
-    more = [s for kind in SUFFIXES.values() for s in kind if s and s not in order]
+    suffixes = suffixes or SUFFIXES
+    order = suffixes.get(department) or suffixes['Acting']
+    more = [s for kind in suffixes.values() for s in kind if s and s not in order]
     return [f'{name}{s}' for s in list(order) + more]
 
 
-def is_person_page(summary):
+def is_person_page(summary, words=None):
     """A real article about someone in film or music (not a disambiguation page or a namesake)."""
     if not summary or summary.get('type') != 'standard':
         return False
     text = f'{summary.get("description") or ""} {(summary.get("extract") or "")[:400]}'.lower()
-    return any(w in text for w in FILM_WORDS)
+    return any(w in text for w in (words or FILM_WORDS))
 
 
 def _wiki_time(claims, prop):
@@ -328,22 +356,30 @@ def shape_wiki(summary, intro, born='', died='', place=''):
 
 
 def wiki_person(name, department):
-    """Biography, birth, death and picture from Wikipedia and Wikidata (no key). {} if none."""
+    """Biography, birth, death and picture from Wikipedia and Wikidata (no key). {} if none.
+    KScapeX: French Wikipedia first when Kodi is in French, the English one otherwise or when
+    French Wikipedia has no page for the person."""
+    sites = [(WIKI_FR, SUFFIXES_FR, FILM_WORDS_FR, 'fr')] if R.french() else []
+    sites.append((WIKI, SUFFIXES, FILM_WORDS, 'en'))
     summary = None
-    for title in wiki_titles(name, department):
-        try:
-            data = _get(f'{WIKI}/api/rest_v1/page/summary/{urllib.parse.quote(title.replace(" ", "_"))}')
-        except Exception:
-            continue
-        if is_person_page(data):
-            summary = data
+    for site, suffixes, words, lang in sites:
+        for title in wiki_titles(name, department, suffixes):
+            try:
+                data = _get(f'{site}/api/rest_v1/page/summary/{urllib.parse.quote(title.replace(" ", "_"))}')
+            except Exception:
+                continue
+            if is_person_page(data, words):
+                summary = data
+                break
+        if summary:
             break
     if not summary:
         return {}
+    wiki = site
     title = summary.get('title') or name
     intro = ''
     try:
-        q = _get(f'{WIKI}/w/api.php?' + urllib.parse.urlencode({
+        q = _get(f'{wiki}/w/api.php?' + urllib.parse.urlencode({
             'action': 'query', 'format': 'json', 'prop': 'extracts', 'exintro': 1, 'explaintext': 1,
             'redirects': 1, 'titles': title}))
         pages = (q.get('query') or {}).get('pages') or {}
@@ -360,9 +396,9 @@ def wiki_person(name, department):
             if where.get('id'):
                 labels = _get(f'{WIKIDATA}/w/api.php?' + urllib.parse.urlencode({
                     'action': 'wbgetentities', 'format': 'json', 'ids': where['id'], 'props': 'labels',
-                    'languages': 'en'}))
-                place = ((labels.get('entities') or {}).get(where['id']) or {}).get('labels', {}) \
-                    .get('en', {}).get('value') or ''
+                    'languages': f'{lang}|en'}))
+                names = ((labels.get('entities') or {}).get(where['id']) or {}).get('labels', {})
+                place = (names.get(lang) or names.get('en') or {}).get('value') or ''
         except Exception:
             pass
     return shape_wiki(summary, intro, born, died, place)

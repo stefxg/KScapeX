@@ -8,6 +8,7 @@ default. Pure Python: no Kodi calls.
 import re
 from dataclasses import replace
 
+from . import regional as R
 from .model import MAX_CAST
 
 ARTICLES = re.compile(r'^(the|a|an)\s+', re.IGNORECASE)
@@ -23,6 +24,8 @@ def set_id(item):
 
 
 def sort_key(title):
+    if R.french():                    # KScapeX: the same key as the library's French title order
+        return R.title_key(title)
     return ARTICLES.sub('', title.strip()).casefold()
 
 

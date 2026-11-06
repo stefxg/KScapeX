@@ -1,3 +1,10 @@
+[B]0.16.0[/B] (06-11-2026)
+- Français : tout l'add-on du mur est traduit (501 chaînes : menus, mur, listes, fiches, collections, scènes, filtres, réglages).
+- Formats régionaux de Kodi : dates (« Ajouté le 6 novembre », « 2 septembre 1964 »), heure sur 24 h, durées (2 h 43), montants (150 000 000 $).
+- Titres classés comme en France quand Kodi est en français : sans l'article (Le, La, Les, L', The) et sans accents (Été avec E).
+- Classifications françaises (Tous publics, -10, -12, -16, -18) dans l'ordre pour le tri de la liste.
+- Fiches : TMDB répond en français (biographie anglaise si la française manque) ; biographies sur Wikipédia en français, puis en anglais si la page française n'existe pas.
+
 [B]0.15.5[/B] (06-11-2026)
 - Version alignée sur la skin (aucun changement dans l'add-on du mur).
 

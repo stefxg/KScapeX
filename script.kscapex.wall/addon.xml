@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="script.kscapex.wall" version="0.15.5" name="KScapeX wall" provider-name="stefxg">
+<addon id="script.kscapex.wall" version="0.16.0" name="KScapeX wall" provider-name="stefxg">
 	<requires>
 		<import addon="xbmc.python" version="3.0.1"/>
 	</requires>
@@ -9,6 +9,8 @@
 	<extension point="xbmc.service" library="service.py" start="login"/>
 	<extension point="xbmc.addon.metadata">
 		<summary lang="en_GB">Animated cover walls for movies, music and TV with relationship-based shuffle</summary>
+		<summary lang="fr_FR">Murs de jaquettes animés pour les films et les séries, réorganisés selon les liens entre titres</summary>
+		<description lang="fr_FR">Parcourez les médiathèques de films et de séries de Kodi en murs de jaquettes et en listes, avec collections (Nouveautés, En pause, Vus et les vôtres), scènes et scripts de démo, Explorer et filtres, notes et badges de format, favoris et recherche ; les jaquettes liées se réorganisent autour du titre choisi.</description>
 		<description lang="en_GB">Browse the Kodi movie, music and TV libraries as cover walls and lists, with collections (New, Paused, Played and your own), scenes and Demo Scripts, Explore and movie filters, ratings and format badges, favourites, search and Now Playing; related covers rearrange around the selected title.</description>
 		<license>MIT</license>
 		<platform>all</platform>

@@ -127,13 +127,13 @@
 						<visible>String.IsEmpty(Window(Home).Property(kscape.demo.active))</visible>
 					</control>
 					<control type="button" id="107">
-						<include content="OSDButton"><param name="width" value="230"/></include>
+						<include content="OSDButton"><param name="width" value="250"/></include>
 						<label>$ADDON[script.kscapex.wall 32274]</label>
 						<onclick>RunScript(script.kscapex.wall,demo,prev)</onclick>
 						<visible>!String.IsEmpty(Window(Home).Property(kscape.demo.active))</visible>
 					</control>
 					<control type="button" id="108">
-						<include content="OSDButton"><param name="width" value="230"/></include>
+						<include content="OSDButton"><param name="width" value="220"/></include>
 						<label>$ADDON[script.kscapex.wall 32275]</label>
 						<onclick>RunScript(script.kscapex.wall,demo,next)</onclick>
 						<visible>!String.IsEmpty(Window(Home).Property(kscape.demo.active))</visible>
@@ -169,7 +169,7 @@
 						queues, Atmos objects...); its launch toggles it. Otherwise Kodi's player process info
 						(top left). The OSD closes first, so the overlay is not under it and Kodi's action
 						reaches the full-screen video, which toggles its dialog.</description>
-						<include content="OSDButton"><param name="width" value="200"/></include>
+						<include content="OSDButton"><param name="width" value="220"/></include>
 						<label>$LOCALIZE[31090]</label>
 						<onclick>Dialog.Close(videoosd,true)</onclick>
 						<onclick condition="System.AddonIsEnabled(script.tinyppi)">RunAddon(script.tinyppi)</onclick>
@@ -196,14 +196,14 @@
 						<onclick>ActivateWindow(subtitlesearch)</onclick>
 					</control>
 					<control type="button" id="205">
-						<include content="OSDButton"><param name="width" value="180"/></include>
+						<include content="OSDButton"><param name="width" value="170"/></include>
 						<label>$LOCALIZE[31088]</label>
 						<onclick>ActivateWindow(videobookmarks)</onclick>
 						<visible>!VideoPlayer.Content(livetv)</visible>
 					</control>
 					<control type="button" id="206">
 						<description>The movie's information over the video (the OSD closes first)</description>
-						<include content="OSDButton"><param name="width" value="200"/></include>
+						<include content="OSDButton"><param name="width" value="190"/></include>
 						<label>$LOCALIZE[31089]</label>
 						<onclick>Dialog.Close(videoosd,true)</onclick>
 						<onclick>Action(Info)</onclick>

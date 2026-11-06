@@ -1,0 +1,2075 @@
+# Kodi Media Center language file
+# Addon Name: KScapeX wall
+# Addon id: script.kscapex.wall
+# Addon Provider: stefxg
+msgid ""
+msgstr ""
+"Project-Id-Version: script.kscapex.wall\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
+
+msgctxt "#32001"
+msgid "Loading library…"
+msgstr "Chargement de la médiathèque…"
+
+msgctxt "#32002"
+msgid "Your movie library is empty"
+msgstr "Votre médiathèque de films est vide"
+
+msgctxt "#32010"
+msgid "Cover wall"
+msgstr "Mur de jaquettes"
+
+msgctxt "#32011"
+msgid "Shuffle related covers automatically"
+msgstr "Réorganiser automatiquement les jaquettes liées"
+
+msgctxt "#32012"
+msgid "Reduce motion"
+msgstr "Réduire les animations"
+
+msgctxt "#32020"
+msgid "KScape"
+msgstr "KScape"
+
+msgctxt "#32021"
+msgid "Shuffle related covers now"
+msgstr "Réorganiser maintenant"
+
+msgctxt "#32024"
+msgid "Reload library"
+msgstr "Recharger la médiathèque"
+
+msgctxt "#32027"
+msgid "Choose a skin"
+msgstr "Choisir une skin"
+
+msgctxt "#32028"
+msgid "No other skins are installed."
+msgstr "Aucune autre skin n'est installée."
+
+msgctxt "#32030"
+msgid "On"
+msgstr "Oui"
+
+msgctxt "#32031"
+msgid "Off"
+msgstr "Non"
+
+#. Runtime; {} is a number
+msgctxt "#32040"
+msgid "{} hour"
+msgstr "{} heure"
+
+msgctxt "#32041"
+msgid "{} hours"
+msgstr "{} heures"
+
+msgctxt "#32042"
+msgid "{} minute"
+msgstr "{} minute"
+
+msgctxt "#32043"
+msgid "{} minutes"
+msgstr "{} minutes"
+
+#. Video aspect ratio; {} is e.g. 1.78
+msgctxt "#32044"
+msgid "{} aspect ratio"
+msgstr "format {}"
+
+#. List view column headings
+msgctxt "#32050"
+msgid "Title"
+msgstr "Titre"
+
+msgctxt "#32051"
+msgid "Genre"
+msgstr "Genre"
+
+msgctxt "#32052"
+msgid "Cast"
+msgstr "Distribution"
+
+msgctxt "#32053"
+msgid "Director"
+msgstr "Réalisation"
+
+msgctxt "#32054"
+msgid "Year"
+msgstr "Année"
+
+msgctxt "#32055"
+msgid "Time"
+msgstr "Durée"
+
+msgctxt "#32056"
+msgid "Rating"
+msgstr "Public"
+
+msgctxt "#32057"
+msgid "Quality"
+msgstr "Qualité"
+
+#. Info screen headings
+msgctxt "#32061"
+msgid "Synopsis"
+msgstr "Synopsis"
+
+msgctxt "#32062"
+msgid "Genres"
+msgstr "Genres"
+
+msgctxt "#32063"
+msgid "Cast"
+msgstr "Distribution"
+
+msgctxt "#32064"
+msgid "Director"
+msgstr "Réalisation"
+
+msgctxt "#32065"
+msgid "Collection"
+msgstr "Saga"
+
+#. Info screen menu
+msgctxt "#32066"
+msgid "Return"
+msgstr "Retour"
+
+msgctxt "#32067"
+msgid "Resume Movie"
+msgstr "Reprendre le film"
+
+msgctxt "#32068"
+msgid "Play Movie"
+msgstr "Lire le film"
+
+msgctxt "#32069"
+msgid "Play Trailer"
+msgstr "Lire la bande-annonce"
+
+#. Switch from the list view to the cover wall
+msgctxt "#32070"
+msgid "Cover wall"
+msgstr "Mur de jaquettes"
+
+#. Switch from the cover wall to the list view
+msgctxt "#32071"
+msgid "List view"
+msgstr "Vue liste"
+
+#. Wall status: no albums in the music library
+msgctxt "#32003"
+msgid "Your music library is empty"
+msgstr "Votre médiathèque musicale est vide"
+
+#. Wall status: no TV shows in the library
+msgctxt "#32004"
+msgid "Your TV library is empty"
+msgstr "Votre médiathèque de séries est vide"
+
+#. Favourites view, nothing in Kodi's favourites for this kind
+msgctxt "#32005"
+msgid "No favourites yet"
+msgstr "Aucun favori pour l'instant"
+
+#. Favourites view, second line
+msgctxt "#32006"
+msgid "Press C on a title and choose Add to Favourites."
+msgstr "Appuyez sur C sur un titre et choisissez Ajouter aux favoris."
+
+#. List column (music): artist
+msgctxt "#32080"
+msgid "Artist"
+msgstr "Artiste"
+
+#. List column (music): album
+msgctxt "#32081"
+msgid "Album"
+msgstr "Album"
+
+#. List column (TV): network or studio
+msgctxt "#32082"
+msgid "Network"
+msgstr "Chaîne"
+
+#. List column (TV): number of seasons
+msgctxt "#32083"
+msgid "Seasons"
+msgstr "Saisons"
+
+#. List column (TV): number of episodes
+msgctxt "#32084"
+msgid "Episodes"
+msgstr "Épisodes"
+
+#. C menu
+msgctxt "#32090"
+msgid "Add to Favourites"
+msgstr "Ajouter aux favoris"
+
+#. C menu
+msgctxt "#32091"
+msgid "Remove from Favourites"
+msgstr "Retirer des favoris"
+
+#. C menu
+msgctxt "#32092"
+msgid "Search…"
+msgstr "Rechercher…"
+
+#. Search keyboard heading
+msgctxt "#32093"
+msgid "Search movies"
+msgstr "Rechercher des films"
+
+#. Search keyboard heading
+msgctxt "#32094"
+msgid "Search music"
+msgstr "Rechercher de la musique"
+
+#. Search keyboard heading
+msgctxt "#32095"
+msgid "Search TV shows"
+msgstr "Rechercher des séries"
+
+#. Search results heading; {} is the query
+msgctxt "#32096"
+msgid "Search “{}”: 1 result"
+msgstr "Recherche « {} » : 1 résultat"
+
+#. Search results heading; query, count
+msgctxt "#32097"
+msgid "Search “{}”: {} results"
+msgstr "Recherche « {} » : {} résultats"
+
+#. Search results, nothing found
+msgctxt "#32098"
+msgid "No movies match “{}”"
+msgstr "Aucun film ne correspond à « {} »"
+
+#. Search results, nothing found
+msgctxt "#32099"
+msgid "No albums match “{}”"
+msgstr "Aucun album ne correspond à « {} »"
+
+#. Search results, nothing found
+msgctxt "#32100"
+msgid "No TV shows match “{}”"
+msgstr "Aucune série ne correspond à « {} »"
+
+#. Album screen menu
+msgctxt "#32110"
+msgid "Play Album"
+msgstr "Lire l'album"
+
+#. Album screen list heading
+msgctxt "#32111"
+msgid "Tracks"
+msgstr "Pistes"
+
+#. TV show screen list heading
+msgctxt "#32112"
+msgid "Seasons"
+msgstr "Saisons"
+
+#. TV show screen list heading
+msgctxt "#32113"
+msgid "Episodes"
+msgstr "Épisodes"
+
+#. Season name; {} is the number
+msgctxt "#32114"
+msgid "Season {}"
+msgstr "Saison {}"
+
+#. Season 0
+msgctxt "#32115"
+msgid "Specials"
+msgstr "Épisodes spéciaux"
+
+#. Episode count
+msgctxt "#32116"
+msgid "{} episodes"
+msgstr "{} épisodes"
+
+#. Track count
+msgctxt "#32117"
+msgid "{} tracks"
+msgstr "{} pistes"
+
+#. Track count, one
+msgctxt "#32118"
+msgid "{} track"
+msgstr "{} piste"
+
+#. Episode count, one
+msgctxt "#32119"
+msgid "1 episode"
+msgstr "1 épisode"
+
+#. Watched episode count
+msgctxt "#32120"
+msgid "({} watched)"
+msgstr "({} vus)"
+
+#. TV show screen menu; the episode code is shown beside it
+msgctxt "#32121"
+msgid "Play Episode"
+msgstr "Lire l'épisode"
+
+#. TV show screen menu
+msgctxt "#32122"
+msgid "Resume Episode"
+msgstr "Reprendre l'épisode"
+
+#. Episode with a resume point; {} is the time
+msgctxt "#32123"
+msgid "Resume from {}"
+msgstr "Reprendre à {}"
+
+#. Episode with a resume point
+msgctxt "#32124"
+msgid "Play from beginning"
+msgstr "Lire depuis le début"
+
+#. Now Playing header
+msgctxt "#32130"
+msgid "Now Playing"
+msgstr "En cours de lecture"
+
+#. Now Playing, no music
+msgctxt "#32131"
+msgid "Nothing is playing"
+msgstr "Aucune lecture en cours"
+
+#. Now Playing, no music, hint
+msgctxt "#32132"
+msgid "Choose an album in Music to start listening."
+msgstr "Choisissez un album dans Musique pour lancer l'écoute."
+
+#. Now Playing state
+msgctxt "#32133"
+msgid "PLAYING"
+msgstr "EN LECTURE"
+
+#. Now Playing state
+msgctxt "#32134"
+msgid "PAUSED"
+msgstr "EN PAUSE"
+
+#. Now Playing queue heading
+msgctxt "#32135"
+msgid "Up next"
+msgstr "À suivre"
+
+#. Now Playing button
+msgctxt "#32136"
+msgid "Previous"
+msgstr "Précédent"
+
+#. Now Playing button
+msgctxt "#32138"
+msgid "Stop"
+msgstr "Arrêt"
+
+#. Now Playing button
+msgctxt "#32139"
+msgid "Next"
+msgstr "Suivant"
+
+#. Now Playing button
+msgctxt "#32140"
+msgid "Play"
+msgstr "Lecture"
+
+#. Now Playing button
+msgctxt "#32141"
+msgid "Pause"
+msgstr "Pause"
+
+msgctxt "#32150"
+msgid "Collections"
+msgstr "Collections"
+
+msgctxt "#32151"
+msgid "New"
+msgstr "Nouveautés"
+
+msgctxt "#32152"
+msgid "Paused"
+msgstr "En pause"
+
+msgctxt "#32153"
+msgid "Played"
+msgstr "Vus"
+
+msgctxt "#32154"
+msgid "{} movies"
+msgstr "{} films"
+
+msgctxt "#32155"
+msgid "1 movie"
+msgstr "1 film"
+
+msgctxt "#32156"
+msgid "Kept up to date by Kodi"
+msgstr "Tenue à jour par Kodi"
+
+msgctxt "#32157"
+msgid "Your collection"
+msgstr "Votre collection"
+
+msgctxt "#32158"
+msgid "New collection…"
+msgstr "Nouvelle collection…"
+
+msgctxt "#32159"
+msgid "Rename collection…"
+msgstr "Renommer la collection…"
+
+msgctxt "#32160"
+msgid "Delete collection…"
+msgstr "Supprimer la collection…"
+
+msgctxt "#32161"
+msgid "Added on {}"
+msgstr "Ajouté le {}"
+
+msgctxt "#32162"
+msgid "Paused on {} at {}"
+msgstr "En pause le {} à {}"
+
+msgctxt "#32163"
+msgid "Played on {}"
+msgstr "Vu le {}"
+
+msgctxt "#32164"
+msgid "Add to collection…"
+msgstr "Ajouter à une collection…"
+
+msgctxt "#32165"
+msgid "Remove from “{}”"
+msgstr "Retirer de « {} »"
+
+msgctxt "#32166"
+msgid "Move"
+msgstr "Déplacer"
+
+msgctxt "#32167"
+msgid "Open as cover wall"
+msgstr "Ouvrir en mur de jaquettes"
+
+msgctxt "#32168"
+msgid "Open as list"
+msgstr "Ouvrir en liste"
+
+msgctxt "#32169"
+msgid "Collection name"
+msgstr "Nom de la collection"
+
+msgctxt "#32170"
+msgid "Delete “{}”?"
+msgstr "Supprimer « {} » ?"
+
+msgctxt "#32171"
+msgid "The collection is removed; its movies stay in your library."
+msgstr "La collection est supprimée ; ses films restent dans votre médiathèque."
+
+msgctxt "#32172"
+msgid "Collections for “{}”"
+msgstr "Collections de « {} »"
+
+msgctxt "#32173"
+msgid "New: added in the last {} days…"
+msgstr "Nouveautés : ajoutés ces {} derniers jours…"
+
+msgctxt "#32174"
+msgid "{} days"
+msgstr "{} jours"
+
+msgctxt "#32175"
+msgid "This collection is empty"
+msgstr "Cette collection est vide"
+
+msgctxt "#32176"
+msgid "Press C on a title and choose Add to collection…."
+msgstr "Appuyez sur C sur un titre et choisissez Ajouter à une collection…"
+
+msgctxt "#32177"
+msgid "Nothing added in the last {} days"
+msgstr "Rien d'ajouté ces {} derniers jours"
+
+msgctxt "#32178"
+msgid "Nothing paused"
+msgstr "Rien en pause"
+
+msgctxt "#32179"
+msgid "Nothing played yet"
+msgstr "Rien de vu pour l'instant"
+
+msgctxt "#32180"
+msgid "Up / Down to move it, Select to put it down"
+msgstr "Haut / Bas pour le déplacer, Sélection pour le poser"
+
+msgctxt "#32181"
+msgid "New collection: recently added period"
+msgstr "Nouvelle collection : période des ajouts récents"
+
+msgctxt "#32182"
+msgid "Collections"
+msgstr "Collections"
+
+msgctxt "#32183"
+msgid "{} albums"
+msgstr "{} albums"
+
+msgctxt "#32184"
+msgid "1 album"
+msgstr "1 album"
+
+msgctxt "#32185"
+msgid "{} TV shows"
+msgstr "{} séries"
+
+msgctxt "#32186"
+msgid "1 TV show"
+msgstr "1 série"
+
+msgctxt "#32187"
+msgid "Favourites"
+msgstr "Favoris"
+
+msgctxt "#32190"
+msgid "Blue"
+msgstr "Bleu"
+
+msgctxt "#32191"
+msgid "Crimson"
+msgstr "Cramoisi"
+
+msgctxt "#32192"
+msgid "Emerald"
+msgstr "Émeraude"
+
+msgctxt "#32193"
+msgid "Violet"
+msgstr "Violet"
+
+msgctxt "#32194"
+msgid "Teal"
+msgstr "Sarcelle"
+
+msgctxt "#32195"
+msgid "Graphite"
+msgstr "Graphite"
+
+msgctxt "#32196"
+msgid "Amber"
+msgstr "Ambre"
+
+msgctxt "#32197"
+msgid "White"
+msgstr "Blanc"
+
+msgctxt "#32198"
+msgid "Cyan"
+msgstr "Cyan"
+
+msgctxt "#32199"
+msgid "Lime"
+msgstr "Vert citron"
+
+msgctxt "#32200"
+msgid "Rose"
+msgstr "Rose"
+
+msgctxt "#32201"
+msgid "Theme colour"
+msgstr "Couleur du thème"
+
+msgctxt "#32202"
+msgid "Highlight colour"
+msgstr "Couleur de surbrillance"
+
+msgctxt "#32210"
+msgid "Scenes"
+msgstr "Scènes"
+
+msgctxt "#32211"
+msgid "Demo Scripts"
+msgstr "Scripts de démo"
+
+msgctxt "#32212"
+msgid "{} scenes"
+msgstr "{} scènes"
+
+msgctxt "#32213"
+msgid "1 scene"
+msgstr "1 scène"
+
+msgctxt "#32214"
+msgid "{} demo scripts"
+msgstr "{} scripts de démo"
+
+msgctxt "#32215"
+msgid "1 demo script"
+msgstr "1 script de démo"
+
+msgctxt "#32216"
+msgid "Mark scene start"
+msgstr "Marquer le début"
+
+msgctxt "#32217"
+msgid "Mark scene end"
+msgstr "Marquer la fin"
+
+msgctxt "#32218"
+msgid "Scene start marked at {}. Open the controls again to mark the end."
+msgstr "Début de scène marqué à {}. Rouvrez les commandes pour marquer la fin."
+
+msgctxt "#32219"
+msgid "New scene"
+msgstr "Nouvelle scène"
+
+msgctxt "#32220"
+msgid "Name: {}"
+msgstr "Nom : {}"
+
+msgctxt "#32221"
+msgid "Start: {}"
+msgstr "Début : {}"
+
+msgctxt "#32222"
+msgid "End: {}"
+msgstr "Fin : {}"
+
+msgctxt "#32223"
+msgid "Length: {}"
+msgstr "Durée : {}"
+
+msgctxt "#32224"
+msgid "Save"
+msgstr "Enregistrer"
+
+msgctxt "#32225"
+msgid "Description: {}"
+msgstr "Description : {}"
+
+msgctxt "#32226"
+msgid "Scene start (H:MM:SS)"
+msgstr "Début de la scène (H:MM:SS)"
+
+msgctxt "#32227"
+msgid "Scene end (H:MM:SS)"
+msgstr "Fin de la scène (H:MM:SS)"
+
+msgctxt "#32228"
+msgid "Scene name"
+msgstr "Nom de la scène"
+
+msgctxt "#32229"
+msgid "The end must come after the start."
+msgstr "La fin doit venir après le début."
+
+msgctxt "#32230"
+msgid "A scene must last at least one second."
+msgstr "Une scène doit durer au moins une seconde."
+
+msgctxt "#32231"
+msgid "That is past the end of the video."
+msgstr "C'est après la fin de la vidéo."
+
+msgctxt "#32232"
+msgid "That is not a time. Use H:MM:SS, for example 1:02:30."
+msgstr "Ce n'est pas une durée. Utilisez H:MM:SS, par exemple 1:02:30."
+
+msgctxt "#32233"
+msgid "Scene saved: {}"
+msgstr "Scène enregistrée : {}"
+
+msgctxt "#32234"
+msgid "Scenes can be made from library movies and TV episodes."
+msgstr "Les scènes se créent à partir des films et des épisodes de la médiathèque."
+
+msgctxt "#32235"
+msgid "Description"
+msgstr "Description"
+
+msgctxt "#32236"
+msgid "Edit scene"
+msgstr "Modifier la scène"
+
+msgctxt "#32238"
+msgid "The scene is removed from every demo script. The video itself is not touched."
+msgstr "La scène est retirée de tous les scripts de démo. La vidéo elle-même n'est pas modifiée."
+
+msgctxt "#32239"
+msgid "The demo script is removed. Its scenes and the videos stay."
+msgstr "Le script de démo est supprimé. Ses scènes et les vidéos restent."
+
+msgctxt "#32240"
+msgid "{} scenes are missing and were skipped"
+msgstr "{} scènes manquantes ont été ignorées"
+
+msgctxt "#32241"
+msgid "“{}” is missing and was skipped"
+msgstr "« {} » est introuvable et a été ignoré"
+
+msgctxt "#32242"
+msgid "Could not play “{}”. Skipped."
+msgstr "Impossible de lire « {} ». Ignoré."
+
+msgctxt "#32243"
+msgid "Demo finished"
+msgstr "Démo terminée"
+
+msgctxt "#32244"
+msgid "Scene {} of {}"
+msgstr "Scène {} sur {}"
+
+msgctxt "#32245"
+msgid "Demo script name"
+msgstr "Nom du script de démo"
+
+msgctxt "#32246"
+msgid "Back to normal playback"
+msgstr "Revenir à la lecture normale"
+
+msgctxt "#32247"
+msgid "Play Scene"
+msgstr "Lire la scène"
+
+msgctxt "#32248"
+msgid "Edit Scene"
+msgstr "Modifier la scène"
+
+msgctxt "#32249"
+msgid "Rename Scene"
+msgstr "Renommer la scène"
+
+msgctxt "#32250"
+msgid "Add to Demo Script…"
+msgstr "Ajouter à un script de démo…"
+
+msgctxt "#32251"
+msgid "Remove from Demo Script"
+msgstr "Retirer du script de démo"
+
+msgctxt "#32252"
+msgid "Delete Scene"
+msgstr "Supprimer la scène"
+
+msgctxt "#32253"
+msgid "View Scenes"
+msgstr "Voir les scènes"
+
+msgctxt "#32254"
+msgid "Create Scene"
+msgstr "Créer une scène"
+
+msgctxt "#32255"
+msgid "Add Scene to Demo Script…"
+msgstr "Ajouter à un script de démo…"
+
+msgctxt "#32256"
+msgid "Play Demo Script"
+msgstr "Lire le script de démo"
+
+msgctxt "#32257"
+msgid "Edit Demo Script"
+msgstr "Modifier le script de démo"
+
+msgctxt "#32258"
+msgid "Rename Demo Script"
+msgstr "Renommer le script de démo"
+
+msgctxt "#32259"
+msgid "Duplicate Demo Script"
+msgstr "Dupliquer le script de démo"
+
+msgctxt "#32260"
+msgid "Delete Demo Script"
+msgstr "Supprimer le script de démo"
+
+msgctxt "#32261"
+msgid "New demo script…"
+msgstr "Nouveau script de démo…"
+
+msgctxt "#32262"
+msgid "Copy of {}"
+msgstr "Copie de {}"
+
+msgctxt "#32263"
+msgid "Cut"
+msgstr "Coupe franche"
+
+msgctxt "#32264"
+msgid "Fade to black"
+msgstr "Fondu au noir"
+
+msgctxt "#32265"
+msgid "Black pause"
+msgstr "Pause au noir"
+
+msgctxt "#32266"
+msgid "Transition: {}"
+msgstr "Transition : {}"
+
+msgctxt "#32267"
+msgid "Transition length: {} s"
+msgstr "Durée de la transition : {} s"
+
+msgctxt "#32268"
+msgid "Play once"
+msgstr "Lire une fois"
+
+msgctxt "#32269"
+msgid "Loop the script"
+msgstr "Lire le script en boucle"
+
+msgctxt "#32270"
+msgid "Loop one scene: {}"
+msgstr "Une scène en boucle : {}"
+
+msgctxt "#32271"
+msgid "Loop: {}"
+msgstr "Boucle : {}"
+
+msgctxt "#32272"
+msgid "Which scene loops?"
+msgstr "Quelle scène en boucle ?"
+
+msgctxt "#32273"
+msgid "Done"
+msgstr "Terminé"
+
+msgctxt "#32274"
+msgid "Previous scene"
+msgstr "Scène précédente"
+
+msgctxt "#32275"
+msgid "Next scene"
+msgstr "Scène suivante"
+
+msgctxt "#32276"
+msgid "Keep watching"
+msgstr "Continuer le film"
+
+msgctxt "#32277"
+msgid "Not in the library"
+msgstr "Absent de la médiathèque"
+
+msgctxt "#32278"
+msgid "Preview Scene"
+msgstr "Aperçu de la scène"
+
+msgctxt "#32279"
+msgid "Move up"
+msgstr "Monter"
+
+msgctxt "#32280"
+msgid "Move down"
+msgstr "Descendre"
+
+msgctxt "#32281"
+msgid "Add scenes…"
+msgstr "Ajouter des scènes…"
+
+msgctxt "#32282"
+msgid "This demo script has no scenes yet"
+msgstr "Ce script de démo n'a pas encore de scène"
+
+msgctxt "#32283"
+msgid "No scenes yet"
+msgstr "Aucune scène pour l'instant"
+
+msgctxt "#32284"
+msgid "During a movie or episode, open the controls and choose Mark scene start."
+msgstr "Pendant un film ou un épisode, ouvrez les commandes de lecture et choisissez Marquer le début."
+
+msgctxt "#32285"
+msgid "No demo scripts yet"
+msgstr "Aucun script de démo pour l'instant"
+
+msgctxt "#32286"
+msgid "Press C on this tab and choose New demo script…."
+msgstr "Appuyez sur C sur cet onglet et choisissez Nouveau script de démo…"
+
+msgctxt "#32287"
+msgid "Choose a scene"
+msgstr "Choisir une scène"
+
+msgctxt "#32288"
+msgid "Demo scripts for “{}”"
+msgstr "Scripts de démo pour « {} »"
+
+msgctxt "#32289"
+msgid "Play"
+msgstr "Lecture"
+
+msgctxt "#32290"
+msgid "Duplicate"
+msgstr "Dupliquer"
+
+msgctxt "#32291"
+msgid "Delete"
+msgstr "Supprimer"
+
+msgctxt "#32292"
+msgid "Edit…"
+msgstr "Modifier…"
+
+msgctxt "#32293"
+msgid "Moments saved from your videos"
+msgstr "Des moments enregistrés de vos vidéos"
+
+msgctxt "#32294"
+msgid "Scenes played one after another"
+msgstr "Des scènes lues l'une après l'autre"
+
+msgctxt "#32295"
+msgid "Undo shuffle"
+msgstr "Annuler la réorganisation"
+
+msgctxt "#32300"
+msgid "Explore"
+msgstr "Explorer"
+
+msgctxt "#32301"
+msgid "Play Scenes"
+msgstr "Lire les scènes"
+
+msgctxt "#32302"
+msgid "RELATED"
+msgstr "EN LIEN"
+
+msgctxt "#32303"
+msgid "COLLECTION"
+msgstr "SAGA"
+
+msgctxt "#32304"
+msgid "DIRECTOR"
+msgstr "RÉALISATION"
+
+msgctxt "#32305"
+msgid "CAST"
+msgstr "DISTRIBUTION"
+
+msgctxt "#32306"
+msgid "GENRES"
+msgstr "GENRES"
+
+msgctxt "#32307"
+msgid "YEAR"
+msgstr "ANNÉE"
+
+msgctxt "#32308"
+msgid "COUNTRY"
+msgstr "PAYS"
+
+msgctxt "#32309"
+msgid "Related Movies"
+msgstr "Films en lien"
+
+msgctxt "#32310"
+msgid "Play All Scenes"
+msgstr "Lire toutes les scènes"
+
+msgctxt "#32311"
+msgid "Create scene…"
+msgstr "Créer une scène…"
+
+msgctxt "#32312"
+msgid "Import chapters…"
+msgstr "Importer les chapitres…"
+
+msgctxt "#32313"
+msgid "No scenes for this movie yet."
+msgstr "Aucune scène pour ce film pour l'instant."
+
+msgctxt "#32314"
+msgid "Create one here by typing where it starts and ends, import the chapters of the file, or mark one while the movie plays (OK → Mark scene start, then Mark scene end)."
+msgstr "Créez-en une ici en indiquant son début et sa fin, importez les chapitres du fichier, ou marquez-en une pendant la lecture (OK → Marquer le début, puis Marquer la fin)."
+
+msgctxt "#32315"
+msgid "Chapter {}"
+msgstr "Chapitre {}"
+
+msgctxt "#32316"
+msgid "No chapters were found in this file."
+msgstr "Aucun chapitre trouvé dans ce fichier."
+
+msgctxt "#32317"
+msgid "Import chapters of “{}”"
+msgstr "Importer les chapitres de « {} »"
+
+msgctxt "#32318"
+msgid "{} scenes imported"
+msgstr "{} scènes importées"
+
+msgctxt "#32319"
+msgid "1 scene imported"
+msgstr "1 scène importée"
+
+msgctxt "#32320"
+msgid "Genre"
+msgstr "Genre"
+
+msgctxt "#32321"
+msgid "Actor"
+msgstr "Acteur"
+
+msgctxt "#32322"
+msgid "Director"
+msgstr "Réalisation"
+
+msgctxt "#32323"
+msgid "Year"
+msgstr "Année"
+
+msgctxt "#32324"
+msgid "Decade"
+msgstr "Décennie"
+
+msgctxt "#32325"
+msgid "Country"
+msgstr "Pays"
+
+msgctxt "#32326"
+msgid "Resolution"
+msgstr "Résolution"
+
+msgctxt "#32327"
+msgid "Video format"
+msgstr "Format vidéo"
+
+msgctxt "#32328"
+msgid "Audio format"
+msgstr "Format audio"
+
+msgctxt "#32329"
+msgid "TMDB rating"
+msgstr "Note TMDB"
+
+msgctxt "#32330"
+msgid "Rotten Tomatoes"
+msgstr "Rotten Tomatoes"
+
+msgctxt "#32331"
+msgid "Duration"
+msgstr "Durée"
+
+msgctxt "#32332"
+msgid "Watched status"
+msgstr "Vu / non vu"
+
+msgctxt "#32333"
+msgid "Collection"
+msgstr "Saga"
+
+msgctxt "#32334"
+msgid "Related movies"
+msgstr "Films en lien"
+
+msgctxt "#32335"
+msgid "Related to {}"
+msgstr "En lien avec {}"
+
+msgctxt "#32337"
+msgid "Add to favourite scenes"
+msgstr "Ajouter aux scènes favorites"
+
+msgctxt "#32338"
+msgid "Remove from favourite scenes"
+msgstr "Retirer des scènes favorites"
+
+msgctxt "#32339"
+msgid "Ratings"
+msgstr "Notes"
+
+msgctxt "#32340"
+msgid "Short (under 1h 35m)"
+msgstr "Court (moins de 1 h 35)"
+
+msgctxt "#32341"
+msgid "Medium (1h 35m to 2h 15m)"
+msgstr "Moyen (1 h 35 à 2 h 15)"
+
+msgctxt "#32342"
+msgid "Long (over 2h 15m)"
+msgstr "Long (plus de 2 h 15)"
+
+msgctxt "#32343"
+msgid "Watched"
+msgstr "Vu"
+
+msgctxt "#32344"
+msgid "Unwatched"
+msgstr "Non vu"
+
+msgctxt "#32345"
+msgid "In progress"
+msgstr "En cours"
+
+msgctxt "#32346"
+msgid "{}s"
+msgstr "Années {}"
+
+msgctxt "#32347"
+msgid "{} or more"
+msgstr "{} ou plus"
+
+msgctxt "#32348"
+msgid "{}% or more"
+msgstr "{} % ou plus"
+
+msgctxt "#32349"
+msgid "Year range…"
+msgstr "Période…"
+
+msgctxt "#32350"
+msgid "From year"
+msgstr "De l'année"
+
+msgctxt "#32351"
+msgid "To year"
+msgstr "À l'année"
+
+msgctxt "#32352"
+msgid "Filters"
+msgstr "Filtres"
+
+msgctxt "#32353"
+msgid "Add filter…"
+msgstr "Ajouter un filtre…"
+
+msgctxt "#32354"
+msgid "Remove “{}”"
+msgstr "Retirer « {} »"
+
+msgctxt "#32355"
+msgid "Clear all filters"
+msgstr "Effacer tous les filtres"
+
+msgctxt "#32356"
+msgid "Filter…"
+msgstr "Filtrer…"
+
+msgctxt "#32357"
+msgid "No movies match these filters"
+msgstr "Aucun film ne correspond à ces filtres"
+
+msgctxt "#32358"
+msgid "C → Filter… changes them; Back returns to the whole library"
+msgstr "C → Filtrer… pour les modifier ; Retour revient à toute la médiathèque"
+
+msgctxt "#32359"
+msgid "Name of the new scene"
+msgstr "Nom de la nouvelle scène"
+
+msgctxt "#32360"
+msgid "Every chapter of this file is already a scene."
+msgstr "Tous les chapitres de ce fichier sont déjà des scènes."
+
+msgctxt "#32361"
+msgid "Ratings"
+msgstr "Notes"
+
+msgctxt "#32362"
+msgid "OMDb API key, for Rotten Tomatoes scores (optional)"
+msgstr "Clé API OMDb, pour les notes Rotten Tomatoes (facultatif)"
+
+msgctxt "#32363"
+msgid "Movies whose library entry has no Tomatometer can ask OMDb (omdbapi.com) for one, one movie at a time, using your own free key. Answers are kept for a month. Leave empty to never contact OMDb."
+msgstr "Les films dont la fiche n'a pas de Tomatometer peuvent le demander à OMDb (omdbapi.com), un film à la fois, avec votre propre clé gratuite. Les réponses sont gardées un mois. Laissez vide pour ne jamais contacter OMDb."
+
+msgctxt "#32364"
+msgid "UP NEXT"
+msgstr "À SUIVRE"
+
+msgctxt "#32365"
+msgid "The trailer did not start. If it is a YouTube trailer, check the YouTube add-on (Settings → Add-ons) and your network."
+msgstr "La bande-annonce n'a pas démarré. Si c'est une bande-annonce YouTube, vérifiez l'add-on YouTube (Paramètres → Add-ons) et votre réseau."
+
+msgctxt "#32366"
+msgid "Formats"
+msgstr "Formats"
+
+msgctxt "#32367"
+msgid "Play Version"
+msgstr "Lire une version"
+
+msgctxt "#32368"
+msgid "{} versions"
+msgstr "{} versions"
+
+msgctxt "#32369"
+msgid "Choose a version"
+msgstr "Choisir une version"
+
+msgctxt "#32370"
+msgid "Resume from {}"
+msgstr "Reprendre à {}"
+
+msgctxt "#32371"
+msgid "Play from the beginning"
+msgstr "Lire depuis le début"
+
+msgctxt "#32372"
+msgid "4K first (then 1080p, 720p, SD)"
+msgstr "4K d'abord (puis 1080p, 720p, SD)"
+
+msgctxt "#32373"
+msgid "1080p first"
+msgstr "1080p d'abord"
+
+msgctxt "#32374"
+msgid "720p first"
+msgstr "720p d'abord"
+
+msgctxt "#32375"
+msgid "SD first"
+msgstr "SD d'abord"
+
+msgctxt "#32376"
+msgid "Kodi's default version"
+msgstr "Version par défaut de Kodi"
+
+msgctxt "#32377"
+msgid "Version Play starts"
+msgstr "Version lancée par Lecture"
+
+msgctxt "#32380"
+msgid "Auto (recommended)"
+msgstr "Auto (recommandé)"
+
+msgctxt "#32381"
+msgid "16:9 Standard"
+msgstr "16:9 standard"
+
+msgctxt "#32382"
+msgid "21:9 Ultrawide"
+msgstr "21:9 ultra-large"
+
+msgctxt "#32383"
+msgid "2.35:1 CinemaScope"
+msgstr "2,35:1 CinemaScope"
+
+msgctxt "#32384"
+msgid "2.39:1 CinemaScope"
+msgstr "2,39:1 CinemaScope"
+
+msgctxt "#32385"
+msgid "2.40:1 CinemaScope"
+msgstr "2,40:1 CinemaScope"
+
+msgctxt "#32386"
+msgid "Automatic layout"
+msgstr "Disposition automatique"
+
+msgctxt "#32387"
+msgid "Two poster rows"
+msgstr "Deux rangées d'affiches"
+
+msgctxt "#32388"
+msgid "Three poster rows"
+msgstr "Trois rangées d'affiches"
+
+msgctxt "#32389"
+msgid "Interface aspect ratio"
+msgstr "Format de l'interface"
+
+msgctxt "#32390"
+msgid "CinemaScope poster wall"
+msgstr "Mur d'affiches CinemaScope"
+
+msgctxt "#32391"
+msgid "Vertical UI offset"
+msgstr "Décalage vertical de l'interface"
+
+msgctxt "#32392"
+msgid "Horizontal UI offset"
+msgstr "Décalage horizontal de l'interface"
+
+msgctxt "#32393"
+msgid "Safe area / overscan"
+msgstr "Zone de sécurité / overscan"
+
+msgctxt "#32394"
+msgid "Keep this layout?"
+msgstr "Garder cette mise en page ?"
+
+msgctxt "#32395"
+msgid "KScape now uses the new display settings. Without an answer they go back in {} seconds."
+msgstr "KScape utilise maintenant les nouveaux réglages d'affichage. Sans réponse, ils reviennent en arrière dans {} secondes."
+
+msgctxt "#32396"
+msgid "this screen: {} — {} × {}"
+msgstr "cet écran : {} — {} × {}"
+
+msgctxt "#32397"
+msgid "{} px"
+msgstr "{} px"
+
+msgctxt "#32398"
+msgid "{} %"
+msgstr "{} %"
+
+msgctxt "#32399"
+msgid "KScape draws inside the amber frame"
+msgstr "KScape dessine à l'intérieur du cadre ambre"
+
+msgctxt "#32400"
+msgid "Line it up with your screen using the aspect ratio, offsets and safe area.[CR]Back closes the preview."
+msgstr "Alignez-le sur votre écran avec le format, les décalages et la zone de sécurité.[CR]Retour ferme l'aperçu."
+
+#. C menu section headings
+msgctxt "#32401"
+msgid "View Options"
+msgstr "Affichage"
+
+msgctxt "#32402"
+msgid "Misc Options"
+msgstr "Autres options"
+
+msgctxt "#32403"
+msgid "Actions"
+msgstr "Actions"
+
+#. C menu: switch between the cover wall and the list view; the current view shows beside it
+msgctxt "#32404"
+msgid "View"
+msgstr "Vue"
+
+msgctxt "#32405"
+msgid "Reduce Motion"
+msgstr "Réduire les animations"
+
+msgctxt "#32406"
+msgid "Automatic Shuffle"
+msgstr "Réorganisation automatique"
+
+msgctxt "#32407"
+msgid "Exit to Wall"
+msgstr "Revenir au mur"
+
+msgctxt "#32408"
+msgid "Exit to Home Page"
+msgstr "Revenir à l'accueil"
+
+msgctxt "#32409"
+msgid "Exit to Collections"
+msgstr "Revenir aux collections"
+
+#. Item counter with filters or a search: "42 of 248 movies"
+msgctxt "#32410"
+msgid "{} of {}"
+msgstr "{} sur {}"
+
+#. C menu toggle on the movies cover wall: one cover per Kodi movie set
+msgctxt "#32411"
+msgid "Group by Collection"
+msgstr "Regrouper par saga"
+
+msgctxt "#32412"
+msgid "Group movies by collection (Kodi movie sets) on the cover wall"
+msgstr "Regrouper les films par saga (sagas Kodi) sur le mur de jaquettes"
+
+#. KScapeX: C menu entry on the cover wall (View Options), and the heading of its choices
+msgctxt "#32413"
+msgid "Sort by"
+msgstr "Trier par"
+
+#. KScapeX: wall order - by title (library order)
+msgctxt "#32414"
+msgid "Alphabetical"
+msgstr "Alphabétique"
+
+#. KScapeX: wall order - newest release first
+msgctxt "#32415"
+msgid "Release date"
+msgstr "Date de sortie"
+
+#. KScapeX: wall order - most recently added first
+msgctxt "#32416"
+msgid "Date added"
+msgstr "Date d'ajout"
+
+msgctxt "#32420"
+msgid "Cast & Crew"
+msgstr "Distribution et équipe"
+
+msgctxt "#32421"
+msgid "Details"
+msgstr "Détails"
+
+msgctxt "#32422"
+msgid "Play Extra"
+msgstr "Lire un bonus"
+
+msgctxt "#32423"
+msgid "Choose Art"
+msgstr "Choisir l'illustration"
+
+msgctxt "#32424"
+msgid "Refresh"
+msgstr "Actualiser"
+
+msgctxt "#32425"
+msgid "Artist"
+msgstr "Artiste"
+
+msgctxt "#32426"
+msgid "Information"
+msgstr "Informations"
+
+msgctxt "#32427"
+msgid "Add to Queue"
+msgstr "Ajouter à la file"
+
+msgctxt "#32428"
+msgid "Play Next"
+msgstr "Lire ensuite"
+
+msgctxt "#32429"
+msgid "Mark as Watched"
+msgstr "Marquer comme vu"
+
+msgctxt "#32430"
+msgid "Mark as Unwatched"
+msgstr "Marquer comme non vu"
+
+msgctxt "#32431"
+msgid "Play All"
+msgstr "Tout lire"
+
+msgctxt "#32432"
+msgid "Show on the Wall"
+msgstr "Afficher sur le mur"
+
+msgctxt "#32433"
+msgid "Browse for an image…"
+msgstr "Parcourir pour une image…"
+
+msgctxt "#32434"
+msgid "Remove"
+msgstr "Supprimer"
+
+msgctxt "#32435"
+msgid "Songs"
+msgstr "Morceaux"
+
+msgctxt "#32436"
+msgid "Albums"
+msgstr "Albums"
+
+msgctxt "#32440"
+msgid "Original title"
+msgstr "Titre original"
+
+msgctxt "#32441"
+msgid "Tagline"
+msgstr "Slogan"
+
+msgctxt "#32442"
+msgid "Released"
+msgstr "Sortie"
+
+msgctxt "#32443"
+msgid "Runtime"
+msgstr "Durée"
+
+msgctxt "#32444"
+msgid "Genres"
+msgstr "Genres"
+
+msgctxt "#32445"
+msgid "Directors"
+msgstr "Réalisation"
+
+msgctxt "#32446"
+msgid "Writers"
+msgstr "Scénario"
+
+msgctxt "#32447"
+msgid "Studios"
+msgstr "Studios"
+
+msgctxt "#32448"
+msgid "Production companies"
+msgstr "Sociétés de production"
+
+msgctxt "#32449"
+msgid "Country"
+msgstr "Pays"
+
+msgctxt "#32450"
+msgid "Original language"
+msgstr "Langue originale"
+
+msgctxt "#32451"
+msgid "Audio languages"
+msgstr "Langues audio"
+
+msgctxt "#32452"
+msgid "Subtitles"
+msgstr "Sous-titres"
+
+msgctxt "#32453"
+msgid "Certification"
+msgstr "Classification"
+
+msgctxt "#32454"
+msgid "Ratings"
+msgstr "Notes"
+
+msgctxt "#32455"
+msgid "Your rating"
+msgstr "Votre note"
+
+msgctxt "#32456"
+msgid "Top 250"
+msgstr "Top 250"
+
+msgctxt "#32457"
+msgid "Tags"
+msgstr "Tags"
+
+msgctxt "#32458"
+msgid "Collection"
+msgstr "Saga"
+
+msgctxt "#32459"
+msgid "Budget"
+msgstr "Budget"
+
+msgctxt "#32460"
+msgid "Box office"
+msgstr "Recettes"
+
+msgctxt "#32461"
+msgid "Awards"
+msgstr "Récompenses"
+
+msgctxt "#32462"
+msgid "Added"
+msgstr "Ajouté"
+
+msgctxt "#32463"
+msgid "Last played"
+msgstr "Dernière lecture"
+
+msgctxt "#32464"
+msgid "Plays"
+msgstr "Lectures"
+
+msgctxt "#32465"
+msgid "Database IDs"
+msgstr "Identifiants"
+
+msgctxt "#32466"
+msgid "File"
+msgstr "Fichier"
+
+msgctxt "#32467"
+msgid "Video"
+msgstr "Vidéo"
+
+msgctxt "#32468"
+msgid "Audio"
+msgstr "Audio"
+
+msgctxt "#32469"
+msgid "Network"
+msgstr "Chaîne"
+
+msgctxt "#32470"
+msgid "First aired"
+msgstr "Première diffusion"
+
+msgctxt "#32471"
+msgid "Seasons"
+msgstr "Saisons"
+
+msgctxt "#32472"
+msgid "Episodes"
+msgstr "Épisodes"
+
+msgctxt "#32473"
+msgid "Status"
+msgstr "Statut"
+
+msgctxt "#32474"
+msgid "Aired"
+msgstr "Diffusion"
+
+msgctxt "#32475"
+msgid "Season / Episode"
+msgstr "Saison / épisode"
+
+msgctxt "#32476"
+msgid "Born"
+msgstr "Naissance"
+
+msgctxt "#32477"
+msgid "Formed"
+msgstr "Formation"
+
+msgctxt "#32478"
+msgid "Died"
+msgstr "Décès"
+
+msgctxt "#32479"
+msgid "Disbanded"
+msgstr "Séparation"
+
+msgctxt "#32480"
+msgid "Years active"
+msgstr "Années d'activité"
+
+msgctxt "#32481"
+msgid "Styles"
+msgstr "Styles"
+
+msgctxt "#32482"
+msgid "Moods"
+msgstr "Ambiances"
+
+msgctxt "#32483"
+msgid "Instruments"
+msgstr "Instruments"
+
+msgctxt "#32484"
+msgid "Type"
+msgstr "Type"
+
+msgctxt "#32485"
+msgid "Members"
+msgstr "Membres"
+
+msgctxt "#32486"
+msgid "Record label"
+msgstr "Label"
+
+msgctxt "#32487"
+msgid "Themes"
+msgstr "Thèmes"
+
+msgctxt "#32488"
+msgid "Rating"
+msgstr "Note"
+
+msgctxt "#32489"
+msgid "Duration"
+msgstr "Durée"
+
+msgctxt "#32490"
+msgid "Tracks"
+msgstr "Pistes"
+
+msgctxt "#32491"
+msgid "Composer"
+msgstr "Compositeur"
+
+msgctxt "#32492"
+msgid "Lyricist"
+msgstr "Parolier"
+
+msgctxt "#32493"
+msgid "Artist"
+msgstr "Artiste"
+
+msgctxt "#32494"
+msgid "Album"
+msgstr "Album"
+
+msgctxt "#32495"
+msgid "Track"
+msgstr "Piste"
+
+msgctxt "#32496"
+msgid "Disc"
+msgstr "Disque"
+
+msgctxt "#32497"
+msgid "Bitrate"
+msgstr "Débit"
+
+msgctxt "#32498"
+msgid "Sample rate"
+msgstr "Fréquence d'échantillonnage"
+
+msgctxt "#32499"
+msgid "Channels"
+msgstr "Canaux"
+
+msgctxt "#32500"
+msgid "Codec"
+msgstr "Codec"
+
+msgctxt "#32501"
+msgid "Comment"
+msgstr "Commentaire"
+
+msgctxt "#32502"
+msgid "Year"
+msgstr "Année"
+
+msgctxt "#32503"
+msgid "Origin"
+msgstr "Origine"
+
+msgctxt "#32504"
+msgid "Also known as"
+msgstr "Autres noms"
+
+msgctxt "#32505"
+msgid "Credits"
+msgstr "Crédits"
+
+msgctxt "#32506"
+msgid "Guest stars"
+msgstr "Invités"
+
+msgctxt "#32507"
+msgid "Added"
+msgstr "Ajouté"
+
+msgctxt "#32508"
+msgid "Sort name"
+msgstr "Nom de tri"
+
+msgctxt "#32509"
+msgid "Gender"
+msgstr "Genre"
+
+msgctxt "#32510"
+msgid "MusicBrainz ID"
+msgstr "ID MusicBrainz"
+
+msgctxt "#32511"
+msgid "Play count"
+msgstr "Nombre de lectures"
+
+msgctxt "#32512"
+msgid "Original release"
+msgstr "Sortie originale"
+
+msgctxt "#32520"
+msgid "Cast"
+msgstr "Distribution"
+
+msgctxt "#32521"
+msgid "In your library"
+msgstr "Dans votre médiathèque"
+
+msgctxt "#32522"
+msgid "Filmography"
+msgstr "Filmographie"
+
+msgctxt "#32523"
+msgid "Discography"
+msgstr "Discographie"
+
+msgctxt "#32524"
+msgid "Songs in your library"
+msgstr "Morceaux dans votre médiathèque"
+
+msgctxt "#32525"
+msgid "Details"
+msgstr "Détails"
+
+msgctxt "#32526"
+msgid "Play Extra"
+msgstr "Lire un bonus"
+
+msgctxt "#32527"
+msgid "as {}"
+msgstr "rôle : {}"
+
+msgctxt "#32528"
+msgid "Director"
+msgstr "Réalisation"
+
+msgctxt "#32529"
+msgid "Writer"
+msgstr "Scénario"
+
+msgctxt "#32530"
+msgid "Born {} in {}"
+msgstr "Né(e) le {} à {}"
+
+msgctxt "#32531"
+msgid "Born {}"
+msgstr "Né(e) le {}"
+
+msgctxt "#32532"
+msgid "Died {}"
+msgstr "Décédé(e) le {}"
+
+msgctxt "#32533"
+msgid "Kodi's library holds no biography. Turn on Look up biographies, or add your TMDB API key, in KScape's settings."
+msgstr "La médiathèque de Kodi n'a pas de biographie. Activez Rechercher les biographies, ou ajoutez votre clé API TMDB, dans les réglages de KScape."
+
+msgctxt "#32534"
+msgid "{} in your library"
+msgstr "{} dans votre médiathèque"
+
+msgctxt "#32535"
+msgid "None of their movies is in your library yet."
+msgstr "Aucun de ses films n'est encore dans votre médiathèque."
+
+msgctxt "#32536"
+msgid "Kodi has no cast for this title."
+msgstr "Kodi n'a pas de distribution pour ce titre."
+
+msgctxt "#32537"
+msgid "Kodi has no further details for this title."
+msgstr "Kodi n'a pas d'autres détails pour ce titre."
+
+msgctxt "#32538"
+msgid "Looking up…"
+msgstr "Recherche…"
+
+msgctxt "#32539"
+msgid "1 movie in your library"
+msgstr "1 film dans votre médiathèque"
+
+msgctxt "#32540"
+msgid "{} movies in your library"
+msgstr "{} films dans votre médiathèque"
+
+msgctxt "#32541"
+msgid "{} albums in your library"
+msgstr "{} albums dans votre médiathèque"
+
+msgctxt "#32542"
+msgid "{} songs in your library"
+msgstr "{} morceaux dans votre médiathèque"
+
+msgctxt "#32550"
+msgid "Choose art type"
+msgstr "Choisir le type d'illustration"
+
+msgctxt "#32551"
+msgid "Choose {}"
+msgstr "Choisir : {}"
+
+msgctxt "#32552"
+msgid "Artwork updated"
+msgstr "Illustration mise à jour"
+
+msgctxt "#32553"
+msgid "No other images are available. Use Browse to pick a file."
+msgstr "Aucune autre image disponible. Utilisez Parcourir pour choisir un fichier."
+
+msgctxt "#32554"
+msgid "Current"
+msgstr "Actuelle"
+
+msgctxt "#32555"
+msgid "Refresh the information for \"{}\" from its scraper?"
+msgstr "Actualiser les informations de \"{}\" depuis son scraper ?"
+
+msgctxt "#32556"
+msgid "Ignore the local NFO file and use the scraper?"
+msgstr "Ignorer le fichier NFO local et utiliser le scraper ?"
+
+msgctxt "#32557"
+msgid "Refreshing…"
+msgstr "Actualisation…"
+
+msgctxt "#32558"
+msgid "Information refreshed"
+msgstr "Informations actualisées"
+
+msgctxt "#32559"
+msgid "Kodi could not refresh this item"
+msgstr "Kodi n'a pas pu actualiser cet élément"
+
+msgctxt "#32560"
+msgid "Kodi refreshes music information from Settings > Media > Music > Scrape. Nothing to refresh here."
+msgstr "Kodi actualise les informations musicales depuis Paramètres > Médias > Musique > Scraper. Rien à actualiser ici."
+
+msgctxt "#32561"
+msgid "No extras found for this title."
+msgstr "Aucun bonus trouvé pour ce titre."
+
+msgctxt "#32562"
+msgid "Play Extra"
+msgstr "Lire un bonus"
+
+msgctxt "#32563"
+msgid "Removed"
+msgstr "Supprimé"
+
+msgctxt "#32570"
+msgid "Trailer"
+msgstr "Bande-annonce"
+
+msgctxt "#32571"
+msgid "Behind the Scenes"
+msgstr "Coulisses"
+
+msgctxt "#32572"
+msgid "Deleted Scenes"
+msgstr "Scènes coupées"
+
+msgctxt "#32573"
+msgid "Interviews"
+msgstr "Interviews"
+
+msgctxt "#32574"
+msgid "Featurettes"
+msgstr "Making-of"
+
+msgctxt "#32575"
+msgid "Shorts"
+msgstr "Courts métrages"
+
+msgctxt "#32576"
+msgid "Scenes"
+msgstr "Scènes"
+
+msgctxt "#32577"
+msgid "Extras"
+msgstr "Bonus"
+
+msgctxt "#32580"
+msgid "Poster"
+msgstr "Affiche"
+
+msgctxt "#32581"
+msgid "Fanart"
+msgstr "Fanart"
+
+msgctxt "#32582"
+msgid "Banner"
+msgstr "Bannière"
+
+msgctxt "#32583"
+msgid "Clear logo"
+msgstr "Logo"
+
+msgctxt "#32584"
+msgid "Clear art"
+msgstr "Clear art"
+
+msgctxt "#32585"
+msgid "Landscape"
+msgstr "Paysage"
+
+msgctxt "#32586"
+msgid "Disc art"
+msgstr "Disque"
+
+msgctxt "#32587"
+msgid "Key art"
+msgstr "Key art"
+
+msgctxt "#32588"
+msgid "Thumbnail"
+msgstr "Miniature"
+
+msgctxt "#32590"
+msgid "TMDB API key, for budget, biographies and filmographies (optional)"
+msgstr "Clé API TMDB, pour le budget, les biographies et les filmographies (facultatif)"
+
+msgctxt "#32591"
+msgid "Kodi's library has no budget, box office, biographies or filmographies. With your own free key from themoviedb.org, KScape asks TMDB for the title or person you are looking at, one at a time, and keeps the answer for a month. Leave empty to never contact TMDB."
+msgstr "La médiathèque de Kodi n'a ni budget, ni recettes, ni biographies, ni filmographies. Avec votre propre clé gratuite de themoviedb.org, KScape interroge TMDB sur le titre ou la personne affichés, un à la fois, et garde la réponse un mois. Laissez vide pour ne jamais contacter TMDB."
+
+msgctxt "#32592"
+msgid "Information screens"
+msgstr "Écrans d'information"
+
+msgctxt "#32513"
+msgid "Conductor"
+msgstr "Chef d'orchestre"
+
+msgctxt "#32514"
+msgid "Play"
+msgstr "Lecture"
+
+msgctxt "#32543"
+msgid "1 album in your library"
+msgstr "1 album dans votre médiathèque"
+
+msgctxt "#32544"
+msgid "1 song in your library"
+msgstr "1 morceau dans votre médiathèque"
+
+msgctxt "#32515"
+msgid "Your Rating…"
+msgstr "Votre note…"
+
+msgctxt "#32516"
+msgid "Your rating"
+msgstr "Votre note"
+
+msgctxt "#32517"
+msgid "No rating"
+msgstr "Pas de note"
+
+msgctxt "#32518"
+msgid "Add or Manage Extras…"
+msgstr "Ajouter ou gérer les bonus…"
+
+msgctxt "#32519"
+msgid "Kodi could not open its extras manager for this movie"
+msgstr "Kodi n'a pas pu ouvrir son gestionnaire de bonus pour ce film"
+
+msgctxt "#32545"
+msgid "No biography was found online for this person."
+msgstr "Aucune biographie trouvée en ligne pour cette personne."
+
+msgctxt "#32546"
+msgid "Full Information (Embuary)"
+msgstr "Infos complètes (Embuary)"
+
+msgctxt "#32547"
+msgid "Source: {}"
+msgstr "Source : {}"
+
+msgctxt "#32548"
+msgid "Look up biographies of cast and crew on Wikipedia"
+msgstr "Rechercher les biographies de la distribution et de l'équipe sur Wikipédia"
+
+msgctxt "#32549"
+msgid "Kodi's library holds no biographies. When you open a person from Cast & Crew, KScape asks Wikipedia and Wikidata (no key needed) for their biography, birth and picture, by name, one person at a time, and keeps the answer for a month. Turn off to never contact them."
+msgstr "La médiathèque de Kodi n'a pas de biographies. Quand vous ouvrez une personne depuis Distribution et équipe, KScape demande à Wikipédia et Wikidata (sans clé) sa biographie, sa naissance et sa photo, par son nom, une personne à la fois, et garde la réponse un mois. Désactivez pour ne jamais les contacter."
+
+msgctxt "#32593"
+msgid "System Collections"
+msgstr "Collections système"
+
+msgctxt "#32594"
+msgid "Your Collections"
+msgstr "Vos collections"
+
+msgctxt "#32595"
+msgid "Create a Collection"
+msgstr "Créer une collection"
+
+msgctxt "#32700"
+msgid "Performance"
+msgstr "Performance"
+
+msgctxt "#32701"
+msgid "Measure performance"
+msgstr "Mesurer les performances"
+
+msgctxt "#32702"
+msgid "Writes timings and a sample a second (FPS, CPU, memory, temperature) to kodi.log as kscape.perf lines, and shows them over the screen. For testing on the box; turn off afterwards."
+msgstr "Écrit les temps et un relevé par seconde (images/s, CPU, mémoire, température) dans kodi.log en lignes kscape.perf, et les affiche à l'écran. Pour les tests sur la box ; à désactiver ensuite."
+
+msgctxt "#32703"
+msgid "Show redrawn areas (on / off)"
+msgstr "Afficher les zones redessinées (marche / arrêt)"
+
+msgctxt "#32704"
+msgid "Kodi colours every area of the screen it redraws. An area that stays coloured while nothing moves is redrawn every frame for nothing. Press again to turn it off."
+msgstr "Kodi colore chaque zone de l'écran qu'il redessine. Une zone qui reste colorée alors que rien ne bouge est redessinée à chaque image pour rien. Appuyez de nouveau pour désactiver."

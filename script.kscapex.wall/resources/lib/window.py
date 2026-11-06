@@ -35,6 +35,7 @@ from . import geometry as G
 from . import badges, cache, collectionui, displayui, menu, modal, perf, ratings, state
 from . import explore as E
 from . import moviesets as MS
+from . import regional as R
 from . import npchip as np_chip
 from . import exploreui as X
 from . import scenes as S
@@ -107,11 +108,18 @@ def load_library(kind):
         complete = not kind.has_extra
         if items:
             cache.save(total, [m.to_cache() for m in items], complete, kind.name)
+    items = in_title_order(kind, items)
     xbmc.log(f'kscape: {len(items)} {kind.name} from {"cache" if cached else "library"} in '
              f'{1000 * (time.perf_counter() - t0):.0f} ms', xbmc.LOGINFO)
     perf.log('library.load', kind=kind.name, items=len(items), total=total,
              source='cache' if cached else 'library', ms=perf.ms_since(t0))
     return items, complete, cached, total
+
+
+def in_title_order(kind, items):
+    """KScapeX: movies and TV shows by title as a French reader expects when Kodi is in French
+    (regional.in_title_order); Kodi's own order otherwise, and always for albums."""
+    return R.in_title_order(items) if kind.name in ('movies', 'tv') else items
 
 
 def view_key(kind):
@@ -1516,7 +1524,7 @@ class WallWindow(xbmcgui.WindowXML):
         while True:
             self.reload_again = False
             total = self.kind.total()
-            items = self.kind.fetch_all() if total else []
+            items = in_title_order(self.kind, self.kind.fetch_all() if total else [])
             extra = self.kind.fetch_extra() if items else {}
             if not self.reload_again:
                 break
