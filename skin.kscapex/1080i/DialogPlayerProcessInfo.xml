@@ -2,10 +2,13 @@
 <!-- Player process info (the O key during playback): what Kodi's video player is doing - video
      and audio decoders, resolution, frame rate, dynamic range (KScapeX: Dolby Vision, HDR10, HDR10+,
      HLG or SDR, in amber when HDR), deinterlacing, audio format, CPU, memory and cache.
-     Information only; it has no Kodi controls to drive. -->
+     Information only; it has no Kodi controls to drive.
+     KScapeX: no window-level <visible> - on a dialog Kodi treats it as "open while true", so the
+     panel reopened at once after every close and could not be dismissed during playback. The
+     O key or Playback info (second row of the playback controls) toggles it; the content hides
+     itself when nothing plays. -->
 <window type="dialog">
 	<depth>DepthOSD</depth>
-	<visible>Player.HasMedia</visible>
 	<controls>
 		<control type="group">
 			<description>Display &amp; aspect ratio root (Includes_Display.xml)</description>
@@ -13,6 +16,7 @@
 			<control type="group">
 				<left>60</left>
 				<top>60</top>
+				<visible>Player.HasMedia</visible>
 				<include>WindowFade</include>
 				<control type="image">
 					<width>1100</width>
@@ -52,7 +56,7 @@
 					<aligny>center</aligny>
 					<font>kscape_list_value</font>
 					<textcolor>kscape_text</textcolor>
-					<label>$INFO[Player.Process(videodecoder)]$INFO[Player.Process(pixformat), · ,]$VAR[KScapeHwDecoder]</label>
+					<label>$INFO[Player.Process(videodecoder)]$VAR[KScapePixFormat]$VAR[KScapeHwDecoder]</label>
 				</control>
 				<control type="label">
 					<left>30</left>
@@ -112,7 +116,7 @@
 					<aligny>center</aligny>
 					<font>kscape_list_value</font>
 					<textcolor>kscape_text</textcolor>
-					<label>$INFO[System.CpuUsage,CPU ,]$INFO[System.Memory(used.percent),  ·  RAM ,]$INFO[Player.CacheLevel,  ·  $LOCALIZE[439] ,%]</label>
+					<label>$INFO[System.Memory(used.percent),RAM ,]$INFO[Player.CacheLevel,  ·  $LOCALIZE[439] ,%]$INFO[System.CpuUsage,  ·  CPU ,]</label>
 				</control>
 			</control>
 	

@@ -65,6 +65,11 @@
 		<value condition="String.IsEqual(ListItem.Property(sync),true)">SYNC</value>
 		<value condition="String.IsEqual(ListItem.Property(hearing_imp),true)">CC</value>
 	</variable>
+	<!-- KScapeX: the decoder's pixel format, left out when Kodi only knows it as "unknown" (CoreELEC's
+	     hardware decoder) -->
+	<variable name="KScapePixFormat">
+		<value condition="!String.IsEmpty(Player.Process(pixformat)) + !String.IsEqual(Player.Process(pixformat),unknown)"> · $INFO[Player.Process(pixformat)]</value>
+	</variable>
 	<variable name="KScapeHwDecoder">
 		<value condition="Player.Process(videohwdecoder)"> · HW</value>
 	</variable>

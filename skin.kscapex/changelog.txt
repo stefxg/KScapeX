@@ -1,3 +1,7 @@
+[B]0.15.4[/B] (06-11-2026)
+- Playback info se ferme de nouveau : le panneau se rouvrait aussitôt après chaque fermeture (condition d'affichage au niveau de la fenêtre, que Kodi applique comme « ouvert tant que la lecture dure »). Le bouton Playback info ou la touche O l'affichent et le masquent.
+- Playback info : RAM et cache avant le CPU (la liste des 6 cœurs repoussait la RAM hors de la ligne) ; format de pixel « unknown » masqué.
+
 [B]0.15.3[/B] (06-11-2026)
 - Suit l'add-on du mur 0.15.3 (mur rempli ligne par ligne, tri alphabétique / date de sortie / date d'ajout).
 - Commandes de lecture : seconde ligne de 7 boutons, même style (Bas depuis la première) : Playback info (données techniques du lecteur en haut à gauche, marche / arrêt), Audio settings, Video settings, Subtitle settings (réglages de Kodi), Find subtitles (téléchargement), Bookmarks (signets et chapitres), Information (fiche du film sur la vidéo). Le panneau remonte d'une ligne.

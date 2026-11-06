@@ -1,3 +1,6 @@
+[B]0.15.4[/B] (06-11-2026)
+- Version alignée sur la skin (aucun changement dans l'add-on du mur).
+
 [B]0.15.3[/B] (06-11-2026)
 - Mur rempli ligne par ligne : de A à Z de gauche à droite, puis la ligne suivante (avant : colonne par colonne, ce qui semblait aléatoire en lisant une ligne).
 - Menu C > View Options > Sort by : Alphabetical, Release date (les plus récents d'abord) ou Date added (les derniers ajoutés d'abord). Le choix est mémorisé (films et séries séparément) ; le mur repart de sa première jaquette. Une saga regroupée est classée selon son film le plus récent. Les murs d'une collection ou d'une saga gardent leur propre ordre.
