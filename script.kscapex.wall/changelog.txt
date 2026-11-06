@@ -1,3 +1,6 @@
+[B]0.16.1[/B] (06-11-2026)
+- Version alignée sur la skin (aucun changement dans l'add-on du mur).
+
 [B]0.16.0[/B] (06-11-2026)
 - Français : tout l'add-on du mur est traduit (501 chaînes : menus, mur, listes, fiches, collections, scènes, filtres, réglages).
 - Formats régionaux de Kodi : dates (« Ajouté le 6 novembre », « 2 septembre 1964 »), heure sur 24 h, durées (2 h 43), montants (150 000 000 $).

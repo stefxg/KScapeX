@@ -119,6 +119,43 @@
 			<size>8</size>
 			<style>bold</style>
 		</font>
+		<!-- KScapeX: the fonts CoreELEC's settings add-on (service.coreelec.settings) asks for. Without
+		     them Kodi draws all of its text in font13: descriptions too large for their boxes, headings
+		     no larger than the text. Sizes as those windows look in Estuary. -->
+		<font>
+			<name>font10</name>
+			<filename>arial.ttf</filename>
+			<size>23</size>
+		</font>
+		<font>
+			<name>font12</name>
+			<filename>arial.ttf</filename>
+			<size>25</size>
+		</font>
+		<font>
+			<name>font13_title</name>
+			<filename>arial.ttf</filename>
+			<size>28</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>font16caps</name>
+			<filename>arial.ttf</filename>
+			<size>28</size>
+			<style>uppercase</style>
+		</font>
+		<font>
+			<name>font23_title</name>
+			<filename>arial.ttf</filename>
+			<size>28</size>
+			<style>bold</style>
+		</font>
+		<font>
+			<name>font24_title</name>
+			<filename>arial.ttf</filename>
+			<size>30</size>
+			<style>bold</style>
+		</font>
 		<!-- TinyPPI (CoreELEC avdvplus) needs these two in the Default fontset, with exactly this
 		     name, filename and size (resources/lib/ui/fonts.py): otherwise it writes them into this
 		     file and reloads the skin at the next playback. -->

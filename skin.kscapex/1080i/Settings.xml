@@ -78,6 +78,12 @@
 							<onclick>RunAddon(service.libreelec.settings)</onclick>
 							<visible>System.AddonIsEnabled(service.libreelec.settings)</visible>
 						</item>
+						<item>
+							<description>KScapeX: CoreELEC's own settings (service.coreelec.settings)</description>
+							<label>CoreELEC</label>
+							<onclick>RunAddon(service.coreelec.settings)</onclick>
+							<visible>System.AddonIsEnabled(service.coreelec.settings)</visible>
+						</item>
 					</content>
 				</control>
 

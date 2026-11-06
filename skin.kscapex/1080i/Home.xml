@@ -122,6 +122,12 @@
 							<visible>String.IsEqual(Container(9000).ListItem.Property(id),system)</visible>
 						</item>
 						<item>
+							<description>KScapeX: CoreELEC's settings (service.coreelec.settings)</description>
+							<label>CoreELEC</label>
+							<onclick>RunAddon(service.coreelec.settings)</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),system) + System.AddonIsEnabled(service.coreelec.settings)</visible>
+						</item>
+						<item>
 							<label>$LOCALIZE[130]</label>
 							<onclick>ActivateWindow(SystemInfo)</onclick>
 							<visible>String.IsEqual(Container(9000).ListItem.Property(id),system)</visible>
