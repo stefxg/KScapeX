@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Playback controls (OK / Menu during a movie). First row: Audio and Subtitles cycle in place.
-     Second row (KScapeX, Down from the first): Kodi's audio, video and subtitle settings dialogs
-     (DialogSettings.xml), subtitle download (DialogSubtitles.xml), bookmarks and chapters
-     (VideoOSDBookmarks.xml), the movie's information (DialogFullScreenInfo.xml) and the player
-     process info (DialogPlayerProcessInfo.xml, top left; the button toggles it). Those two close the OSD first.
+     Second row (KScapeX, Down from the first): the player process info first, the technical data
+     (DialogPlayerProcessInfo.xml, top left; the button toggles it), then Kodi's audio, video and
+     subtitle settings dialogs (DialogSettings.xml), subtitle download (DialogSubtitles.xml),
+     bookmarks and chapters (VideoOSDBookmarks.xml) and the movie's information
+     (DialogFullScreenInfo.xml). Process info and information close the OSD first.
      Scenes (script.kscapex.wall): Mark scene start / end for a library movie or episode. During a
      scene or Demo Script (Home property kscape.demo.active, set by the add-on's service) the
      title line names the scene and its movie, the line above it the script and scene progress,
@@ -161,6 +162,14 @@
 					<itemgap>16</itemgap>
 					<align>center</align>
 					<onup>100</onup>
+					<control type="button" id="207">
+						<description>Player process info, top left: on / off. The OSD closes first, so the
+						action reaches the full-screen video, which toggles the dialog.</description>
+						<include content="OSDButton"><param name="width" value="200"/></include>
+						<label>$LOCALIZE[31090]</label>
+						<onclick>Dialog.Close(videoosd,true)</onclick>
+						<onclick>Action(PlayerProcessInfo)</onclick>
+					</control>
 					<control type="button" id="201">
 						<include content="OSDButton"><param name="width" value="225"/></include>
 						<label>$LOCALIZE[31084]</label>
@@ -193,14 +202,6 @@
 						<label>$LOCALIZE[31089]</label>
 						<onclick>Dialog.Close(videoosd,true)</onclick>
 						<onclick>Action(Info)</onclick>
-					</control>
-					<control type="button" id="207">
-						<description>Player process info, top left: on / off. The OSD closes first, so the
-						action reaches the full-screen video, which toggles the dialog.</description>
-						<include content="OSDButton"><param name="width" value="200"/></include>
-						<label>$LOCALIZE[31090]</label>
-						<onclick>Dialog.Close(videoosd,true)</onclick>
-						<onclick>Action(PlayerProcessInfo)</onclick>
 					</control>
 				</control>
 			</control>
