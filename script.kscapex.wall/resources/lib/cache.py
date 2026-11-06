@@ -19,7 +19,7 @@ def _path(name):
     return os.path.join(FOLDER, f'{name}-cache.json')
 
 
-VERSION = 8                       # 8: movie versions (with their version type), 3D and stable ids
+VERSION = 9                       # 9: release dates (KScapeX wall sort); 8: movie versions, 3D, stable ids
 MAX_AGE_S = 24 * 3600
 
 

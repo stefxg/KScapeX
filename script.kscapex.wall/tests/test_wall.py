@@ -4,13 +4,14 @@ import math
 import os
 import sys
 import unittest
+from dataclasses import replace
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from resources.lib import geometry as G  # noqa: E402
 from resources.lib.model import Movie, badge_for, merge_duplicates  # noqa: E402
 from resources.lib.ranking import rank_related, score  # noqa: E402
-from resources.lib.wallmodel import (Wall, _segment_hits_rect, camera_reveal, camera_target, cell_at, clip_outside,  # noqa: E402
+from resources.lib.wallmodel import (Wall, sort_items, _segment_hits_rect, camera_reveal, camera_target, cell_at, clip_outside,  # noqa: E402
                                      in_opening_view,  # noqa: E402
                                      detour, ease_out_back, ease_out_cubic, grid_rows)
 
@@ -183,6 +184,28 @@ class WallTest(unittest.TestCase):
             self.assertTrue(top <= row <= top + 2, (row, top))             # focused row is whole
         self.assertEqual(camera_target(w, (5, 7), None)[1], 5 * G.PITCH_Y - margin)   # last rows
         self.assertEqual(camera_target(w, (5, 2), None)[1], 1 * G.PITCH_Y - margin)   # centred row
+
+    def test_row_major_reads_left_to_right(self):
+        """KScapeX: the wall fills a row before the next one; only the last row is partial."""
+        w = Wall.row_major([movie(100 + i, f'M{i:03d}') for i in range(10)], rows=3)
+        self.assertEqual((w.rows, w.cols), (3, 4))
+        self.assertEqual([w.at(c, 0).title for c in range(4)], ['M000', 'M001', 'M002', 'M003'])
+        self.assertEqual(w.at(0, 1).title, 'M004')
+        self.assertEqual([m.title if m else None for m in (w.at(c, 2) for c in range(4))],
+                         ['M008', 'M009', None, None])
+        self.assertEqual(w.cell_of(109), (1, 2))
+
+    def test_sort_items(self):
+        a = replace(movie(1, 'Alpha', 2010), dateadded='2026-01-05 10:00:00', premiered='2010-06-01')
+        b = replace(movie(2, 'Bravo', 2024), dateadded='2025-12-01 09:00:00')
+        c = replace(movie(3, 'Charlie', 2010), dateadded='2026-03-01 08:00:00', premiered='2010-02-01')
+        d = movie(4, 'Delta', 0)                                            # no dates at all
+        lib = [a, b, c, d]
+        self.assertEqual([m.title for m in sort_items(lib, 'title')], ['Alpha', 'Bravo', 'Charlie', 'Delta'])
+        self.assertEqual([m.title for m in sort_items(lib, 'released')], ['Bravo', 'Alpha', 'Charlie', 'Delta'])
+        self.assertEqual([m.title for m in sort_items(lib, 'added')], ['Charlie', 'Alpha', 'Bravo', 'Delta'])
+        same = [movie(5, 'Echo', 2000), movie(6, 'Foxtrot', 2000)]           # ties keep title order
+        self.assertEqual([m.title for m in sort_items(same, 'released')], ['Echo', 'Foxtrot'])
 
     def test_new_row_is_centred_one_row_per_press(self):
         """KScapeX: down and up the wall, each press scrolls one row and keeps the frame on the

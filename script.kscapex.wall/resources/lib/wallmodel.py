@@ -18,6 +18,28 @@ def grid_rows(count, layout=G.POSTER):
     return max(layout.min_rows, min(G.WALL_MAX_ROWS, rows))
 
 
+
+# KScapeX: the wall's order (C menu > View Options > Sort by), remembered per media kind.
+SORTS = ('title', 'released', 'added')
+
+
+def release_key(item):
+    """Release date for sorting: the full date when Kodi has it, else the year ('' if neither)."""
+    premiered = getattr(item, 'premiered', '') or ''
+    year = getattr(item, 'year', 0) or 0
+    return premiered or (f'{year:04d}' if year else '')
+
+
+def sort_items(items, order):
+    """`items` (in library order: by title) in the wall's order. 'title' keeps them; 'released'
+    and 'added' put the newest first, items without a date last, ties in title order."""
+    if order == 'released':
+        return sorted(items, key=release_key, reverse=True)
+    if order == 'added':
+        return sorted(items, key=lambda m: getattr(m, 'dateadded', '') or '', reverse=True)
+    return list(items)
+
+
 class Wall:
     """Items (movies, albums, shows) placed on a rows x cols grid, addressed (col, row). Items are
     told apart by their `key`."""
@@ -28,6 +50,17 @@ class Wall:
         self.cells = cells                       # list indexed by col * rows + row; item or None
         self.layout = layout
         self.index = {m.key: i for i, m in enumerate(cells) if m is not None}
+
+    @classmethod
+    def row_major(cls, movies, rows=None, layout=G.POSTER):
+        """KScapeX's wall: items in the given order left to right along a row, then the next row
+        down (A to Z reads like a page). grid_rows always leaves the last row the only partial one."""
+        rows = rows or grid_rows(len(movies), layout)
+        cols = max(1, math.ceil(len(movies) / rows))
+        cells = [None] * (rows * cols)
+        for i, m in enumerate(movies):
+            cells[(i % cols) * rows + i // cols] = m
+        return cls(rows, cols, cells, layout)
 
     @classmethod
     def column_major(cls, movies, rows=None, layout=G.POSTER):

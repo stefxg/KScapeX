@@ -2,6 +2,7 @@
 import os
 import sys
 import unittest
+from dataclasses import replace
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
@@ -53,6 +54,13 @@ class GroupTest(unittest.TestCase):
         self.assertEqual((alien.resolution, alien.file, alien.formats), ('', '', ()))
         self.assertEqual(wars.poster, 'p6')                 # no set art: its first movie's poster
         self.assertEqual(wars.plot, 'A galaxy far away.')
+
+    def test_set_cover_dates_are_its_newest_movies(self):
+        """KScapeX: the wall's date sorts place a set by its newest movie."""
+        lib = [replace(self.alien, dateadded='2020-01-01 00:00:00', premiered='1979-05-25'),
+               replace(self.aliens, dateadded='2026-02-01 00:00:00', premiered='1986-07-18'), self.heat]
+        cover = next(m for m in MS.group(lib, self.sets, COUNT) if MS.is_set(m))
+        self.assertEqual((cover.dateadded, cover.premiered, cover.year), ('2026-02-01 00:00:00', '1986-07-18', 1979))
 
     def test_members_oldest_first(self):
         self.assertEqual([m.movieid for m in MS.members_of(self.library, 9)], [6, 4])

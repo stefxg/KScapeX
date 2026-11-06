@@ -1378,6 +1378,26 @@ msgctxt "#32412"
 msgid "Group movies by collection (Kodi movie sets) on the cover wall"
 msgstr ""
 
+#. KScapeX: C menu entry on the cover wall (View Options), and the heading of its choices
+msgctxt "#32413"
+msgid "Sort by"
+msgstr ""
+
+#. KScapeX: wall order - by title (library order)
+msgctxt "#32414"
+msgid "Alphabetical"
+msgstr ""
+
+#. KScapeX: wall order - newest release first
+msgctxt "#32415"
+msgid "Release date"
+msgstr ""
+
+#. KScapeX: wall order - most recently added first
+msgctxt "#32416"
+msgid "Date added"
+msgstr ""
+
 msgctxt "#32420"
 msgid "Cast & Crew"
 msgstr ""

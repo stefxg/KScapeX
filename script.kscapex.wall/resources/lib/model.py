@@ -12,7 +12,7 @@ MAX_CAST = 8
 JSONRPC_PROPERTIES = [
     'title', 'sorttitle', 'year', 'genre', 'director', 'cast', 'set', 'setid', 'tag',
     'art', 'plot', 'runtime', 'file', 'resume', 'playcount', 'streamdetails', 'mpaa',
-    'dateadded', 'lastplayed', 'country', 'ratings', 'uniqueid',
+    'dateadded', 'lastplayed', 'country', 'ratings', 'uniqueid', 'premiered',
 ]
 # Cast is ~70% of the cost of listing a large library (28 of 41 s for 5,000 movies on the
 # development Mac) and only the shuffle ranking needs it, so it is fetched separately.
@@ -66,6 +66,7 @@ class Movie:
     stereo: bool = False           # the file is 3D
     uid: str = ''                  # 'tmdb:603' / 'imdb:tt0133093': what makes copies one film
     versions: Tuple[V.Version, ...] = ()   # Kodi's versions of this movie (two or more), or merged copies
+    premiered: str = ''            # 'YYYY-MM-DD' release date (KScapeX: the wall's release-date sort)
 
     @property
     def formats(self):
@@ -111,6 +112,7 @@ class Movie:
             setname=m.get('set') or '',
             stereo=SI.stereo(m.get('streamdetails')),
             uid=uid_of(m.get('uniqueid')),
+            premiered=m.get('premiered') or '',
         )
 
     def to_cache(self):

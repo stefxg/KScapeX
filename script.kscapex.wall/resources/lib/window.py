@@ -45,8 +45,8 @@ from .listwindow import show_list
 from .model import copy_groups
 from .search import search
 from .ranking import rank_related
-from .wallmodel import (Wall, camera_reveal, camera_target, cell_at, cell_origin, clip_outside, detour, ease_out_back,
-                        ease_out_cubic, in_opening_view)
+from .wallmodel import (SORTS, Wall, camera_reveal, camera_target, cell_at, cell_origin, clip_outside, detour,
+                        ease_out_back, ease_out_cubic, in_opening_view, sort_items)
 
 MOVES = {
     xbmcgui.ACTION_MOVE_LEFT: (-1, 0),
@@ -117,6 +117,16 @@ def load_library(kind):
 def view_key(kind):
     """State key of the view (wall or list) last used for `kind`."""
     return 'view' if kind.name == 'movies' else f'view_{kind.name}'
+
+
+def sort_key(kind):
+    """KScapeX: state key of the wall's order (C > Sort by) for `kind`."""
+    return f'sort_{kind.name}'
+
+
+def saved_sort(kind):
+    order = state.load().get(sort_key(kind))
+    return order if order in SORTS else 'title'
 
 
 class Pool:
@@ -516,7 +526,8 @@ class WallWindow(xbmcgui.WindowXML):
         self.scenes = S.store() if self.kind.name in S.MEDIA_OF_KIND else None
         self.new_days = collectionui.new_days()
 
-        self.wall = Wall.column_major([], layout=self.lay)
+        self.sort_order = saved_sort(self.kind)     # KScapeX: C > Sort by
+        self.wall = Wall.row_major([], layout=self.lay)
         self.all_movies = []             # every library entry; the wall may filter or merge them
         self.history = []                # (wall, focus) before each shuffle, for Back
         self.focus = (0, 0)
@@ -548,7 +559,7 @@ class WallWindow(xbmcgui.WindowXML):
 
         self.all_movies = items
         visible = self._covers(self._visible(items))
-        self.wall = Wall.column_major(visible, layout=self.lay)
+        self.wall = self._arrange(visible)
         prop, key = remembered(self.kind)
         last = HOME.getProperty(prop) or str(state.load().get(key, ''))
         if self.nested:
@@ -1315,6 +1326,8 @@ class WallWindow(xbmcgui.WindowXML):
         view = []
         if item:
             view.append(('list', tr(menu.S_VIEW), tr(menu.S_COVER_WALL)))
+        if self._sortable():
+            view.append(('sort', tr(menu.S_SORT), tr(menu.SORT_LABELS[self.sort_order])))
         if self._can_group():
             view.append(menu.toggle('groupsets', menu.S_GROUP_SETS, self.group_sets))
         view += [menu.toggle('motion', menu.S_REDUCE_MOTION, self.reduced),
@@ -1371,6 +1384,8 @@ class WallWindow(xbmcgui.WindowXML):
             menu.set_auto_shuffle(self.auto_shuffle)
         elif choice == 'groupsets':
             self._toggle_grouping()
+        elif choice == 'sort':
+            self._choose_sort()
         elif choice == 'motion':
             self.reduced = not self.reduced
             menu.set_reduced_motion(self.reduced)
@@ -1419,6 +1434,36 @@ class WallWindow(xbmcgui.WindowXML):
         self._covered(lambda: open_wall(self.kind, view='wall', movie_set=MS.set_id(item), library=library))
         self._after_favourites()
         self._after_collections()
+
+    # ---- KScapeX: the wall's order ---------------------------------------------------------
+
+    def _sortable(self):
+        """A collection's wall and a set's wall keep their own order."""
+        return self.collection is None and self.movie_set is None
+
+    def _arrange(self, visible):
+        """The wall for `visible` (in library order): sorted (C > Sort by), filled row by row."""
+        if self._sortable():
+            visible = sort_items(visible, self.sort_order)
+        return Wall.row_major(visible, layout=self.lay)
+
+    def _choose_sort(self):
+        """Sort by: Alphabetical, Release date or Date added (the current one marked). The wall is
+        rebuilt in that order and shown from its first cover; the choice is kept for next time."""
+        tr = ADDON.getLocalizedString
+        entries = [(o, tr(menu.SORT_LABELS[o]), tr(menu.S_ON) if o == self.sort_order else '', o == self.sort_order)
+                   for o in SORTS]
+        order = menu.show_sections([(menu.S_SORT, entries)])
+        self.last_input = time.time()
+        if order not in SORTS or order == self.sort_order:
+            return
+        self.sort_order = order
+        state.save(**{sort_key(self.kind): order})
+        self._apply_library(self.all_movies)
+        if self.wall.at(0, 0) is not None:
+            self.focus = (0, 0)
+            self._set_frame()
+            self._pan(camera_target(self.wall, self.focus, pin_top=True), animate=False)
 
     def _toggle_grouping(self):
         self.group_sets = not self.group_sets
@@ -1553,7 +1598,7 @@ class WallWindow(xbmcgui.WindowXML):
             current = next((m for m in items if m.key == focus_key), current)
         self.all_movies = items
         visible = self._covers(self._visible(items))
-        self.wall = Wall.column_major(visible, layout=self.lay)
+        self.wall = self._arrange(visible)
         self.history = []
         self.front.shown = [None] * self.pool_size     # artwork may have changed
         cell = self.wall.cell_of(current.key) if current else None

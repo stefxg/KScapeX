@@ -47,7 +47,10 @@ def set_cover(setid, members, info, count_text):
                    poster=info.get('poster') or first.poster, plot=plot, resume_position=0.0,
                    badge='', file='', resolution='', hdr='', audio=(), aspect=0.0, tmdb=0.0, rt=0,
                    imdb='', stereo=False, uid='', versions=(), playcount=0, lastplayed='',
-                   setname=title)
+                   setname=title,
+                   # KScapeX: the wall's date sorts place a set by its newest movie
+                   dateadded=max((m.dateadded for m in members), default=''),
+                   premiered=max((m.premiered for m in members), default=''))
 
 
 def members_of(movies, setid):

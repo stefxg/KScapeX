@@ -114,6 +114,7 @@ class Show:
     lastplayed: str = ''           # when an episode was last played
     playcount: int = 0             # Kodi: 1 once every episode is watched
     inprogress: bool = False       # an episode has a resume point (VideoLibrary.GetInProgressTVShows)
+    premiered: str = ''            # first aired, 'YYYY-MM-DD' (KScapeX: the wall's release-date sort)
 
     @property
     def key(self):
@@ -144,6 +145,7 @@ class Show:
             lastplayed=t.get('lastplayed') or '',
             playcount=int(t.get('playcount') or 0),
             inprogress=bool(t.get('inprogress')),
+            premiered=t.get('premiered') or '',
         )
 
     def to_cache(self):
