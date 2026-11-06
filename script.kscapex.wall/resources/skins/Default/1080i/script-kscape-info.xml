@@ -403,6 +403,7 @@
 				</control>
 
 				<control type="button" id="999">
+					<pulseonselect>false</pulseonselect>
 					<description>Never visible: list edges point here so they stop instead of wrapping</description>
 					<width>1</width>
 					<height>1</height>

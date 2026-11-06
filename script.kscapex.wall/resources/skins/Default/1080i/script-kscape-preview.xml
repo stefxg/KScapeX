@@ -124,6 +124,7 @@
 				<label>$ADDON[script.kscapex.wall 32400]</label>
 			</control>
 			<control type="button" id="10">
+				<pulseonselect>false</pulseonselect>
 				<description>Focus target: Back or Select close</description>
 				<left>-200</left>
 				<width>1</width>

@@ -12,6 +12,7 @@
 				<texture colordiffuse="kscape_bg">kscape-white.png</texture>
 			</control>
 			<control type="button" id="901">
+				<pulseonselect>false</pulseonselect>
 				<description>Edge target: never visible, so the list stops at its ends</description>
 				<left>-200</left>
 				<top>-200</top>
@@ -310,6 +311,7 @@
 				</focusedlayout>
 			</control>
 			<control type="button" id="915">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row -5 from the band</description>
 				<left>0</left>
 				<top>8</top>
@@ -323,6 +325,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="916">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row -4 from the band</description>
 				<left>0</left>
 				<top>66</top>
@@ -336,6 +339,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="917">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row -3 from the band</description>
 				<left>0</left>
 				<top>124</top>
@@ -349,6 +353,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="918">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row -2 from the band</description>
 				<left>0</left>
 				<top>182</top>
@@ -362,6 +367,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="919">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row -1 from the band</description>
 				<left>0</left>
 				<top>240</top>
@@ -375,6 +381,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="920">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row +0 from the band</description>
 				<left>0</left>
 				<top>298</top>
@@ -388,6 +395,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="921">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row +1 from the band</description>
 				<left>0</left>
 				<top>534</top>
@@ -401,6 +409,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="922">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row +2 from the band</description>
 				<left>0</left>
 				<top>592</top>
@@ -414,6 +423,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="923">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row +3 from the band</description>
 				<left>0</left>
 				<top>650</top>
@@ -427,6 +437,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="924">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row +4 from the band</description>
 				<left>0</left>
 				<top>708</top>
@@ -440,6 +451,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="925">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row +5 from the band</description>
 				<left>0</left>
 				<top>766</top>
@@ -453,6 +465,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="926">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row +6 from the band</description>
 				<left>0</left>
 				<top>824</top>
@@ -466,6 +479,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="927">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row +7 from the band</description>
 				<left>0</left>
 				<top>882</top>
@@ -479,6 +493,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="928">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row +8 from the band</description>
 				<left>0</left>
 				<top>940</top>
@@ -492,6 +507,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="929">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row +9 from the band</description>
 				<left>0</left>
 				<top>998</top>
@@ -505,6 +521,7 @@
 				<onright>9000</onright>
 			</control>
 			<control type="button" id="930">
+				<pulseonselect>false</pulseonselect>
 				<description>Mouse target: the row +10 from the band</description>
 				<left>0</left>
 				<top>1056</top>
@@ -575,6 +592,7 @@
 					<align>right</align>
 					<usecontrolcoords>true</usecontrolcoords>
 					<control type="button">
+						<pulseonselect>false</pulseonselect>
 						<width>auto</width>
 						<height>44</height>
 						<enable>false</enable>

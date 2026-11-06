@@ -1,3 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- KScapeX: Kodi makes a focused button "pulse" by default (pulseonselect, alpha varied every
+     frame). Even on an invisible focus-sink button that keeps the screen dirty, and Kodi then
+     redraws the whole screen 60 times a second. KScape's focus is a colour change, so no pulse. -->
 <defaults>
+	<default type="button">
+		<pulseonselect>false</pulseonselect>
+	</default>
+	<default type="togglebutton">
+		<pulseonselect>false</pulseonselect>
+	</default>
+	<default type="radiobutton">
+		<pulseonselect>false</pulseonselect>
+	</default>
+	<default type="edit">
+		<pulseonselect>false</pulseonselect>
+	</default>
 </defaults>

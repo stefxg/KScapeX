@@ -185,6 +185,7 @@ def mouse_targets():
     out = ''
     for off, top, h in L.mouse_rows(H):
         out += f'''		<control type="button" id="{L.MOUSE_BASE + off}">
+			<pulseonselect>false</pulseonselect>
 			<description>Mouse target: the row {off:+d} from the band</description>
 			<left>0</left>
 			<top>{top}</top>
@@ -215,6 +216,7 @@ def build(spec):
 			<texture colordiffuse="{BG}">kscape-white.png</texture>
 		</control>
 		<control type="button" id="901">
+			<pulseonselect>false</pulseonselect>
 			<description>Edge target: never visible, so the list stops at its ends</description>
 			<left>-200</left>
 			<top>-200</top>

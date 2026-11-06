@@ -592,6 +592,7 @@ def main():
 			<animation effect="fade" start="100" end="0" time="150">Hidden</animation>
 		</control>
 {stacks}		<control type="button" id="9029">
+			<pulseonselect>false</pulseonselect>
 			<description>Edge target: never visible, so the card lists stop at their ends</description>
 			<left>-200</left>
 			<top>-200</top>
@@ -602,6 +603,7 @@ def main():
 			<visible>false</visible>
 		</control>
 		<control type="button" id="9030">
+			<pulseonselect>false</pulseonselect>
 			<description>Category router: Left/Right on a card or submenu move the bar, then focus
 			lands here and goes on to the new category's cards or submenu (or the bar). Off screen
 			but visible, so it can take focus.</description>

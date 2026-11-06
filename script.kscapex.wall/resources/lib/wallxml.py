@@ -406,6 +406,7 @@ def _build(L):
 			<texture colordiffuse="FF060607">kscape-white.png</texture>
 		</control>
 		<control type="button" id="900">
+			<pulseonselect>false</pulseonselect>
 			<description>Focus sink: the window handles all navigation itself</description>
 			<left>-200</left>
 			<top>-200</top>

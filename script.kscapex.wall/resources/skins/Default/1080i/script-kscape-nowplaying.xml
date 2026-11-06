@@ -131,6 +131,7 @@
 					<onright>700</onright>
 					<onleft>600</onleft>
 					<control type="button" id="601">
+						<pulseonselect>false</pulseonselect>
 						<width>141</width>
 						<height>96</height>
 						<label>$ADDON[script.kscapex.wall 32136]</label>
@@ -144,6 +145,7 @@
 						<onclick>PlayerControl(Previous)</onclick>
 					</control>
 					<control type="togglebutton" id="602">
+						<pulseonselect>false</pulseonselect>
 						<description>Pause while playing; Play while paused or stopped</description>
 						<width>141</width>
 						<height>96</height>
@@ -162,6 +164,7 @@
 						<onclick>PlayerControl(Play)</onclick>
 					</control>
 					<control type="button" id="603">
+						<pulseonselect>false</pulseonselect>
 						<width>141</width>
 						<height>96</height>
 						<label>$ADDON[script.kscapex.wall 32138]</label>
@@ -175,6 +178,7 @@
 						<onclick>PlayerControl(Stop)</onclick>
 					</control>
 					<control type="button" id="604">
+						<pulseonselect>false</pulseonselect>
 						<width>141</width>
 						<height>96</height>
 						<label>$ADDON[script.kscapex.wall 32139]</label>
@@ -415,6 +419,7 @@
 					</focusedlayout>
 				</control>
 				<control type="button" id="901">
+					<pulseonselect>false</pulseonselect>
 					<description>Edge target: never visible, so the queue stops at its ends</description>
 					<left>-200</left>
 					<top>-200</top>

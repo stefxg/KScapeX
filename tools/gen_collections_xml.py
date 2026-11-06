@@ -201,6 +201,7 @@ def build(square=False):
 	<defaultcontrol always="true">9100</defaultcontrol>
 	<controls>
 {img(0, 0, W, H, BG)}		<control type="button" id="901">
+			<pulseonselect>false</pulseonselect>
 			<description>Edge target: never visible, so the lists stop at their ends</description>
 			<left>-200</left>
 			<top>-200</top>

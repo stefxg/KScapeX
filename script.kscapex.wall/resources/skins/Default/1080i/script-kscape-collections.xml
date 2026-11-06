@@ -14,6 +14,7 @@
 				<texture colordiffuse="kscape_bg">kscape-white.png</texture>
 			</control>
 			<control type="button" id="901">
+				<pulseonselect>false</pulseonselect>
 				<description>Edge target: never visible, so the lists stop at their ends</description>
 				<left>-200</left>
 				<top>-200</top>

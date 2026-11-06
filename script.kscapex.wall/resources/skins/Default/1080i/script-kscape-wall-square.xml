@@ -9,6 +9,7 @@
 			<texture colordiffuse="FF060607">kscape-white.png</texture>
 		</control>
 		<control type="button" id="900">
+			<pulseonselect>false</pulseonselect>
 			<description>Focus sink: the window handles all navigation itself</description>
 			<left>-200</left>
 			<top>-200</top>
@@ -23156,6 +23157,7 @@
 				<align>right</align>
 				<usecontrolcoords>true</usecontrolcoords>
 				<control type="button">
+					<pulseonselect>false</pulseonselect>
 					<width>auto</width>
 					<height>44</height>
 					<enable>false</enable>

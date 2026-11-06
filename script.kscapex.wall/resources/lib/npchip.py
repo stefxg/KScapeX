@@ -156,6 +156,7 @@ def count_chip(label, ind='\t\t', white='kscape-white.png', cid=None, left=None,
 {ind}		<align>right</align>
 {ind}		<usecontrolcoords>true</usecontrolcoords>
 {ind}		<control type="button">
+{ind}			<pulseonselect>false</pulseonselect>
 {ind}			<width>auto</width>
 {ind}			<height>{COUNT_H}</height>
 {ind}			<enable>false</enable>

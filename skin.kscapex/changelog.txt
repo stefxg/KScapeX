@@ -1,3 +1,6 @@
+[B]0.14.4[/B] (06-11-2026)
+- Boutons sans « pulsation » au focus (pulseonselect) : le bouton invisible qui reçoit le focus du mur faisait redessiner tout l'écran 60 fois par seconde au repos.
+
 [B]0.14.3[/B] (06-11-2026)
 - TinyPPI : polices déclarées exactement comme il les attend (special://xbmc/media/Fonts/arial.ttf) ; la 0.14.2 ne suffisait pas.
 - Pastille « lecture en cours » (Accueil, murs, listes, Collections) : l'illustration du film remplace la mini-vidéo en direct, soupçonnée de faire redessiner l'écran 60 fois par seconde.
