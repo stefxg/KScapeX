@@ -1,4 +1,4 @@
-"""Generate the screen calibration marks for skin.kscape (1080i/SettingsScreenCalibration.xml).
+"""Generate the screen calibration marks for skin.kscapex (1080i/SettingsScreenCalibration.xml).
 
 Usage: python3 tools/gen_calibration.py   (needs Pillow)
 
@@ -13,7 +13,7 @@ import os
 
 from PIL import Image, ImageDraw
 
-MEDIA = os.path.join(os.path.dirname(__file__), '..', 'skin.kscape', 'media')
+MEDIA = os.path.join(os.path.dirname(__file__), '..', 'skin.kscapex', 'media')
 WHITE = (255, 255, 255, 255)
 S = 2                                   # drawn at twice the size, then reduced (smooth edges)
 

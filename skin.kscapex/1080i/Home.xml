@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Home: random movie fanart crossfading full screen, a KScape-blue navigation bar along the
+     bottom (Movies / Music / TV Shows / System / Power). Movies, Music and TV Shows show their
+     views above the tab as a column of live miniature cards (List, Covers, Collections, and Now
+     Playing for music); System and Power show, as in Aeon Nox: SiLVO, a submenu strip above the
+     bar. Up enters either, Down or Back return; Left/Right switch category with them still open
+     (past the ends of a submenu strip). The System and Power submenus and actions are SiLVO's
+     defaults.
+     While something plays, Back or Escape return to it: Kodi itself sends Back to full-screen
+     video (music goes through MusicVisualisation.xml to KScape's Now Playing), and Escape goes
+     to <previouswindow>, a dialog that sends it on (Custom_1190_KScapeBack.xml). -->
+<window>
+	<defaultcontrol always="true">9000</defaultcontrol>
+	<previouswindow>1190</previouswindow>
+	<controls>
+		<control type="group">
+			<description>Display &amp; aspect ratio root (Includes_Display.xml)</description>
+			<include>KScapeDisplay</include>
+			<!-- ===== Background ===== -->
+			<control type="image">
+				<width>1920</width>
+				<height>1080</height>
+				<texture colordiffuse="kscape_bg">white.png</texture>
+			</control>
+			<control type="image" id="2">
+				<description>Fanart of the background source's current movie; fadetime crossfades changes</description>
+				<width>1920</width>
+				<height>1080</height>
+				<aspectratio>scale</aspectratio>
+				<fadetime>1600</fadetime>
+				<texture background="true" fallback="background.png">$INFO[Container(9100).ListItem.Art(fanart)]</texture>
+				<animation effect="fade" start="0" end="100" time="900">WindowOpen</animation>
+				<visible>!Skin.HasSetting(HomeNoArtwork)</visible>
+			</control>
+			<control type="image">
+				<description>Darken the bottom so the bar and caption stay readable on any artwork</description>
+				<top>480</top>
+				<width>1920</width>
+				<height>600</height>
+				<texture colordiffuse="kscape_bg_shade" flipy="true">fade.png</texture>
+			</control>
+			<control type="image">
+				<description>Light shade at the top for the clock</description>
+				<width>1920</width>
+				<height>220</height>
+				<texture colordiffuse="kscape_bg_veil">fade.png</texture>
+			</control>
+
+			<control type="wraplist" id="9100">
+				<description>Background source: random movies, advanced by autoscroll. Kept on screen
+				(off to the left) because hidden containers are never filled; never focusable.</description>
+				<left>-4000</left>
+				<width>10</width>
+				<height>10</height>
+				<orientation>horizontal</orientation>
+				<autoscroll time="11000">Window.IsActive(Home)</autoscroll>
+				<scrolltime>0</scrolltime>
+				<itemlayout width="10" height="10"/>
+				<focusedlayout width="10" height="10"/>
+				<content sortby="random" limit="60">videodb://movies/titles/</content>
+			</control>
+
+
+			<!-- ===== Submenu strip (above the bar) ===== -->
+			<control type="group">
+				<top>915</top>
+				<visible>String.IsEqual(Container(9000).ListItem.Property(hassub),true)</visible>
+				<animation effect="fade" start="0" end="100" time="200">Visible</animation>
+				<animation effect="fade" start="100" end="0" time="150">Hidden</animation>
+				<control type="image">
+					<width>1920</width>
+					<height>88</height>
+					<texture colordiffuse="kscape_strip">white.png</texture>
+				</control>
+				<control type="list" id="9010">
+					<left>120</left>
+					<width>1680</width>
+					<height>88</height>
+					<orientation>horizontal</orientation>
+					<ondown>9000</ondown>
+					<onback>9000</onback>
+					<onleft>Control.Move(9000,-1)</onleft>
+					<onleft>SetFocus(9030)</onleft>
+					<onright>Control.Move(9000,1)</onright>
+					<onright>SetFocus(9030)</onright>
+					<scrolltime tween="cubic" easing="out">240</scrolltime>
+					<itemlayout width="340" height="88">
+						<control type="label">
+							<width>340</width>
+							<height>88</height>
+							<align>center</align>
+							<aligny>center</aligny>
+							<font>kscape_sub</font>
+							<textcolor>kscape_text_dim</textcolor>
+							<label>[UPPERCASE]$INFO[ListItem.Label][/UPPERCASE]</label>
+						</control>
+					</itemlayout>
+					<focusedlayout width="340" height="88">
+						<control type="image">
+							<width>340</width>
+							<height>88</height>
+							<texture colordiffuse="kscape_blue_focus">white.png</texture>
+							<visible>Control.HasFocus(9010)</visible>
+							<animation effect="fade" start="0" end="100" time="140">Visible</animation>
+						</control>
+						<control type="label">
+							<width>340</width>
+							<height>88</height>
+							<align>center</align>
+							<aligny>center</aligny>
+							<font>kscape_sub</font>
+							<textcolor>white</textcolor>
+							<label>[UPPERCASE]$INFO[ListItem.Label][/UPPERCASE]</label>
+						</control>
+					</focusedlayout>
+					<content>
+						<!-- System: SiLVO's settings submenu -->
+						<item>
+							<label>$LOCALIZE[130]</label>
+							<onclick>ActivateWindow(SystemInfo)</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),system)</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[33060]</label>
+							<onclick>ActivateWindow(shutdownmenu)</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),system)</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[20077]</label>
+							<onclick>ActivateWindow(SkinSettings)</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),system)</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[7]</label>
+							<onclick>ActivateWindow(FileManager)</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),system)</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[13200]</label>
+							<onclick>ActivateWindow(Profiles)</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),system)</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[31040]</label>
+							<onclick>ActivateWindow(Eventlog)</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),system) + System.GetBool(eventlog.enabled)</visible>
+						</item>
+						<item>
+							<description>KScape addition: switch to another installed skin</description>
+							<label>$LOCALIZE[31016]</label>
+							<onclick>RunScript(script.kscapex.wall,switchskin)</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),system) + System.AddonIsEnabled(script.kscapex.wall)</visible>
+						</item>
+						<!-- Power: SiLVO's power submenu -->
+						<item>
+							<label>$LOCALIZE[13016]</label>
+							<onclick>Powerdown()</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),power) + System.CanPowerDown</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[13013]</label>
+							<onclick>Reset()</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),power) + System.CanReboot</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[13011]</label>
+							<onclick>Suspend()</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),power) + System.CanSuspend</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[13010]</label>
+							<onclick>Hibernate()</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),power) + System.CanHibernate</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[20126]</label>
+							<onclick>System.LogOff</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),power) + [System.HasLoginScreen | Integer.IsGreater(System.ProfileCount,1)] + System.Loggedon</visible>
+						</item>
+						<item>
+							<label>$LOCALIZE[13009]</label>
+							<onclick>Quit()</onclick>
+							<visible>String.IsEqual(Container(9000).ListItem.Property(id),power) + System.ShowExitButton</visible>
+						</item>
+					</content>
+				</control>
+			</control>
+
+			<!-- ===== View cards above Movies / Music / TV Shows (generated: tools/gen_home_xml.py) ===== -->
+			<include>KScapeHomeCards</include>
+			<control type="group">
+				<description>Which movie the background shows: its logo, title and running time, and its
+				tagline. On the right, above the submenu strip; drawn over the cards' darkening, and hidden
+				while the Music or TV Shows cards (which reach that side) are up.</description>
+				<right>80</right>
+				<top>680</top>
+				<width>640</width>
+				<height>220</height>
+				<visible>!String.IsEmpty(Container(9100).ListItem.Art(fanart)) + !Skin.HasSetting(HomeNoArtwork) + !Skin.HasSetting(HomeNoCaption)</visible>
+				<visible>![[String.IsEqual(Container(9000).ListItem.Property(id),music) | String.IsEqual(Container(9000).ListItem.Property(id),tv)] + System.AddonIsEnabled(script.kscapex.wall)]</visible>
+				<animation effect="fade" start="0" end="100" time="300">Visible</animation>
+				<animation effect="fade" start="100" end="0" time="200">Hidden</animation>
+				<control type="image">
+					<description>Clear logo, right-aligned just above the title</description>
+					<width>640</width>
+					<height>124</height>
+					<aspectratio align="right" aligny="bottom">keep</aspectratio>
+					<fadetime>400</fadetime>
+					<texture background="true">$INFO[Container(9100).ListItem.Art(clearlogo)]</texture>
+				</control>
+				<control type="label">
+					<top>136</top>
+					<width>640</width>
+					<height>44</height>
+					<align>right</align>
+					<aligny>center</aligny>
+					<font>kscape_sub</font>
+					<textcolor>white</textcolor>
+					<label>$INFO[Container(9100).ListItem.Label]$INFO[Container(9100).ListItem.Year, (,)][COLOR kscape_text_dim]$VAR[KScapeHomeDuration][/COLOR]</label>
+				</control>
+				<control type="label">
+					<top>184</top>
+					<width>640</width>
+					<height>34</height>
+					<align>right</align>
+					<aligny>center</aligny>
+					<font>kscape_small</font>
+					<textcolor>kscape_text</textcolor>
+					<label>[I]$INFO[Container(9100).ListItem.Tagline][/I]</label>
+				</control>
+			</control>
+			<include>KScapeHomeNowPlaying</include>
+
+			<!-- ===== Bottom navigation bar ===== -->
+			<control type="image">
+				<top>1003</top>
+				<width>1920</width>
+				<height>77</height>
+				<texture colordiffuse="kscape_blue_bar">white.png</texture>
+			</control>
+			<control type="image">
+				<description>KScape wordmark, first element of the bar (left of the tabs; not focusable)</description>
+				<left>28</left>
+				<top>1020</top>
+				<width>230</width>
+				<height>43</height>
+				<aspectratio>keep</aspectratio>
+				<texture>kscape-logo.png</texture>
+			</control>
+			<control type="grouplist">
+				<description>Time and weather, after the wordmark: the time, a hairline, the weather
+				icon and temperature (once the weather add-on has fetched them)</description>
+				<left>272</left>
+				<top>1003</top>
+				<width>492</width>
+				<height>77</height>
+				<orientation>horizontal</orientation>
+				<itemgap>12</itemgap>
+				<usecontrolcoords>true</usecontrolcoords>
+				<control type="label">
+					<width>auto</width>
+					<height>77</height>
+					<aligny>center</aligny>
+					<font>kscape_clock_light</font>
+					<textcolor>white</textcolor>
+					<label>$INFO[System.Time]</label>
+					<visible>!Skin.HasSetting(HomeNoClock)</visible>
+				</control>
+				<control type="image">
+					<top>24</top>
+					<width>2</width>
+					<height>29</height>
+					<texture colordiffuse="kscape_text_dim">white.png</texture>
+					<visible>!Skin.HasSetting(HomeNoClock) + !String.IsEmpty(Window(Home).Property(kscape.weather))</visible>
+				</control>
+				<control type="image">
+					<top>21</top>
+					<width>35</width>
+					<height>35</height>
+					<aspectratio>keep</aspectratio>
+					<texture>$INFO[Weather.ConditionsIcon]</texture>
+					<visible>!String.IsEmpty(Window(Home).Property(kscape.weather))</visible>
+				</control>
+				<control type="label">
+					<width>auto</width>
+					<height>77</height>
+					<aligny>center</aligny>
+					<font>kscape_clock_light</font>
+					<textcolor>kscape_text</textcolor>
+					<label>$INFO[Window(Home).Property(kscape.weather)]</label>
+					<visible>!String.IsEmpty(Window(Home).Property(kscape.weather))</visible>
+				</control>
+			</control>
+			<control type="list" id="9000">
+				<description>Main menu. Left/Right wrap around, as in SiLVO.</description>
+				<left>770</left>
+				<top>1003</top>
+				<width>1150</width>
+				<height>77</height>
+				<orientation>horizontal</orientation>
+				<onleft>9000</onleft>
+				<onright>9000</onright>
+				<onup condition="String.IsEqual(Container(9000).ListItem.Property(hassub),true)">9010</onup>
+				<onup condition="String.IsEqual(Container(9000).ListItem.Property(id),movies) + System.AddonIsEnabled(script.kscapex.wall)">SetFocus(9021,2,absolute)</onup>
+				<onup condition="String.IsEqual(Container(9000).ListItem.Property(id),music) + System.AddonIsEnabled(script.kscapex.wall)">SetFocus(9022,3,absolute)</onup>
+				<onup condition="String.IsEqual(Container(9000).ListItem.Property(id),tv) + System.AddonIsEnabled(script.kscapex.wall)">SetFocus(9023,2,absolute)</onup>
+				<scrolltime tween="cubic" easing="out">240</scrolltime>
+				<itemlayout width="230" height="77">
+					<control type="label">
+						<width>230</width>
+						<height>77</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<font>kscape_bar</font>
+						<textcolor>kscape_text_dim</textcolor>
+						<label>[UPPERCASE]$INFO[ListItem.Label][/UPPERCASE]</label>
+					</control>
+				</itemlayout>
+				<focusedlayout width="230" height="77">
+					<control type="image">
+						<description>Lighter tile on the selected item (tab look)</description>
+						<width>230</width>
+						<height>77</height>
+						<texture colordiffuse="kscape_blue_focus">white.png</texture>
+						<visible>Control.HasFocus(9000)</visible>
+						<animation effect="fade" start="0" end="100" time="140">Visible</animation>
+					</control>
+					<control type="image">
+						<description>While the submenu has focus, a quieter tile keeps the parent visible</description>
+						<width>230</width>
+						<height>77</height>
+						<texture colordiffuse="kscape_blue_head">white.png</texture>
+						<visible>!Control.HasFocus(9000)</visible>
+					</control>
+					<control type="label">
+						<width>230</width>
+						<height>77</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<font>kscape_bar</font>
+						<textcolor>white</textcolor>
+						<label>[UPPERCASE]$INFO[ListItem.Label][/UPPERCASE]</label>
+					</control>
+				</focusedlayout>
+				<content>
+					<item>
+						<label>$LOCALIZE[342]</label>
+						<property name="id">movies</property>
+						<property name="hasstack">true</property>
+						<onclick condition="System.AddonIsEnabled(script.kscapex.wall)">RunScript(script.kscapex.wall,movies)</onclick>
+						<onclick condition="!System.AddonIsEnabled(script.kscapex.wall)">ActivateWindow(Videos,videodb://movies/titles/,return)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[2]</label>
+						<property name="id">music</property>
+						<property name="hasstack">true</property>
+						<onclick condition="System.AddonIsEnabled(script.kscapex.wall)">RunScript(script.kscapex.wall,music)</onclick>
+						<onclick condition="!System.AddonIsEnabled(script.kscapex.wall)">ActivateWindow(Music,musicdb://albums/,return)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[20343]</label>
+						<property name="id">tv</property>
+						<property name="hasstack">true</property>
+						<onclick condition="System.AddonIsEnabled(script.kscapex.wall)">RunScript(script.kscapex.wall,tv)</onclick>
+						<onclick condition="!System.AddonIsEnabled(script.kscapex.wall)">ActivateWindow(Videos,videodb://tvshows/titles/,return)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[13000]</label>
+						<property name="id">system</property>
+						<property name="hassub">true</property>
+						<onclick>ActivateWindow(Settings)</onclick>
+					</item>
+					<item>
+						<label>$LOCALIZE[33060]</label>
+						<property name="id">power</property>
+						<property name="hassub">true</property>
+						<onclick>ActivateWindow(shutdownmenu)</onclick>
+					</item>
+				</content>
+			</control>
+	
+		</control>
+	</controls>
+</window>

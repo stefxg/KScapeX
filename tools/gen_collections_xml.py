@@ -1,4 +1,4 @@
-"""Generate script.kscape.wall's Collections view XML: script-kscape-collections.xml (2:3
+"""Generate script.kscapex.wall's Collections view XML: script-kscape-collections.xml (2:3
 posters: movies, TV shows) and script-kscape-collections-square.xml (album covers).
 
 Usage: python3 tools/gen_collections_xml.py
@@ -24,7 +24,7 @@ import os
 import sys
 
 TOOLS = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.join(TOOLS, '..', 'script.kscape.wall')
+ROOT = os.path.join(TOOLS, '..', 'script.kscapex.wall')
 sys.path.insert(0, TOOLS)
 import np_chip
 import wrap_display  # noqa: E402
@@ -120,7 +120,7 @@ def movie_list():
 {vis('!' + LIST_FOCUS, i5)}{band(BAND_QUIET, i5 + chr(9))}				</control>
 				<control type="group">
 {vis(MOVING, i5)}{moving_frame}				</control>
-{lab(TEXT_X, 22, LIST_W - TEXT_X - 120, 62, '$INFO[ListItem.Label]', 'kscape_list_title', 'FFFFFFFF', f'{i5}<scroll>false</scroll>{chr(10)}', i5)}{lab(SUB_X, 88, LIST_W - SUB_X - 120, 40, '$INFO[ListItem.Property(sub)]', 'kscape_list_row', SUB_COLOR, '', i5)}{lab(SUB_X, 126, LIST_W - SUB_X - 120, 32, '$ADDON[script.kscape.wall 32180]', 'kscape_list_head', AMBER, vis(MOVING, i5), i5)}{heart(TEXT_X - 38, 42, i5)}			</focusedlayout>
+{lab(TEXT_X, 22, LIST_W - TEXT_X - 120, 62, '$INFO[ListItem.Label]', 'kscape_list_title', 'FFFFFFFF', f'{i5}<scroll>false</scroll>{chr(10)}', i5)}{lab(SUB_X, 88, LIST_W - SUB_X - 120, 40, '$INFO[ListItem.Property(sub)]', 'kscape_list_row', SUB_COLOR, '', i5)}{lab(SUB_X, 126, LIST_W - SUB_X - 120, 32, '$ADDON[script.kscapex.wall 32180]', 'kscape_list_head', AMBER, vis(MOVING, i5), i5)}{heart(TEXT_X - 38, 42, i5)}			</focusedlayout>
 		</control>
 '''
 

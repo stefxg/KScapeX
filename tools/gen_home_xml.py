@@ -1,10 +1,10 @@
-"""Generate skin.kscape's Home view cards (1080i/Includes_Home.xml).
+"""Generate skin.kscapex's Home view cards (1080i/Includes_Home.xml).
 
 Usage: python3 tools/gen_home_xml.py
 
 Above the Movies, Music and TV Shows tabs, Home shows a column of 320 x 192 cards, one per view.
 Each card is the real view drawn at 1/6 scale from the same geometry the views use
-(script.kscape.wall's geometry.py, listmodel.py and tools/gen_list_xml.py), filled live from the
+(script.kscapex.wall's geometry.py, listmodel.py and tools/gen_list_xml.py), filled live from the
 library:
 
   List        the list view's rows, blue band, poster and columns
@@ -34,7 +34,7 @@ import sys
 
 TOOLS = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(TOOLS, '..')
-sys.path.insert(0, os.path.join(ROOT, 'script.kscape.wall'))
+sys.path.insert(0, os.path.join(ROOT, 'script.kscapex.wall'))
 sys.path.insert(0, TOOLS)
 from resources.lib import geometry as G  # noqa: E402
 from resources.lib import listmodel as L  # noqa: E402
@@ -248,8 +248,8 @@ def collections_card(k):
     tx = CX.TEXT_X * S
     lw = CX.LIST_W * S
     out = image(0, 0, CARD_W, CARD_H, 'white.png', 'kscape_bg')
-    out += label(tx, VOFF + CX.HEAD_Y * S, 120, 6, '$ADDON[script.kscape.wall 32156]', 'kscape_micro', 'kscape_amber')
-    out += label(tx, VOFF + (CX.HEAD_Y + 30) * S, 160, 11, '$ADDON[script.kscape.wall 32151]', 'kscape_tiny_bold', 'FFFFFFFF')
+    out += label(tx, VOFF + CX.HEAD_Y * S, 120, 6, '$ADDON[script.kscapex.wall 32156]', 'kscape_micro', 'kscape_amber')
+    out += label(tx, VOFF + (CX.HEAD_Y + 30) * S, 160, 11, '$ADDON[script.kscapex.wall 32151]', 'kscape_tiny_bold', 'FFFFFFFF')
 
     def row(i, y):
         return group(label(tx, y, lw - tx - 8, row_h, item(src, i, 'Label'), 'kscape_micro', 'kscape_tint_row', ind='\t\t\t\t\t\t'),
@@ -285,7 +285,7 @@ def collections_card(k):
         x = CX.TAB_LEFT * S + j * tw
         if j == 0:
             out += image(x, bar_y, tw, CX.TAB_H * S, 'white.png', 'kscape_blue_focus')
-        out += label(x, bar_y, tw, CX.TAB_H * S, f'$ADDON[script.kscape.wall {sid}]', 'kscape_micro_bold', 'FFFFFFFF',
+        out += label(x, bar_y, tw, CX.TAB_H * S, f'$ADDON[script.kscapex.wall {sid}]', 'kscape_micro_bold', 'FFFFFFFF',
                      extra='\t\t\t\t\t<align>center</align>\n\t\t\t\t\t<aligny>center</aligny>\n')
     return out
 
@@ -393,7 +393,7 @@ def card_list(k, top, count):
     content = ''.join(f'''
 					<item>
 						<label>$LOCALIZE[{sid}]</label>
-						<onclick>RunScript(script.kscape.wall,{k["name"]},{view})</onclick>
+						<onclick>RunScript(script.kscapex.wall,{k["name"]},{view})</onclick>
 					</item>''' for sid, view in views)
     # Kodi clips a container's items to the container, so the list starts AMBER_OUT further left
     # and up than the cards and everything in an item is shifted back by as much: the amber frame
@@ -451,7 +451,7 @@ def stack(k):
     title = {'movies': 'Movies', 'music': 'Music', 'tv': 'TV Shows'}[k['name']]
     return f'''		<control type="group">
 			<description>{title}: view cards above the tab</description>
-			<visible>String.IsEqual(Container(9000).ListItem.Property(id),{k["name"]}) + System.AddonIsEnabled(script.kscape.wall)</visible>
+			<visible>String.IsEqual(Container(9000).ListItem.Property(id),{k["name"]}) + System.AddonIsEnabled(script.kscapex.wall)</visible>
 			<animation effect="fade" start="0" end="100" time="220">Visible</animation>
 			<animation effect="slide" start="0,40" end="0,0" time="260" tween="cubic" easing="out">Visible</animation>
 			<animation effect="fade" start="100" end="0" time="150">Hidden</animation>
@@ -577,7 +577,7 @@ def main():
 			<width>1920</width>
 			<height>1080</height>
 			<texture colordiffuse="D8000000">white.png</texture>
-			<visible>String.IsEqual(Container(9000).ListItem.Property(hasstack),true) + System.AddonIsEnabled(script.kscape.wall)</visible>
+			<visible>String.IsEqual(Container(9000).ListItem.Property(hasstack),true) + System.AddonIsEnabled(script.kscapex.wall)</visible>
 			<animation effect="fade" start="0" end="100" time="220">Visible</animation>
 			<animation effect="fade" start="100" end="0" time="150">Hidden</animation>
 		</control>
@@ -602,17 +602,17 @@ def main():
 			<texturefocus/>
 			<texturenofocus/>
 			<onfocus condition="String.IsEqual(Container(9000).ListItem.Property(hassub),true)">SetFocus(9010)</onfocus>
-			<onfocus condition="String.IsEqual(Container(9000).ListItem.Property(id),movies) + System.AddonIsEnabled(script.kscape.wall)">SetFocus(9021,2,absolute)</onfocus>
-			<onfocus condition="String.IsEqual(Container(9000).ListItem.Property(id),music) + System.AddonIsEnabled(script.kscape.wall)">SetFocus(9022,3,absolute)</onfocus>
-			<onfocus condition="String.IsEqual(Container(9000).ListItem.Property(id),tv) + System.AddonIsEnabled(script.kscape.wall)">SetFocus(9023,2,absolute)</onfocus>
-			<onfocus condition="!System.AddonIsEnabled(script.kscape.wall) + !String.IsEqual(Container(9000).ListItem.Property(hassub),true)">SetFocus(9000)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).ListItem.Property(id),movies) + System.AddonIsEnabled(script.kscapex.wall)">SetFocus(9021,2,absolute)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).ListItem.Property(id),music) + System.AddonIsEnabled(script.kscapex.wall)">SetFocus(9022,3,absolute)</onfocus>
+			<onfocus condition="String.IsEqual(Container(9000).ListItem.Property(id),tv) + System.AddonIsEnabled(script.kscapex.wall)">SetFocus(9023,2,absolute)</onfocus>
+			<onfocus condition="!System.AddonIsEnabled(script.kscapex.wall) + !String.IsEqual(Container(9000).ListItem.Property(hassub),true)">SetFocus(9000)</onfocus>
 		</control>
 		</definition>
 	</include>
 
 {NOW_PLAYING}</includes>
 '''
-    out = os.path.join(ROOT, 'skin.kscape', '1080i', 'Includes_Home.xml')
+    out = os.path.join(ROOT, 'skin.kscapex', '1080i', 'Includes_Home.xml')
     with open(out, 'w') as f:
         f.write(xml)
     print(f'wrote {out}')

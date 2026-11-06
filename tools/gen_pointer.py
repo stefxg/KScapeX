@@ -1,4 +1,4 @@
-"""Generates the skin's mouse pointer (skin.kscape/media/pointer.png): an arrow cursor, white with
+"""Generates the skin's mouse pointer (skin.kscapex/media/pointer.png): an arrow cursor, white with
 a dark outline and a soft shadow, its tip at the image's top-left corner (Kodi draws the pointer
 image with its top-left at the mouse position). Needs Pillow.
 
@@ -9,7 +9,7 @@ import os
 from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = os.path.join(os.path.dirname(__file__), '..')
-OUT = os.path.join(ROOT, 'skin.kscape', 'media', 'pointer.png')
+OUT = os.path.join(ROOT, 'skin.kscapex', 'media', 'pointer.png')
 
 SIZE = 96          # the texture (Pointer.xml draws it at 40 x 40 skin pixels)
 SS = 4             # supersampling for smooth edges

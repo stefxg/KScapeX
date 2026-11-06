@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<window>
+	<depth>DepthMax</depth>
+	<onload>AlarmClock(kscapebusy,RunScript(script.kscapex.wall,busytimeout),00:10,silent)</onload>
+	<onunload>CancelAlarm(kscapebusy,silent)</onunload>
+	<controls>
+		<control type="group">
+			<description>Display &amp; aspect ratio root (Includes_Display.xml)</description>
+			<include>KScapeDisplay</include>
+			<control type="image">
+				<description>Soft dark veil over whatever is loading, fading in with the logo</description>
+				<left>-200</left>
+				<top>-200</top>
+				<width>2320</width>
+				<height>1480</height>
+				<texture colordiffuse="B3000000">white.png</texture>
+				<visible>!Window.IsActive(startup)</visible>
+				<animation effect="fade" start="0" end="100" delay="450" time="600" tween="sine" easing="out">Visible</animation>
+			</control>
+			<control type="group">
+				<visible>!Window.IsActive(startup)</visible>
+				<left>360</left>
+				<top>428</top>
+				<animation effect="fade" start="0" end="100" delay="450" time="400">Visible</animation>
+				<control type="image">
+					<description>KScape logo, breathing; fades in only if the wait outlasts 450 ms</description>
+					<width>1200</width>
+					<height>225</height>
+					<aspectratio>keep</aspectratio>
+					<texture>kscape-logo.png</texture>
+					<animation effect="fade" start="100" end="35" time="900" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
+				</control>
+			</control>
+	
+		</control>
+	</controls>
+</window>

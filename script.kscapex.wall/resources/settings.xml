@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<settings version="1">
+	<section id="script.kscapex.wall">
+		<category id="wall" label="32010" help="">
+			<group id="1">
+				<setting id="auto_shuffle" type="boolean" label="32011" help="">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="group_sets" type="boolean" label="32412" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="reduced_motion" type="boolean" label="32012" help="">
+					<level>0</level>
+					<default>false</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+		</category>
+		<category id="collections" label="32182" help="">
+			<group id="1">
+				<setting id="new_days" type="integer" label="32181" help="">
+					<level>0</level>
+					<default>30</default>
+					<constraints>
+						<minimum>1</minimum>
+						<step>1</step>
+						<maximum>365</maximum>
+					</constraints>
+					<control type="spinner" format="integer"/>
+				</setting>
+			</group>
+		</category>
+		<category id="ratings" label="32361" help="">
+			<group id="1">
+				<setting id="omdb_key" type="string" label="32362" help="32363">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string"/>
+				</setting>
+				<setting id="person_lookup" type="boolean" label="32548" help="32549">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+				<setting id="tmdb_key" type="string" label="32590" help="32591">
+					<level>0</level>
+					<default/>
+					<constraints>
+						<allowempty>true</allowempty>
+					</constraints>
+					<control type="edit" format="string"/>
+				</setting>
+			</group>
+		</category>
+		<category id="perf" label="32700" help="">
+			<group id="1">
+				<setting id="perf" type="boolean" label="32701" help="32702">
+					<level>0</level>
+					<default>true</default>
+					<control type="toggle"/>
+				</setting>
+			</group>
+		</category>
+	</section>
+</settings>

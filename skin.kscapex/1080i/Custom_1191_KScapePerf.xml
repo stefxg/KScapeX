@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Performance overlay (test builds for the Ugoos AM6B+): shown by itself while the wall add-on's
+     "Measure performance" setting is on (its service sets Window(Home).Property(kscape.perf)),
+     hidden over full-screen video. Nothing here can take focus, so the windows under it keep
+     the remote. The same values go to kodi.log as "kscape.perf sample" lines once a second;
+     the clock (seconds) matches a screenshot to its log lines. -->
+<window type="dialog" id="1191">
+	<visible>!String.IsEmpty(Window(Home).Property(kscape.perf)) + !Window.IsActive(fullscreenvideo)</visible>
+	<zorder>4</zorder>
+	<controls>
+		<control type="group">
+			<left>24</left>
+			<top>24</top>
+			<control type="image">
+				<width>940</width>
+				<height>150</height>
+				<texture colordiffuse="D0000000">white.png</texture>
+			</control>
+			<control type="label">
+				<left>16</left>
+				<top>8</top>
+				<width>908</width>
+				<height>32</height>
+				<font>kscape_small</font>
+				<textcolor>FFFFFFFF</textcolor>
+				<label>$INFO[System.Time(hh:mm:ss)]   FPS $INFO[System.FPS]   ·   $INFO[System.CPUTemperature]   ·   RAM $INFO[System.Memory(used.percent)]</label>
+			</control>
+			<control type="label">
+				<left>16</left>
+				<top>42</top>
+				<width>908</width>
+				<height>32</height>
+				<font>kscape_small</font>
+				<textcolor>FFC8C8D0</textcolor>
+				<label>$INFO[System.CpuUsage]</label>
+			</control>
+			<control type="label">
+				<left>16</left>
+				<top>76</top>
+				<width>908</width>
+				<height>32</height>
+				<font>kscape_small</font>
+				<textcolor>FFC8C8D0</textcolor>
+				<label>$INFO[Window(Home).Property(kscape.perf.view)]$INFO[Window(Home).Property(kscape.perf.phase),  ·  ,]</label>
+			</control>
+			<control type="label">
+				<left>16</left>
+				<top>110</top>
+				<width>908</width>
+				<height>32</height>
+				<font>kscape_small</font>
+				<textcolor>kscape_amber</textcolor>
+				<label>$INFO[Window(Home).Property(kscape.perf.last)]</label>
+			</control>
+		</control>
+	</controls>
+</window>

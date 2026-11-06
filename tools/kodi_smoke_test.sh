@@ -3,17 +3,17 @@
 # launches a second Kodi on JSON-RPC port 9091, and reports skin load result.
 # Only the Kodi this script started (PID in /tmp/kscape-test.pid) is ever stopped, so a real
 # Kodi running on the same machine is left alone.
-SRC="$(cd "$(dirname "$0")/.." && pwd)/skin.kscape"
+SRC="$(cd "$(dirname "$0")/.." && pwd)/skin.kscapex"
 H=/tmp/kscape-home; K="$H/Library/Application Support/Kodi"
 DB="$K/userdata/Database/Addons33.db"
 PIDF=/tmp/kscape-test.pid
 if [[ -f $PIDF ]] && kill -0 "$(cat $PIDF)" 2>/dev/null; then
     kill -TERM "$(cat $PIDF)"; sleep 5
 fi
-rm -rf "$K/addons/skin.kscape" "$K/addons/skin.kscapeprobe" "$K/addons/script.kscape.wall" && cp -R "$SRC" "$K/addons/"
-cp -R "$(dirname "$SRC")/script.kscape.wall" "$K/addons/" && find "$K/addons/script.kscape.wall" -name __pycache__ -prune -exec rm -rf {} +
+rm -rf "$K/addons/skin.kscapex" "$K/addons/skin.kscapeprobe" "$K/addons/script.kscapex.wall" && cp -R "$SRC" "$K/addons/"
+cp -R "$(dirname "$SRC")/script.kscapex.wall" "$K/addons/" && find "$K/addons/script.kscapex.wall" -name __pycache__ -prune -exec rm -rf {} +
 # Manually copied add-ons are registered disabled by Kodi 17+; enable ours in the throwaway profile only.
-sqlite3 "$DB" "delete from installed where addonID='skin.kscapeprobe'; update installed set enabled=1 where addonID in ('skin.kscape','script.kscape.wall');"
+sqlite3 "$DB" "delete from installed where addonID='skin.kscapeprobe'; update installed set enabled=1 where addonID in ('skin.kscapex','script.kscapex.wall');"
 # MEDIA=1: add the generated test music/TV library (tools/make_test_media.py) and scan it after launch.
 if [[ -n $MEDIA ]]; then
     S="$K/userdata/sources.xml"
@@ -22,7 +22,7 @@ if [[ -n $MEDIA ]]; then
     sqlite3 "$K/userdata/Database/MyVideos131.db" "insert into path (strPath, strContent, strScraper, scanRecursive, useFolderNames, strSettings, noUpdate, exclude, allAudio) select '/tmp/kscape-media/tv/', 'tvshows', 'metadata.local', 0, 0, '', 0, 0, 0 where not exists (select 1 from path where strPath='/tmp/kscape-media/tv/');"
 fi
 G="$K/userdata/guisettings.xml"
-sed -i '' 's#<setting id="lookandfeel.skin"[^<]*<#<setting id="lookandfeel.skin">skin.kscape<#' "$G"
+sed -i '' 's#<setting id="lookandfeel.skin"[^<]*<#<setting id="lookandfeel.skin">skin.kscapex<#' "$G"
 # Local-only JSON-RPC plus screenshot path, for automated checks.
 sed -i '' -E 's#<setting id="services.esenabled"[^<]*<#<setting id="services.esenabled">true<#' "$G"
 sed -i '' -E 's#<setting id="debug.screenshotpath"[^>]*/>#<setting id="debug.screenshotpath">/tmp/kscape-shots/</setting>#' "$G"

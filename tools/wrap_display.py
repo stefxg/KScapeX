@@ -16,8 +16,8 @@ import sys
 
 TOOLS = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(TOOLS, '..')
-FOLDERS = [os.path.join(ROOT, 'skin.kscape', '1080i'),
-           os.path.join(ROOT, 'script.kscape.wall', 'resources', 'skins', 'Default', '1080i')]
+FOLDERS = [os.path.join(ROOT, 'skin.kscapex', '1080i'),
+           os.path.join(ROOT, 'script.kscapex.wall', 'resources', 'skins', 'Default', '1080i')]
 SKIP = re.compile(r'^(Includes.*|Variables|Font|Defaults|Pointer|SettingsScreenCalibration|script-kscape-preview|script-kscape-wall.*|script-kscape-list.*|'
                   r'script-kscape-collections.*)\.xml$')
 MARK = '<description>Display &amp; aspect ratio root (Includes_Display.xml)</description>'

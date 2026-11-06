@@ -1,4 +1,4 @@
-"""Generate script.kscape.wall's list view XML from its column model (resources/lib/listmodel.py),
+"""Generate script.kscapex.wall's list view XML from its column model (resources/lib/listmodel.py),
 once per media kind: script-kscape-list.xml (movies), -list-music.xml (albums), -list-tv.xml.
 
 Usage: python3 tools/gen_list_xml.py
@@ -23,7 +23,7 @@ poster; fav = '1' for items in Kodi's favourites (amber heart before the title).
 import os
 import sys
 
-ROOT = os.path.join(os.path.dirname(__file__), '..', 'script.kscape.wall')
+ROOT = os.path.join(os.path.dirname(__file__), '..', 'script.kscapex.wall')
 sys.path.insert(0, ROOT)
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from resources.lib import listmodel as L  # noqa: E402
@@ -150,7 +150,7 @@ def columns_band(spec):
 						<height>32</height>
 						<font>kscape_list_head</font>
 						<textcolor>FFFFFFFF</textcolor>
-						<label>$ADDON[script.kscape.wall {col.label}]</label>
+						<label>$ADDON[script.kscapex.wall {col.label}]</label>
 					</control>
 					<control type="label">
 						<left>{x + 20}</left>
@@ -330,7 +330,7 @@ def build(spec):
 					<height>32</height>
 					<font>kscape_list_head</font>
 					<textcolor>FFFFFFFF</textcolor>
-					<label>$ADDON[script.kscape.wall {spec.title.label}]</label>
+					<label>$ADDON[script.kscapex.wall {spec.title.label}]</label>
 				</control>
 				<control type="textbox">
 					<description>Title, wrapping to a second line (list labels only truncate)</description>

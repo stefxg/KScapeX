@@ -3,7 +3,7 @@ which also builds the cover wall's XML at run time. Re-exported here for the gen
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'script.kscape.wall'))
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'script.kscapex.wall'))
 from resources.lib import npchip  # noqa: E402
 
 chip = npchip.chip

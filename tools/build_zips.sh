@@ -6,7 +6,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="$ROOT/dist"
 mkdir -p "$OUT"
 python3 "$ROOT/tools/gen_wall_xml.py" >/dev/null
-for id in skin.kscape script.kscape.wall; do
+for id in skin.kscapex script.kscapex.wall; do
     version=$(sed -nE 's/.*<addon id="'$id'" version="([^"]+)".*/\1/p' "$ROOT/$id/addon.xml")
     zip="$OUT/$id-$version.zip"
     rm -f "$zip"

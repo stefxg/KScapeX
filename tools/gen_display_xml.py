@@ -1,4 +1,4 @@
-"""Generate skin.kscape's display transform (1080i/Includes_Display.xml).
+"""Generate skin.kscapex's display transform (1080i/Includes_Display.xml).
 
 Usage: python3 tools/gen_display_xml.py
 
@@ -7,7 +7,7 @@ windows other than the cover wall, which lays itself out). Its animations scale 
 into the CinemaScope band and safe area and move it by the projector offsets. Kodi animations
 cannot take their values from settings, so there is one animation per possible value, each
 waiting for the matching Home window property, which the KScape service sets from the display
-settings (script.kscape.wall resources/lib/display.py). Unset properties - a 16:9 screen with
+settings (script.kscapex.wall resources/lib/display.py). Unset properties - a 16:9 screen with
 no offsets - leave the window untouched.
 """
 import os
@@ -15,7 +15,7 @@ import sys
 
 TOOLS = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.join(TOOLS, '..')
-sys.path.insert(0, os.path.join(ROOT, 'script.kscape.wall'))
+sys.path.insert(0, os.path.join(ROOT, 'script.kscapex.wall'))
 from resources.lib import display as D  # noqa: E402
 
 PROP = 'Window(Home).Property(kscape.display.{})'
@@ -40,7 +40,7 @@ def main():
             out.append(f'\t\t<animation effect="slide" start="{start}" end="{start}" time="0" '
                        f'condition="String.IsEqual({PROP.format(prop)},{v})">Conditional</animation>')
     out += ['\t</include>', '</includes>', '']
-    path = os.path.join(ROOT, 'skin.kscape', '1080i', 'Includes_Display.xml')
+    path = os.path.join(ROOT, 'skin.kscapex', '1080i', 'Includes_Display.xml')
     with open(path, 'w') as f:
         f.write('\n'.join(out))
     print(f'wrote {path} ({len(out) - 7} animations)')

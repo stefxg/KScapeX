@@ -12,7 +12,7 @@ import os
 
 from PIL import Image, ImageDraw, ImageFont
 
-ROOT = os.path.join(os.path.dirname(__file__), '..', 'script.kscape.wall')
+ROOT = os.path.join(os.path.dirname(__file__), '..', 'script.kscapex.wall')
 MEDIA = os.path.join(ROOT, 'resources', 'skins', 'Default', 'media')
 OUT_PY = os.path.join(ROOT, 'resources', 'lib', 'badges.py')
 FONT = '/System/Library/Fonts/Supplemental/Arial Bold.ttf'

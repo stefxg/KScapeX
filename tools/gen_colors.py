@@ -1,4 +1,4 @@
-"""Generate skin.kscape's colour themes (skin.kscape/colors/*.xml).
+"""Generate skin.kscapex's colour themes (skin.kscapex/colors/*.xml).
 
 Usage: python3 tools/gen_colors.py
 
@@ -9,7 +9,7 @@ named colours below, so a theme only has to give them new values.
 
 defaults.xml is Graphite with Amber. Every other main / highlight pair gets a file named
 "<Main> - <Highlight>", the name Kodi's skin colours setting (lookandfeel.skincolors) takes;
-Skin settings sets it (script.kscape.wall's colours.py). Each shade of the main colour keeps its
+Skin settings sets it (script.kscapex.wall's colours.py). Each shade of the main colour keeps its
 lightness and transparency and takes the theme's hue, with its saturation scaled as the theme's
 base colour is to the default blue's, so contrast stays as designed.
 """
@@ -17,7 +17,7 @@ import colorsys
 import os
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-OUT = os.path.join(ROOT, 'skin.kscape', 'colors')
+OUT = os.path.join(ROOT, 'skin.kscapex', 'colors')
 
 # Shades of the main colour, as designed in Blue (ARGB).
 MAIN = {

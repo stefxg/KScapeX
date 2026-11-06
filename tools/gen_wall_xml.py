@@ -1,4 +1,4 @@
-"""Generate script.kscape.wall's cover wall XML for a 16:9 screen, once per cover layout:
+"""Generate script.kscapex.wall's cover wall XML for a 16:9 screen, once per cover layout:
 script-kscape-wall.xml (2:3 posters: movies, TV shows) and script-kscape-wall-square.xml
 (album covers). The builder is the add-on's (resources/lib/wallxml.py), which also builds the
 wall for other screen shapes and CinemaScope bands at run time.
@@ -8,7 +8,7 @@ Usage: python3 tools/gen_wall_xml.py
 import os
 import sys
 
-ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'script.kscape.wall')
+ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'script.kscapex.wall')
 sys.path.insert(0, ROOT)
 from resources.lib import geometry as G  # noqa: E402
 from resources.lib import wallxml  # noqa: E402
