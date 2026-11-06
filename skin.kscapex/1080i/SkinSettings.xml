@@ -4,7 +4,7 @@
      General      Skin.HasSetting(ReducedMotion)
      Colours      the theme's main and highlight colour, picked by script.kscapex.wall (colours.py), which
                   sets Kodi's skin colours setting (colors/*.xml, made by tools/gen_colors.py)
-     Home         Skin.HasSetting(HomeNoArtwork | HomeNoClock | HomeNoCaption)
+     Home         Skin.HasSetting(HomeNoArtwork | HomeNoCaption)
      Movie versions  Skin.HasSetting(KScapeHideFormatBadges | KScapePrefer3D),
                   Skin.String(KScapeVersionPreference) (versionsui.py)
      Display & aspect ratio  Skin.String(KScapeAspect | KScapeScopeRows | KScapeVOffset | KScapeHOffset |
@@ -234,23 +234,6 @@
 					<textureradiooffnofocus colordiffuse="kscape_text_off">white.png</textureradiooffnofocus>
 					<selected>Skin.HasSetting(HomeNoArtwork)</selected>
 					<onclick>Skin.ToggleSetting(HomeNoArtwork)</onclick>
-				</control>
-				<control type="radiobutton" id="103">
-					<include content="SystemButton">
-						<param name="width" value="1040"/>
-						<param name="height" value="72"/>
-					</include>
-					<label>$LOCALIZE[31044]</label>
-					<radioposx>950</radioposx>
-					<radioposy>21</radioposy>
-					<radiowidth>64</radiowidth>
-					<radioheight>30</radioheight>
-					<textureradioonfocus colordiffuse="kscape_amber">white.png</textureradioonfocus>
-					<textureradioonnofocus colordiffuse="kscape_amber">white.png</textureradioonnofocus>
-					<textureradioofffocus colordiffuse="kscape_text_off">white.png</textureradioofffocus>
-					<textureradiooffnofocus colordiffuse="kscape_text_off">white.png</textureradiooffnofocus>
-					<selected>Skin.HasSetting(HomeNoClock)</selected>
-					<onclick>Skin.ToggleSetting(HomeNoClock)</onclick>
 				</control>
 				<control type="radiobutton" id="104">
 					<include content="SystemButton">

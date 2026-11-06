@@ -1,3 +1,11 @@
+[B]0.15.1[/B] (06-11-2026)
+- Accueil épuré : plus de logo KScape, d'horloge ni de météo dans la barre ; onglets centrés.
+- Musique retirée de la barre.
+- Films et Séries ouvrent directement la dernière vue utilisée (mur ou liste) : plus de vignettes List / Covers / Collections au-dessus des onglets (Accueil beaucoup plus léger : Includes_Home 136 lignes au lieu de 8 234).
+- Système > Vidéos : accès aux sources (partages) et aux fichiers.
+- Sous-menus : marge autour des libellés, les libellés longs ne se touchent plus.
+- Réglages de la skin : option « masquer l'horloge » retirée.
+
 [B]0.15.0[/B] (06-11-2026)
 - Suit l'add-on du mur 0.15.0 (mur plus léger, touches plus réactives, réorganisation plus fluide).
 
