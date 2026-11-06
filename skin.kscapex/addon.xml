@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="skin.kscapex" version="0.15.1" name="KScapeX" provider-name="stefxg">
+<addon id="skin.kscapex" version="0.15.2" name="KScapeX" provider-name="stefxg">
 	<requires>
 		<import addon="xbmc.gui" version="5.17.0"/>
-		<import addon="script.kscapex.wall" version="0.15.1"/>
+		<import addon="script.kscapex.wall" version="0.15.2"/>
 	</requires>
 	<extension point="xbmc.gui.skin" debugging="false">
 		<res width="1920" height="1080" aspect="16:9" default="true" folder="1080i"/>

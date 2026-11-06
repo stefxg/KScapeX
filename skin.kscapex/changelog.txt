@@ -1,3 +1,6 @@
+[B]0.15.2[/B] (06-11-2026)
+- Suit l'add-on du mur 0.15.2 (défilement vertical ligne par ligne, cadre au milieu).
+
 [B]0.15.1[/B] (06-11-2026)
 - Accueil épuré : plus de logo KScape, d'horloge ni de météo dans la barre ; onglets centrés.
 - Musique retirée de la barre.

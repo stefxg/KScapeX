@@ -1,4 +1,5 @@
 """Unit tests for ranking and wall layout. Run: python3 -m unittest discover -s tests"""
+import itertools
 import math
 import os
 import sys
@@ -182,6 +183,21 @@ class WallTest(unittest.TestCase):
             self.assertTrue(top <= row <= top + 2, (row, top))             # focused row is whole
         self.assertEqual(camera_target(w, (5, 7), None)[1], 5 * G.PITCH_Y - margin)   # last rows
         self.assertEqual(camera_target(w, (5, 2), None)[1], 1 * G.PITCH_Y - margin)   # centred row
+
+    def test_new_row_is_centred_one_row_per_press(self):
+        """KScapeX: down and up the wall, each press scrolls one row and keeps the frame on the
+        middle row (clamped at the wall's first and last rows)."""
+        w = self.make_wall(400, rows=8)
+        margin = G.PITCH_Y - G.COVER_H
+        cam = camera_target(w, (5, 0), pin_top=True)
+        tops = []
+        for row in list(range(1, 8)) + list(range(6, -1, -1)):
+            cam = camera_target(w, (5, row), cam, centre_row=True)
+            self.assertEqual((cam[1] + margin) % G.PITCH_Y, 0)
+            tops.append((cam[1] + margin) // G.PITCH_Y)
+        self.assertEqual(tops, [0, 1, 2, 3, 4, 5, 5, 5, 4, 3, 2, 1, 0, 0])
+        steps = [abs(b - a) for a, b in itertools.pairwise(tops)]
+        self.assertLessEqual(max(steps), 1)                                 # never two rows at once
 
     def test_moving_across_keeps_the_rows(self):
         w = self.make_wall(400, rows=8)

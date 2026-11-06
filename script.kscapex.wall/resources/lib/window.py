@@ -963,6 +963,7 @@ class WallWindow(xbmcgui.WindowXML):
         the mouse, with `reveal`, moves the wall only as far as the cell needs to be whole, so
         the frame stays under the pointer)."""
         self._finish_shuffle()
+        new_row = cell[1] != self.focus[1]
         self.focus = cell
         self.last_input = time.time()
         self._hide_panel()
@@ -972,7 +973,8 @@ class WallWindow(xbmcgui.WindowXML):
         if reveal:
             target = camera_reveal(self.wall, self.focus, self.cam)
         else:
-            target = camera_target(self.wall, self.focus, self.cam)
+            # KScapeX: a new row is centred (one row per press), as a new column is
+            target = camera_target(self.wall, self.focus, self.cam, centre_row=new_row)
         cam = self._cam_plan(target) if target != tuple(self.cam) else None
         self._commit(frame=frame, cam=cam)
         self._rebind(self.front, defer=True)     # moves placed by the placer thread (KScapeX)

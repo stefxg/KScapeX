@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<addon id="script.kscapex.wall" version="0.15.1" name="KScapeX wall" provider-name="stefxg">
+<addon id="script.kscapex.wall" version="0.15.2" name="KScapeX wall" provider-name="stefxg">
 	<requires>
 		<import addon="xbmc.python" version="3.0.1"/>
 	</requires>

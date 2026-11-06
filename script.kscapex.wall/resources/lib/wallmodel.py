@@ -96,13 +96,16 @@ def full_rows(layout):
     return max(1, int(room // layout.pitch_y) + 1)
 
 
-def camera_target(wall, cell, current=None, pin_top=False):
+def camera_target(wall, cell, current=None, pin_top=False, centre_row=False):
     """Camera (wall-pixel top-left of the screen) for the focused `cell`.
 
     Across, the cell is centred (clamped to the wall). Down, the wall scrolls by whole rows: a
     row always sits whole at the top of the screen, never cut. The camera keeps its row
     (`current`, the camera now) while the cell is on one of the whole rows; otherwise the cell's
-    row is put in the middle of them. `pin_top` shows the wall from its first row (it opens so).
+    row is put in the middle of them. `centre_row` (KScapeX: a key press that changes row) puts
+    the row in the middle in any case, so the wall scrolls one row per press with the frame on
+    the middle row, as it follows the cell across. `pin_top` shows the wall from its first row
+    (it opens so).
     A wall smaller than the screen is centred on that axis."""
     lay = wall.layout
     x, _ = cell_origin(*cell, layout=lay)
@@ -126,7 +129,7 @@ def camera_target(wall, cell, current=None, pin_top=False):
             top = 0
         else:
             top = None
-            if current is not None:
+            if current is not None and not centre_row:
                 top = int(round((current[1] + margin_y) / lay.pitch_y))
                 if not top <= row <= top + n - 1:
                     top = None

@@ -1,3 +1,6 @@
+[B]0.15.2[/B] (06-11-2026)
+- Défilement vertical du mur comme l'horizontal : à chaque changement de ligne, le mur défile d'une seule ligne et le cadre reste sur la ligne du milieu (avant : saut de 2 lignes et recentrage dès qu'on dépassait la 3e ligne). En haut et en bas du mur, le cadre se déplace sans faire défiler.
+
 [B]0.15.1[/B] (06-11-2026)
 - Le service ne relève plus la météo (plus affichée sur l'Accueil).
 
