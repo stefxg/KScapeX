@@ -12,5 +12,9 @@
 		<description lang="en_GB">Browse the Kodi movie, music and TV libraries as cover walls and lists, with collections (New, Paused, Played and your own), scenes and Demo Scripts, Explore and movie filters, ratings and format badges, favourites, search and Now Playing; related covers rearrange around the selected title.</description>
 		<license>MIT</license>
 		<platform>all</platform>
+		<source>https://github.com/stefxg/KScapeX</source>
+		<assets>
+			<icon>resources/icon.png</icon>
+		</assets>
 	</extension>
 </addon>

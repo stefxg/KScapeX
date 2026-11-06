@@ -1,0 +1,5 @@
+[B]0.14.1[/B] (06-11-2026)
+- KScapeX : version de KScape (Oxiadust, 0.14.0) dédiée à l'Ugoos AM6B+ sous CoreELEC avdvplus.
+- Identifiants propres (skin.kscapex, script.kscapex.wall) : s'installe sans conflit avec KScape.
+- La skin installe automatiquement l'add-on du mur (script.kscapex.wall).
+- Version de test : mesures de performance (overlay en haut à gauche, lignes kscape.perf dans kodi.log).
