@@ -18,7 +18,7 @@ Control ids (k = 0..POOL-1, POOL = the layout's pool_cols x pool_rows):
                pool, so Kodi skips its slots' conditions every frame)
   10000+k      pool A cover slot group: card, fallback title, poster, format badge (one box per
                width in BADGE_WIDTHS) and favourite heart, all drawn from Container(1990)'s item k
-  1990 / 1991  the pools' data lists (slot(): poster art, properties on, text, badge, bw, fav)
+  1990 / 1991  the pools' data lists (slot(): poster art, properties on, text, badge, fav)
   1002-1005    focus frame bars (top, bottom, left, right); 1903 panel background
   20000+k      pool B, same offsets
   1900         info panel: placed by Python; 1905 its body, shown while Window.Property(kscape.panel.open)
@@ -47,6 +47,7 @@ AMBER = 'kscape_amber'
 PANEL_BLUE = 'kscape_blue'
 PANEL_LINE = 38               # a line of kscape_panel_body (four make the 16:9 synopsis, 152 px)
 BADGE_W, BADGE_H = 58, 28     # reference: small amber-outlined "HDR"/"UHD" tag, bottom right
+BADGE_MIN_W = 44              # the narrowest badge box (two characters), at 16:9
 HEART_BOX, HEART = 40, 26     # favourite marker, top right of the cover
 FACT_ROW_H, BADGE_IMG_H = 34, 26   # badge and ratings row under the synopsis (badges.py widths)
 CAPTION_H = 62
@@ -81,48 +82,25 @@ def badge_width(n, L):
 def slot(base, L):
     """The pool's slots. Each draws its item from the pool's hidden data list (SOURCES): slot k
     shows ListItemAbsolute(k)'s poster art and its properties - on (shown), text (no artwork),
-    badge and bw (badge box), fav. Python updates those offscreen list items, which takes no
-    GUI lock; only moving a slot is a control call."""
+    badge, fav. Python updates those offscreen list items, which takes no GUI lock; only moving
+    a slot is a control call.
+
+    KScapeX: a slot is 9 controls with 3 visibility conditions (it was 23 and 6). Kodi processes
+    every control and condition of the window on every frame, idle or not, so this is what the
+    AM6B+ pays 60 times a second. The format badge is one disabled button whose width follows
+    its text (width auto) in a right-aligned grouplist, its box a 9-slice texture tinted amber,
+    instead of four fixed-width boxes of three controls each."""
     out = [f'''			<control type="group" id="{POOL_GROUPS[base]}">
 				<description>Pool {"A" if base == 10000 else "B"}</description>''']
     W, H = L.cover_w, L.cover_h
     src = SOURCES[base]
     for k in range(L.pool_cols * L.pool_rows):
         item = lambda info: f'$INFO[Container({src}).ListItemAbsolute({k}).{info}]'
-        prop = lambda name, value: f'String.IsEqual(Container({src}).ListItemAbsolute({k}).Property({name}),{value})'
-        boxes = []
-        for n, _ in BADGE_WIDTHS:
-            bw = badge_width(n, L)
-            boxes.append(f'''				<control type="group">
-					<left>{W - bw - x(8)}</left>
-					<top>{H - BADGE_H - 8}</top>
-					<visible>{prop('bw', n)}</visible>
-					<control type="image">
-						<width>{bw}</width>
-						<height>{BADGE_H}</height>
-						<texture colordiffuse="{AMBER}">kscape-white.png</texture>
-					</control>
-					<control type="image">
-						<left>{x(2)}</left>
-						<top>2</top>
-						<width>{bw - 2 * x(2)}</width>
-						<height>{BADGE_H - 4}</height>
-						<texture colordiffuse="F0141210">kscape-white.png</texture>
-					</control>
-					<control type="label">
-						<width>{bw}</width>
-						<height>{BADGE_H}</height>
-						<align>center</align>
-						<aligny>center</aligny>
-						<font>kscape_badge</font>
-						<textcolor>{AMBER}</textcolor>
-						<label>{item('Property(badge)')}</label>
-					</control>
-				</control>''')
+        has = lambda name: f'!String.IsEmpty(Container({src}).ListItemAbsolute({k}).Property({name}))'
         out.append(f'''			<control type="group" id="{base + k}">
 				<width>{W}</width>
 				<height>{H}</height>
-				<visible>{prop('on', 1)}</visible>
+				<visible>{has('on')}</visible>
 				<control type="image">
 					<width>{W}</width>
 					<height>{H}</height>
@@ -146,11 +124,35 @@ def slot(base, L):
 					<fadetime>120</fadetime>
 					<texture background="true">{item('Art(poster)')}</texture>
 				</control>
-{chr(10).join(boxes)}
+				<control type="grouplist">
+					<left>{x(8)}</left>
+					<top>{H - BADGE_H - 8}</top>
+					<width>{W - 2 * x(8)}</width>
+					<height>{BADGE_H}</height>
+					<orientation>horizontal</orientation>
+					<align>right</align>
+					<itemgap>0</itemgap>
+					<visible>{has('badge')}</visible>
+					<control type="button">
+						<pulseonselect>false</pulseonselect>
+						<width min="{x(BADGE_MIN_W)}" max="{W - 2 * x(8)}">auto</width>
+						<height>{BADGE_H}</height>
+						<textoffsetx>{x(10)}</textoffsetx>
+						<align>center</align>
+						<aligny>center</aligny>
+						<font>kscape_badge</font>
+						<textcolor>{AMBER}</textcolor>
+						<disabledcolor>{AMBER}</disabledcolor>
+						<enable>false</enable>
+						<texturenofocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturenofocus>
+						<texturefocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturefocus>
+						<label>{item('Property(badge)')}</label>
+					</control>
+				</control>
 				<control type="group">
 					<left>{W - x(HEART_BOX) - x(8)}</left>
 					<top>8</top>
-					<visible>{prop('fav', 1)}</visible>
+					<visible>{has('fav')}</visible>
 					<control type="image">
 						<width>{x(HEART_BOX)}</width>
 						<height>{HEART_BOX}</height>

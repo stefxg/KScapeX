@@ -150,14 +150,28 @@ class Pool:
         self.shown = [None] * count      # key of the item currently bound
         self.visible = [False] * count   # 'on' is unset: hidden
         self.moves = 0                   # setPosition calls so far (perf: GUI lock waits)
+        # KScapeX: moves deferred off the key press (bind(defer=True)), placed by the wall's
+        # placer thread (flush). place_lock serialises every setPosition of the pool, so a
+        # late deferred move never lands after a newer direct one.
+        self.pending = {}                # slot -> (x, y) still to place
+        self.pending_lock = threading.Lock()
+        self.place_lock = threading.Lock()
 
-    def bind(self, k, cell, item, fallback='', favourite=False, badge=None):
+    def bind(self, k, cell, item, fallback='', favourite=False, badge=None, defer=False):
         if item is None:
             self.set_visible(k, False)
             self.cell[k], self.shown[k] = cell, None
             return
         if self.cell[k] != cell:
-            self.slots[k].setPosition(*cell_origin(*cell, layout=self.layout))
+            xy = cell_origin(*cell, layout=self.layout)
+            if defer:
+                with self.pending_lock:
+                    self.pending[k] = xy
+            else:
+                with self.place_lock:
+                    with self.pending_lock:
+                        self.pending.pop(k, None)
+                    self.slots[k].setPosition(*xy)
             self.cell[k] = cell
             self.moves += 1
         li = self.items[k]
@@ -178,6 +192,22 @@ class Pool:
         if not self.group_on:
             self.group.setVisible(True)
             self.group_on = True
+
+    def flush(self):
+        """Place the slots whose moves were deferred. The placer thread calls this after each key
+        press; anything that needs every slot where its cell is (a shuffle) calls it first."""
+        placed = 0
+        with self.place_lock:
+            while True:
+                with self.pending_lock:
+                    if not self.pending:
+                        return placed
+                    k, xy = self.pending.popitem()
+                try:
+                    self.slots[k].setPosition(*xy)
+                except RuntimeError:         # the window has closed
+                    return placed
+                placed += 1
 
     def reload_poster(self, k, url, phase):
         """Ask for a poster again (window._heal_posters): cleared first, set back a moment later,
@@ -437,6 +467,7 @@ class WallWindow(xbmcgui.WindowXML):
             return                       # back from playback: state is intact
         perf.init(self)
         self.perf_moves = perf.Stats('wall.move')
+        self.perf_place = perf.Stats('wall.place')   # deferred slot moves, off the key press
         self.lock = threading.RLock()
         self.closing = False
         self.window_id = xbmcgui.getCurrentWindowId()
@@ -536,6 +567,8 @@ class WallWindow(xbmcgui.WindowXML):
         self.ready = True
         perf.ready(self, f'wall:{self.kind.name}', covers=len(visible), slots=self.pool_size,
                    source='given' if self.given else ('cache' if cached else 'library'))
+        self.place_event = threading.Event()
+        threading.Thread(target=self._placer_loop, daemon=True).start()
         threading.Thread(target=self._dwell_loop, daemon=True).start()
         if cached and cached['stale']:
             self._start_reload()
@@ -601,6 +634,7 @@ class WallWindow(xbmcgui.WindowXML):
         self.closing = True
         if getattr(self, 'perf_moves', None):
             self.perf_moves.summary(view=f'wall:{self.kind.name}')
+            self.perf_place.summary(view=f'wall:{self.kind.name}')
         item = self.wall.at(*self.focus)
         if item:
             self._remember(item)
@@ -699,7 +733,7 @@ class WallWindow(xbmcgui.WindowXML):
                 self.perf_moves.add(ms, calls)
                 if ms > perf.SLOW_MOVE_MS:
                     perf.log('wall.move.slow', ms=ms, slot_moves=calls)
-                perf.show(f'move {ms:.0f} ms ({calls} cases)', defer=True)
+                perf.show(f'move {ms:.0f} ms ({calls} cases en arrière-plan)', defer=True)
             elif aid in (SELECT + PLAY) and not empty and MS.is_set(self.wall.at(*self.focus)):
                 overlay = 'set'
             elif aid in SELECT and not empty:
@@ -941,7 +975,8 @@ class WallWindow(xbmcgui.WindowXML):
             target = camera_target(self.wall, self.focus, self.cam)
         cam = self._cam_plan(target) if target != tuple(self.cam) else None
         self._commit(frame=frame, cam=cam)
-        self._rebind(self.front)
+        self._rebind(self.front, defer=True)     # moves placed by the placer thread (KScapeX)
+        self.place_event.set()
 
     # ---- favourites ------------------------------------------------------------------------
 
@@ -1057,17 +1092,17 @@ class WallWindow(xbmcgui.WindowXML):
             i, j = k % cols, k // cols
             yield k, (c0 + (i - c0) % cols, r0 + (j - r0) % rows)
 
-    def _bind(self, pool, k, cell, item):
+    def _bind(self, pool, k, cell, item, defer=False):
         if item is None:
             pool.bind(k, cell, None)
         else:
             pool.bind(k, cell, item, self.kind.fallback(item), self._is_favourite(item),
-                      self.kind.cover_badge(item, self.show_badges))
+                      self.kind.cover_badge(item, self.show_badges), defer=defer)
 
-    def _rebind(self, pool, wall=None):
+    def _rebind(self, pool, wall=None, defer=False):
         wall = wall or self.wall
         for k, cell in self._slot_cells():
-            self._bind(pool, k, cell, wall.at(*cell))
+            self._bind(pool, k, cell, wall.at(*cell), defer=defer)
 
     def _cell_xy(self, cell):
         return cell_origin(*cell, layout=self.lay)
@@ -1164,6 +1199,20 @@ class WallWindow(xbmcgui.WindowXML):
                 self.panel_slide.run(self.panel_away, G.PANEL_OUT_MS, ease_in_cubic,
                                      done=lambda: self.setProperty('kscape.panel.open', ''))
             self.panel_shown = False
+
+    def _placer_loop(self):
+        """KScapeX: places the slots a key press moved (Pool.flush), outside the press. A slot
+        that wraps around leaves from the pool's far edge, off screen, and arrives at the other
+        far edge, also off screen: the camera's glide leaves time to put it there."""
+        mon = xbmc.Monitor()
+        while not self.closing and not mon.abortRequested():
+            if not self.place_event.wait(0.5):
+                continue
+            self.place_event.clear()
+            t0 = perf.now()
+            placed = self.front.flush() + self.back.flush()
+            if placed:
+                self.perf_place.add(perf.ms_since(t0), placed)
 
     def _dwell_loop(self):
         mon = xbmc.Monitor()
@@ -1567,7 +1616,15 @@ class WallWindow(xbmcgui.WindowXML):
         self._pan(camera_target(self.wall, self.focus, self.cam))
 
     def _transition(self, new, anchor_key=None):
-        """Fly every cover from where it is in the current wall to its cell in `new`."""
+        """Fly every cover from where it is in the current wall to its cell in `new`.
+
+        KScapeX: only what can be seen gets a control call. The back pool is held transparent by
+        one animation on its group (not one per slot); a cover flies only when its start or its
+        cell is on screen; an off-screen front cover is left alone (it is gone with its pool at
+        the end of the shuffle, or before any move). On the AM6B+ each control call waits about
+        a frame for Kodi's GUI lock."""
+        self.front.flush()                           # deferred moves: slots where their cells are
+        self.back.flush()
         lay = self.lay
         old = self.wall
         self.front_token += 1
@@ -1629,24 +1686,27 @@ class WallWindow(xbmcgui.WindowXML):
                                 f'time={half} tween=sine easing=in reversible=false condition={on}'),
             ]
 
+        def seen(x, y):
+            return view[0] - lay.cover_w < x < view[2] and view[1] - lay.cover_h < y < view[3]
+
         # Back buffer: new arrangement, transparent until the trigger, then flying into place.
         # The hold names the token before the flip (not "not this one"), so once the pool is
-        # retired its stale animations stay inert (Pool.reset no longer clears them).
+        # retired its stale animations stay inert (Pool.reset no longer clears them). It sits on
+        # the pool's group, set before the binds make the group visible.
         hold = ('Conditional', f'effect=fade start=0 end=0 time=0 reversible=false condition={before}')
+        self.back.group.setAnimations([hold])
         for k, cell in self._slot_cells():
             item = new.at(*cell)
-            anims = [hold]
             if item is not None and item.key != anchor_key and not instant:
                 px, py = self._cell_xy(cell)
                 prev = old.cell_of(item.key)
                 qx, qy = self._cell_xy(prev) if prev else (px, py)
                 sx, sy = clip_outside((px, py), (qx, qy), view, margin)
-                if (sx, sy) != (px, py):
+                if (sx, sy) != (px, py) and (seen(px, py) or seen(qx, qy)):
                     delay = int(rng.uniform(0, G.FLIGHT_DELAY_MAX_MS))
                     dur = G.FLIGHT_MS + int(rng.uniform(0, G.FLIGHT_JITTER_MS))
-                    anims += flight((sx, sy), (px, py), delay, dur)
+                    self.back.slots[k].setAnimations(flight((sx, sy), (px, py), delay, dur))
                     longest = max(longest, delay + dur)
-            self.back.slots[k].setAnimations(anims)
             self._bind(self.back, k, cell, item)
 
         # Front buffer: covers that leave the screen fly out; everything else vanishes at the
@@ -1658,11 +1718,12 @@ class WallWindow(xbmcgui.WindowXML):
             if key is None or not self.front.visible[k]:
                 continue
             ox, oy = self._cell_xy(self.front.cell[k])
-            on_screen = view[0] - lay.cover_w < ox < view[2] and view[1] - lay.cover_h < oy < view[3]
+            if not seen(ox, oy):
+                continue                             # off screen: retired with its pool
             dest = new.cell_of(key)
             dx_, dy_ = self._cell_xy(dest) if dest else (ox, oy)
             stays_in_pool = dest in pool_cells
-            if instant or not on_screen or stays_in_pool:
+            if instant or stays_in_pool:
                 self.front.slots[k].setAnimations([vanish])
                 continue
             ex, ey = clip_outside((ox, oy), (dx_, dy_), view, margin)

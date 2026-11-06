@@ -1,3 +1,6 @@
+[B]0.15.0[/B] (06-11-2026)
+- Suit l'add-on du mur 0.15.0 (mur plus léger, touches plus réactives, réorganisation plus fluide).
+
 [B]0.14.4[/B] (06-11-2026)
 - Boutons sans « pulsation » au focus (pulseonselect) : le bouton invisible qui reçoit le focus du mur faisait redessiner tout l'écran 60 fois par seconde au repos.
 

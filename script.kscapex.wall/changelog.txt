@@ -1,3 +1,9 @@
+[B]0.15.0[/B] (06-11-2026)
+- Mur plus léger : badges dessinés par un seul bouton à largeur automatique au lieu d'une image par largeur (1457 contrôles au lieu de 3641 dans le XML du mur, 485 visibles).
+- Touches plus réactives : les cases qui changent de place après un déplacement sont posées en arrière-plan, juste après l'appui.
+- Réorganisation (shuffle) plus fluide : seules les jaquettes visibles s'envolent ; les cases hors écran ne reçoivent plus d'appel, et la mise en attente se fait en une seule fois sur le groupe.
+- Overlay de performance : temps de pose en arrière-plan (« wall.place ») mesuré et résumé à la fermeture du mur.
+
 [B]0.14.4[/B] (06-11-2026)
 - Boutons sans « pulsation » au focus (pulseonselect) : le bouton invisible qui reçoit le focus du mur faisait redessiner tout l'écran 60 fois par seconde au repos.
 
