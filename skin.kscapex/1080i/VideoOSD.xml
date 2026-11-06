@@ -93,6 +93,12 @@
 					<itemgap>16</itemgap>
 					<align>center</align>
 					<ondown>200</ondown>
+					<!-- KScapeX: Stop first (far left); the OSD still opens on Play (defaultcontrol 101) -->
+					<control type="button" id="106">
+						<include content="OSDButton"><param name="width" value="200"/></include>
+						<label>$LOCALIZE[31027]</label>
+						<onclick>PlayerControl(Stop)</onclick>
+					</control>
 					<control type="button" id="101">
 						<include content="OSDButton"><param name="width" value="200"/></include>
 						<label>$VAR[OSDPlayPauseLabel]</label>
@@ -145,11 +151,6 @@
 						<onclick>Dialog.Close(videoosd)</onclick>
 						<onclick>RunScript(script.kscapex.wall,scene,mark)</onclick>
 						<visible>String.IsEmpty(Window(Home).Property(kscape.demo.active)) + !String.IsEmpty(VideoPlayer.DBID) + [VideoPlayer.Content(movies) | VideoPlayer.Content(episodes)] + System.AddonIsEnabled(script.kscapex.wall)</visible>
-					</control>
-					<control type="button" id="106">
-						<include content="OSDButton"><param name="width" value="200"/></include>
-						<label>$LOCALIZE[31027]</label>
-						<onclick>PlayerControl(Stop)</onclick>
 					</control>
 				</control>
 				<control type="grouplist" id="200">
