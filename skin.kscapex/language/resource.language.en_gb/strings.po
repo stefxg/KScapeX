@@ -262,3 +262,38 @@ msgstr ""
 msgctxt "#31083"
 msgid "Hidden"
 msgstr ""
+
+#. KScapeX: playback controls, second row - Kodi's audio settings during playback
+msgctxt "#31084"
+msgid "Audio settings"
+msgstr ""
+
+#. KScapeX: playback controls, second row - Kodi's video settings during playback
+msgctxt "#31085"
+msgid "Video settings"
+msgstr ""
+
+#. KScapeX: playback controls, second row - Kodi's subtitle settings during playback
+msgctxt "#31086"
+msgid "Subtitle settings"
+msgstr ""
+
+#. KScapeX: playback controls, second row - search and download subtitles
+msgctxt "#31087"
+msgid "Find subtitles"
+msgstr ""
+
+#. KScapeX: playback controls, second row - bookmarks and chapters
+msgctxt "#31088"
+msgid "Bookmarks"
+msgstr ""
+
+#. KScapeX: playback controls, second row - the movie's information over the video
+msgctxt "#31089"
+msgid "Information"
+msgstr ""
+
+#. KScapeX: playback controls, second row - Kodi's player process info (decoder, resolution, HDR...)
+msgctxt "#31090"
+msgid "Playback info"
+msgstr ""

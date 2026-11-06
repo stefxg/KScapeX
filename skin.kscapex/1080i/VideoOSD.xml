@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Playback controls (OK / Menu during a movie). Audio and subtitles cycle in place, because
-     KScape has no audio/subtitle settings dialogs to open.
+<!-- Playback controls (OK / Menu during a movie). First row: Audio and Subtitles cycle in place.
+     Second row (KScapeX, Down from the first): Kodi's audio, video and subtitle settings dialogs
+     (DialogSettings.xml), subtitle download (DialogSubtitles.xml), bookmarks and chapters
+     (VideoOSDBookmarks.xml), the movie's information (DialogFullScreenInfo.xml) and the player
+     process info (DialogPlayerProcessInfo.xml, top left; the button toggles it). Those two close the OSD first.
      Scenes (script.kscapex.wall): Mark scene start / end for a library movie or episode. During a
      scene or Demo Script (Home property kscape.demo.active, set by the add-on's service) the
      title line names the scene and its movie, the line above it the script and scene progress,
@@ -17,14 +20,14 @@
 				<animation effect="fade" start="0" end="100" time="180">WindowOpen</animation>
 				<animation effect="fade" start="100" end="0" time="140">WindowClose</animation>
 				<control type="image">
-					<top>740</top>
+					<top>654</top>
 					<width>1920</width>
-					<height>340</height>
+					<height>426</height>
 					<texture colordiffuse="D8060607">white.png</texture>
 				</control>
 				<control type="label">
 					<left>120</left>
-					<top>782</top>
+					<top>696</top>
 					<width>1400</width>
 					<height>56</height>
 					<font>kscape_panel_title</font>
@@ -34,7 +37,7 @@
 				<control type="label">
 					<description>Demo Script and scene progress (only while scenes play)</description>
 					<left>120</left>
-					<top>748</top>
+					<top>662</top>
 					<width>1680</width>
 					<height>30</height>
 					<font>kscape_badge</font>
@@ -44,7 +47,7 @@
 				</control>
 				<control type="label">
 					<left>1500</left>
-					<top>782</top>
+					<top>696</top>
 					<width>300</width>
 					<height>56</height>
 					<align>right</align>
@@ -54,7 +57,7 @@
 				</control>
 				<control type="progress">
 					<left>120</left>
-					<top>860</top>
+					<top>774</top>
 					<width>1680</width>
 					<height>8</height>
 					<info>Player.Progress</info>
@@ -63,7 +66,7 @@
 				</control>
 				<control type="label">
 					<left>120</left>
-					<top>878</top>
+					<top>792</top>
 					<width>600</width>
 					<height>40</height>
 					<font>kscape_small</font>
@@ -72,7 +75,7 @@
 				</control>
 				<control type="label">
 					<left>1200</left>
-					<top>878</top>
+					<top>792</top>
 					<width>600</width>
 					<height>40</height>
 					<align>right</align>
@@ -82,12 +85,13 @@
 				</control>
 				<control type="grouplist" id="100">
 					<left>120</left>
-					<top>950</top>
+					<top>864</top>
 					<width>1680</width>
 					<height>70</height>
 					<orientation>horizontal</orientation>
 					<itemgap>16</itemgap>
 					<align>center</align>
+					<ondown>200</ondown>
 					<control type="button" id="101">
 						<include content="OSDButton"><param name="width" value="200"/></include>
 						<label>$VAR[OSDPlayPauseLabel]</label>
@@ -145,6 +149,58 @@
 						<include content="OSDButton"><param name="width" value="200"/></include>
 						<label>$LOCALIZE[31027]</label>
 						<onclick>PlayerControl(Stop)</onclick>
+					</control>
+				</control>
+				<control type="grouplist" id="200">
+					<description>KScapeX: the settings and dialogs Kodi offers during playback</description>
+					<left>120</left>
+					<top>950</top>
+					<width>1680</width>
+					<height>70</height>
+					<orientation>horizontal</orientation>
+					<itemgap>16</itemgap>
+					<align>center</align>
+					<onup>100</onup>
+					<control type="button" id="201">
+						<include content="OSDButton"><param name="width" value="225"/></include>
+						<label>$LOCALIZE[31084]</label>
+						<onclick>ActivateWindow(osdaudiosettings)</onclick>
+					</control>
+					<control type="button" id="202">
+						<include content="OSDButton"><param name="width" value="225"/></include>
+						<label>$LOCALIZE[31085]</label>
+						<onclick>ActivateWindow(osdvideosettings)</onclick>
+					</control>
+					<control type="button" id="203">
+						<include content="OSDButton"><param name="width" value="280"/></include>
+						<label>$LOCALIZE[31086]</label>
+						<onclick>ActivateWindow(osdsubtitlesettings)</onclick>
+					</control>
+					<control type="button" id="204">
+						<include content="OSDButton"><param name="width" value="270"/></include>
+						<label>$LOCALIZE[31087]</label>
+						<onclick>ActivateWindow(subtitlesearch)</onclick>
+					</control>
+					<control type="button" id="205">
+						<include content="OSDButton"><param name="width" value="170"/></include>
+						<label>$LOCALIZE[31088]</label>
+						<onclick>ActivateWindow(videobookmarks)</onclick>
+						<visible>!VideoPlayer.Content(livetv)</visible>
+					</control>
+					<control type="button" id="206">
+						<description>The movie's information over the video (the OSD closes first)</description>
+						<include content="OSDButton"><param name="width" value="195"/></include>
+						<label>$LOCALIZE[31089]</label>
+						<onclick>Dialog.Close(videoosd,true)</onclick>
+						<onclick>Action(Info)</onclick>
+					</control>
+					<control type="button" id="207">
+						<description>Player process info, top left: on / off. The OSD closes first, so the
+						action reaches the full-screen video, which toggles the dialog.</description>
+						<include content="OSDButton"><param name="width" value="195"/></include>
+						<label>$LOCALIZE[31090]</label>
+						<onclick>Dialog.Close(videoosd,true)</onclick>
+						<onclick>Action(PlayerProcessInfo)</onclick>
 					</control>
 				</control>
 			</control>

@@ -1,5 +1,6 @@
 [B]0.15.3[/B] (06-11-2026)
 - Suit l'add-on du mur 0.15.3 (mur rempli ligne par ligne, tri alphabétique / date de sortie / date d'ajout).
+- Commandes de lecture : seconde ligne de 7 boutons, même style (Bas depuis la première) : Audio settings, Video settings, Subtitle settings (réglages de Kodi), Find subtitles (téléchargement), Bookmarks (signets et chapitres), Information (fiche du film sur la vidéo), Playback info (infos du lecteur en haut à gauche, marche / arrêt). Le panneau remonte d'une ligne.
 
 [B]0.15.2[/B] (06-11-2026)
 - Suit l'add-on du mur 0.15.2 (défilement vertical ligne par ligne, cadre au milieu).
