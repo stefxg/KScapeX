@@ -23195,11 +23195,24 @@
 				<texture colordiffuse="FF000000">kscape-white.png</texture>
 				<visible>Player.HasVideo</visible>
 			</control>
-			<control type="videowindow">
+			<control type="image">
+				<description>Playing video: its artwork (no live videowindow: on the AM6B+ it kept the screen redrawing)</description>
 				<left>9</left>
 				<top>9</top>
 				<width>160</width>
 				<height>90</height>
+				<aspectratio>scale</aspectratio>
+				<texture background="true">$INFO[Player.Art(thumb)]</texture>
+				<visible>Player.HasVideo</visible>
+			</control>
+			<control type="image">
+				<description>Playing video: fanart over the thumb when there is one</description>
+				<left>9</left>
+				<top>9</top>
+				<width>160</width>
+				<height>90</height>
+				<aspectratio>scale</aspectratio>
+				<texture background="true">$INFO[Player.Art(fanart)]</texture>
 				<visible>Player.HasVideo</visible>
 			</control>
 			<control type="image">

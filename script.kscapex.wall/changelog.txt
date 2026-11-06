@@ -1,3 +1,7 @@
+[B]0.14.3[/B] (06-11-2026)
+- TinyPPI : polices déclarées exactement comme il les attend (special://xbmc/media/Fonts/arial.ttf) ; la 0.14.2 ne suffisait pas.
+- Pastille « lecture en cours » (Accueil, murs, listes, Collections) : l'illustration du film remplace la mini-vidéo en direct, soupçonnée de faire redessiner l'écran 60 fois par seconde.
+
 [B]0.14.2[/B] (06-11-2026)
 - Polices font23_narrow et font32 incluses : TinyPPI ne modifie plus la skin et ne la recharge plus au lancement d'une vidéo.
 - Le logo de chargement du mur ne pulse plus une fois caché (suspecté de faire redessiner l'écran en permanence).

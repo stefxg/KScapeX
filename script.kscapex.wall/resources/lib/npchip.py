@@ -1,8 +1,8 @@
 """The "now playing" chip drawn top right of the generated views (cover walls, list views,
 collections) while something plays, so you can see it while browsing the libraries.
 
-A video shows live in Kodi's own videowindow control (the playing video, scaled, kept in its
-aspect ratio, rendered by Kodi's player: no extra decoding); music shows its cover. Then the play
+A video shows its artwork (KScapeX: no live videowindow, which kept the AM6B+ redrawing the
+screen every frame); music shows its cover. Then the play
 state, elapsed / total time, the title and a progress bar. Colours are literal so the chip also
 draws under another skin.
 
@@ -48,11 +48,24 @@ def chip(ind='\t\t', white='kscape-white.png', cid=None):
 {ind}		<texture colordiffuse="FF000000">{white}</texture>
 {ind}		<visible>Player.HasVideo</visible>
 {ind}	</control>
-{ind}	<control type="videowindow">
+{ind}	<control type="image">
+{ind}		<description>Playing video: its artwork (no live videowindow: on the AM6B+ it kept the screen redrawing)</description>
 {ind}		<left>{PAD}</left>
 {ind}		<top>{PAD}</top>
 {ind}		<width>{THUMB_W}</width>
 {ind}		<height>{THUMB_H}</height>
+{ind}		<aspectratio>scale</aspectratio>
+{ind}		<texture background="true">$INFO[Player.Art(thumb)]</texture>
+{ind}		<visible>Player.HasVideo</visible>
+{ind}	</control>
+{ind}	<control type="image">
+{ind}		<description>Playing video: fanart over the thumb when there is one</description>
+{ind}		<left>{PAD}</left>
+{ind}		<top>{PAD}</top>
+{ind}		<width>{THUMB_W}</width>
+{ind}		<height>{THUMB_H}</height>
+{ind}		<aspectratio>scale</aspectratio>
+{ind}		<texture background="true">$INFO[Player.Art(fanart)]</texture>
 {ind}		<visible>Player.HasVideo</visible>
 {ind}	</control>
 {ind}	<control type="image">

@@ -460,7 +460,7 @@ def stack(k):
 
 
 NOW_PLAYING = '''	<!-- What is playing, top right of Home under the clock: clear of the view cards and the
-	     submenus, which rise from the bottom left. A video shows live (Kodi's videowindow). -->
+	     submenus, which rise from the bottom left. A video shows its artwork (KScapeX: no live videowindow). -->
 	<include name="KScapeHomeNowPlaying">
 		<definition>
 			<control type="group">
@@ -490,10 +490,20 @@ NOW_PLAYING = '''	<!-- What is playing, top right of Home under the clock: clear
 					<texture colordiffuse="FF000000">white.png</texture>
 					<visible>Player.HasVideo</visible>
 				</control>
-				<control type="videowindow">
-					<description>The playing video, live, in its own aspect ratio</description>
+				<control type="image">
+					<description>Playing video: its artwork (no live videowindow: on the AM6B+ it kept the screen redrawing)</description>
 					<width>200</width>
 					<height>112</height>
+					<aspectratio>scale</aspectratio>
+					<texture background="true">$INFO[Player.Art(thumb)]</texture>
+					<visible>Player.HasVideo</visible>
+				</control>
+				<control type="image">
+					<description>Playing video: fanart over the thumb when there is one</description>
+					<width>200</width>
+					<height>112</height>
+					<aspectratio>scale</aspectratio>
+					<texture background="true">$INFO[Player.Art(fanart)]</texture>
 					<visible>Player.HasVideo</visible>
 				</control>
 				<control type="label">
