@@ -119,5 +119,17 @@
 			<size>8</size>
 			<style>bold</style>
 		</font>
+		<!-- TinyPPI (CoreELEC avdvplus) needs these two in the Default fontset: when they are
+		     missing it writes them into this file and reloads the skin at the next playback. -->
+		<font>
+			<name>font23_narrow</name>
+			<filename>arial.ttf</filename>
+			<size>21</size>
+		</font>
+		<font>
+			<name>font32</name>
+			<filename>arial.ttf</filename>
+			<size>32</size>
+		</font>
 	</fontset>
 </fonts>

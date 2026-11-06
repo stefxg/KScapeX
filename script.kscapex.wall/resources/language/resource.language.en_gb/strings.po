@@ -2045,3 +2045,11 @@ msgstr ""
 msgctxt "#32702"
 msgid "Writes timings and a sample a second (FPS, CPU, memory, temperature) to kodi.log as kscape.perf lines, and shows them over the screen. For testing on the box; turn off afterwards."
 msgstr ""
+
+msgctxt "#32703"
+msgid "Show redrawn areas (on / off)"
+msgstr ""
+
+msgctxt "#32704"
+msgid "Kodi colours every area of the screen it redraws. An area that stays coloured while nothing moves is redrawn every frame for nothing. Press again to turn it off."
+msgstr ""

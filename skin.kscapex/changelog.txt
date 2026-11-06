@@ -1,3 +1,8 @@
+[B]0.14.2[/B] (06-11-2026)
+- Polices font23_narrow et font32 incluses : TinyPPI ne modifie plus la skin et ne la recharge plus au lancement d'une vidéo.
+- Le logo de chargement du mur ne pulse plus une fois caché (suspecté de faire redessiner l'écran en permanence).
+- Réglages de l'add-on > Performance : bouton « Show redrawn areas » (zones redessinées par Kodi).
+
 [B]0.14.1[/B] (06-11-2026)
 - KScapeX : version de KScape (Oxiadust, 0.14.0) dédiée à l'Ugoos AM6B+ sous CoreELEC avdvplus.
 - Identifiants propres (skin.kscapex, script.kscapex.wall) : s'installe sans conflit avec KScape.

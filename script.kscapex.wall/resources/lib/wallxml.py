@@ -436,7 +436,7 @@ def _build(L):
 			<texture>kscape-logo.png</texture>
 			<visible>!String.IsEmpty(Window.Property(kscape.loading))</visible>
 			<animation effect="fade" start="0" end="100" delay="450" time="400">Visible</animation>
-			<animation effect="fade" start="100" end="35" time="900" tween="sine" easing="inout" pulse="true" condition="true">Conditional</animation>
+			<animation effect="fade" start="100" end="35" time="900" tween="sine" easing="inout" pulse="true" condition="!String.IsEmpty(Window.Property(kscape.loading))">Conditional</animation>
 		</control>
 		<control type="label" id="1950">
 			<description>Status: loading, empty library, no favourites (two lines)</description>

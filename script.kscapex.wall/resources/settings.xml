@@ -66,6 +66,11 @@
 					<default>true</default>
 					<control type="toggle"/>
 				</setting>
+				<setting id="dirty_regions" type="action" label="32703" help="32704">
+					<level>0</level>
+					<data>ToggleDirtyRegionVisualization</data>
+					<control type="button" format="action"/>
+				</setting>
 			</group>
 		</category>
 	</section>
