@@ -5,9 +5,11 @@ is not touched. What changes, against wallxml's control map:
 
   slots        no format badge (the selected cover shows it, in the spotlight): two controls
                and one condition fewer per slot, on every frame
-  slots        the opening cascade: each cover fades and grows in once, column by column, when
-               the window opens (wallxml.slot(opening=True); Window.Property(kscape.opened),
-               set by newwall.py a moment later, keeps later activations from replaying it)
+  slots        every cover under glossy plexiglas (wallxml.slot(gloss=SHEEN_SLOT): one sheen
+               image per slot, the wall's only per-slot cost), and the opening cascade - each
+               cover fades and grows in once, column by column, when the window opens
+               (wallxml.slot(opening=True); Window.Property(kscape.opened), set by newwall.py a
+               moment later, keeps later activations from replaying it)
   1992         hidden data list holding one item: the selected cover's poster, badge, favourite
                mark, text, clear logo and fanart (newwall.py sets them; no GUI lock)
   1009         backdrop while Window.Property(kscape.spot) is set: the selected film's fanart
@@ -19,14 +21,13 @@ is not touched. What changes, against wallxml's control map:
     1010         spotlight: the frame's bars - flat amber, no gloss: the gradient tried in
                  0.20.0 looked streaky on screen - and a copy of the selected cover: soft
                  shadow, floor reflection (the poster mirrored through kscape-reflect.png), a
-                 still sheen and a lit top edge (laminated, as under glass), and a glint that
+                 sheen a touch brighter than the wall's own, and a glint that
                  crosses it once (kscape-gloss.png). It zooms in (SPOT_ZOOM) while kscape.spot
                  is set, and loads in the background, like the slots: Kodi hands it the slot's
                  texture, already loaded
   1900         info panel as a slab of polished glass: the theme's background at 90%
                (kscape_bg_shade), a glow and a line in the theme colour along the top, a sheen
-               lying across it, a shadow pooling at its foot, a lit top edge and a thin
-               outline; SPOT_GAP narrower than the classic
+               lying across it, a shadow pooling at its foot and a thin outline; SPOT_GAP narrower than the classic
                one, so the zoomed frame never slides under it. 1906 the film's clear logo in
                place of the title (1901 hides while there is one)
   1966         dark fade along the bottom of the view; the counter (1965) sits on it as plain
@@ -51,12 +52,10 @@ REFLECT_FRACTION = 0.45         # of the cover's height (kscape-reflect.png fade
 # lit edge along its top - what turns a translucent rectangle into a slab of glass. The sheen
 # texture peaks at 20% white, so these tint it down from there.
 SHEEN = 'FFFFFFFF'
-SHEEN_COVER = 'A6FFFFFF'        # on the selected cover: a laminated poster, not a mirror
+SHEEN_SLOT = '99FFFFFF'         # every cover of the wall, under glossy plexiglas
+SHEEN_COVER = 'BFFFFFFF'        # the selected one, a touch brighter still
 FOOT_SHADOW = '8C000000'
 FOOT_H = 80
-RIM = 'B3FFFFFF'                # the lit top edge of a pane
-RIM_H = 2                       # 1 px vanishes on a television seen from across the room
-RIM_COVER = '99FFFFFF'
 FADE_H = 110                    # bottom fade under the counter
 LOGO_H = 76
 
@@ -178,12 +177,6 @@ def focus_frame(L):
 							<width>{cw}</width>
 							<height>{ch}</height>
 							<texture colordiffuse="{SHEEN_COVER}">kscape-gloss.png</texture>
-						</control>
-						<control type="image">
-							<description>Lit edge along the cover's top</description>
-							<width>{cw}</width>
-							<height>{RIM_H}</height>
-							<texture colordiffuse="{RIM_COVER}">kscape-white.png</texture>
 						</control>
 						<control type="image">
 							<description>Light glint: crosses the cover once when the spotlight comes on</description>
@@ -320,12 +313,6 @@ def panel(L):
 					<height>3</height>
 					<texture colordiffuse="kscape_blue">kscape-white.png</texture>
 				</control>
-				<control type="image">
-					<description>Lit edge along the top</description>
-					<width>{pw}</width>
-					<height>{RIM_H}</height>
-					<texture colordiffuse="{RIM}">kscape-white.png</texture>
-				</control>
 				<control type="image" id="1906">
 					<description>Clear logo in place of the title</description>
 					<left>{x(34)}</left>
@@ -416,8 +403,8 @@ def _build(L):
 			<description>Viewport: the screen, or a CinemaScope band (window.py places it)</description>
 		<control type="group" id="1000">
 			<description>Camera</description>
-{W.slot(10000, L, badge=False, opening=True)}
-{W.slot(20000, L, badge=False, opening=True)}
+{W.slot(10000, L, badge=False, opening=True, gloss=SHEEN_SLOT)}
+{W.slot(20000, L, badge=False, opening=True, gloss=SHEEN_SLOT)}
 {backdrop(L)}
 {focus_frame(L)}
 {panel(L)}

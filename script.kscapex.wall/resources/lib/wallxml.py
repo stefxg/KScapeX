@@ -79,7 +79,7 @@ def badge_width(n, L):
     return min(L.cover_w - 2 * x(8), x(dict(BADGE_WIDTHS)[n]))
 
 
-def slot(base, L, badge=True, opening=False):
+def slot(base, L, badge=True, opening=False, gloss=''):
     """The pool's slots. Each draws its item from the pool's hidden data list (SOURCES): slot k
     shows ListItemAbsolute(k)'s poster art and its properties - on (shown), text (no artwork),
     badge, fav. Python updates those offscreen list items, which takes no GUI lock; only moving
@@ -94,7 +94,10 @@ def slot(base, L, badge=True, opening=False):
     KScapeX "New wall test" (newwallxml.py): `badge` False leaves the badge out of the slots
     (the selected cover shows it, in the spotlight); `opening` adds the one-off opening cascade
     (fade + zoom, column by column), played only while Window.Property(kscape.opened) is unset -
-    the window sets it a moment after it opens, so later activations never replay it."""
+    the window sets it a moment after it opens, so later activations never replay it; `gloss`
+    is the colour (an alpha, really) of a sheen laid over every cover, as if the whole wall were
+    under glossy plexiglas - one image per slot, which Kodi then carries on every frame, so the
+    classic wall asks for none."""
     out = [f'''			<control type="group" id="{POOL_GROUPS[base]}">
 				<description>Pool {"A" if base == 10000 else "B"}</description>''']
     W, H = L.cover_w, L.cover_h
@@ -102,6 +105,11 @@ def slot(base, L, badge=True, opening=False):
     for k in range(L.pool_cols * L.pool_rows):
         item = lambda info: f'$INFO[Container({src}).ListItemAbsolute({k}).{info}]'
         has = lambda name: f'!String.IsEmpty(Container({src}).ListItemAbsolute({k}).Property({name}))'
+        gloss_xml = (f'\t\t\t\t<control type="image">\n'
+                     f'\t\t\t\t\t<width>{W}</width>\n'
+                     f'\t\t\t\t\t<height>{H}</height>\n'
+                     f'\t\t\t\t\t<texture colordiffuse="{gloss}">kscape-gloss.png</texture>\n'
+                     f'\t\t\t\t</control>\n') if gloss else ''
         if opening:
             col, row = k % L.pool_cols, k // L.pool_cols
             delay = col * 45 + row * 22
@@ -165,7 +173,7 @@ def slot(base, L, badge=True, opening=False):
 					<fadetime>120</fadetime>
 					<texture background="true">{item('Art(poster)')}</texture>
 				</control>
-{badge_xml}				<control type="group">
+{gloss_xml}{badge_xml}				<control type="group">
 					<left>{W - x(HEART_BOX) - x(8)}</left>
 					<top>8</top>
 					<visible>{has('fav')}</visible>

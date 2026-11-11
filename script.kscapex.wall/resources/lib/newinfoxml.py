@@ -9,7 +9,7 @@ details.py drives both without knowing which one is open; only the dressing chan
   darkened by a veil, a left-hand gradient where the text is, and a vignette - with no
   fanart, the veil alone dims the wall behind;
 - the panel becomes a slab of polished glass (the theme's background, translucent) instead of
-  opaque blue: a sheen lying across it, a shadow pooling at its foot and a lit top edge; the
+  opaque blue: a sheen lying across it and a shadow pooling at its foot; the
   left column a darker glass; the header strip a quiet band with a line in the theme colour
   under it;
 - a selected row is lit from above (kscape-row.png) instead of a flat block of colour;
@@ -114,12 +114,7 @@ def transform(xml):
 					<height>984</height>
 					<texture border="2" colordiffuse="28FFFFFF">kscape-glass-border.png</texture>
 				</control>
-				<control type="image">
-					<description>Lit edge along the top</description>
-					<width>1728</width>
-					<height>2</height>
-					<texture colordiffuse="B3FFFFFF">kscape-white.png</texture>
-				</control>''')
+''')
     # A selected row is lit from above instead of a flat block of colour (every list's focused
     # row, and the menu's marker for the page that is open).
     out = _swap(out, '<texture colordiffuse="kscape_blue_light">kscape-white.png</texture>',

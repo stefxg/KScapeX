@@ -118,7 +118,6 @@ class NewWallXmlTest(unittest.TestCase):
     def test_spotlight_carries_reflection_glint_and_polish(self):
         self.assertIn('kscape-reflect.png', self.xml)
         self.assertIn('flipy="true"', self.xml)
-        self.assertEqual(self.xml.count('kscape-gloss.png'), 2)   # the still sheen and the glint
 
     def test_the_amber_carries_no_gloss(self):
         # 0.20.0 gave the frame's bars a gradient and the badge a sheen: streaky on screen, so
@@ -131,16 +130,20 @@ class NewWallXmlTest(unittest.TestCase):
 
     def test_panels_are_polished_glass(self):
         self.assertIn('kscape-sheen.png', self.xml)               # sheen across the pane
-        self.assertGreaterEqual(NX.RIM_H, 2)                      # 1 px vanishes on a television
         self.assertIn(f'colordiffuse="{NX.FOOT_SHADOW}" flipy="true">kscape-fade.png', self.xml)
-        self.assertIn(f'colordiffuse="{NX.RIM}">kscape-white.png', self.xml)   # lit top edge
 
-    def test_the_polish_never_reaches_the_covers_of_the_wall(self):
-        # Per-slot controls are what Kodi pays for on every frame: the gloss stays on the
-        # selected cover and the panes, never on the 156 slots.
-        slot = wallxml.slot(10000, G.POSTER, badge=False, opening=True)
-        for texture in ('kscape-sheen.png', 'kscape-gloss.png', 'kscape-bar.png', 'kscape-row.png'):
-            self.assertNotIn(texture, slot)
+    def test_no_white_rim_anywhere(self):
+        # A white line across the top of a pane looked bad on screen: gone from both.
+        self.assertNotIn('Lit edge', self.xml)
+        self.assertNotIn('Lit edge', shipped(NX2.NAME))
+
+    def test_every_cover_sits_under_plexiglas(self):
+        slots = G.POSTER.pool_cols * G.POSTER.pool_rows
+        self.assertEqual(self.xml.count('kscape-gloss.png'), 2 * slots + 2)   # + the selected one
+        self.assertIn(f'colordiffuse="{NX.SHEEN_SLOT}">kscape-gloss.png', self.xml)
+        # The classic wall carries none of it: its slots stay as light as they were.
+        self.assertNotIn('kscape-gloss.png', wallxml.slot(10000, G.POSTER))
+        self.assertNotIn('kscape-gloss.png', shipped('script-kscape-wall.xml'))
 
     def test_gloss_textures_are_shipped(self):
         media = os.path.join(os.path.dirname(__file__), '..', 'resources', 'skins', 'Default', 'media')

@@ -1,3 +1,7 @@
+[B]0.21.0[/B] (11-11-2026)
+- Toutes les jaquettes du mur sont sous plexiglas brillant, sélectionnées ou non : un reflet doux traverse chaque affiche, celle qui est sélectionnée en a un peu plus. (Le mur passe de 1174 à 1327 contrôles, soit toujours moins que le mur classique qui en a 1457.)
+- Le trait blanc en haut du panneau, de la jaquette sélectionnée et de la fiche est supprimé : il était moche à l'écran.
+
 [B]0.20.1[/B] (11-11-2026)
 - Plus aucun effet sur l'ambre : le cadre de la jaquette sélectionnée et le badge reviennent à l'aplat d'avant (le dégradé « métal » de la 0.20.0 était moche à l'écran).
 - Le verre poli devient franchement visible : le reflet des panneaux passe de 20 % à 37 % de blanc, l'arête lumineuse du haut de 1 à 2 px et nettement plus claire, l'ombre au pied du panneau plus marquée ; même chose sur la fiche et sur le reflet de la jaquette sélectionnée. En 0.20.0 l'effet était trop discret pour se voir sur un téléviseur.
