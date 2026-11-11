@@ -4,6 +4,8 @@ RunScript(script.kscapex.wall)                    movies, in the view last used 
 RunScript(script.kscapex.wall,<kind>)             kind: movies, music or tv; view last used
 RunScript(script.kscapex.wall,<kind>,<view>)      view: covers, list, collections or favorites
 RunScript(script.kscapex.wall,<kind>,collections) that library's Collections view
+RunScript(script.kscapex.wall,<kind>,newwall)     KScapeX: that library's wall in New wall test's look
+                                                 (movies, tv), this once
 RunScript(script.kscapex.wall,music,nowplaying)   Now Playing
 RunScript(script.kscapex.wall,busytimeout)        Kodi's loading screen lasted 10 s: close it, stop the attempt
 RunScript(script.kscapex.wall,startup)            Kodi started on Home: sync the colour theme, open nothing
@@ -26,7 +28,7 @@ from resources.lib.kinds import KINDS
 from resources.lib.skins import choose_skin, switch_to
 
 VIEWS = {'covers': 'wall', 'list': 'list', 'favorites': 'favorites', 'favourites': 'favorites',
-         'collections': 'collections'}
+         'collections': 'collections', 'newwall': 'newwall'}
 
 
 def run_view(fn):
@@ -48,6 +50,8 @@ def open_view(kind, view=None):
         return show_collections(kind)
     if view == 'favorites':
         return open_wall(kind, favourites=True)
+    if view == 'newwall':
+        return open_wall(kind, view='wall', style='new')
     return open_wall(kind, view=view)
 
 

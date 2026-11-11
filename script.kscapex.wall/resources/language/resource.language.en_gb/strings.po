@@ -1398,6 +1398,10 @@ msgctxt "#32416"
 msgid "Date added"
 msgstr ""
 
+msgctxt "#32417"
+msgid "New wall test"
+msgstr ""
+
 msgctxt "#32420"
 msgid "Cast & Crew"
 msgstr ""

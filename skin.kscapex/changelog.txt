@@ -1,3 +1,6 @@
+[B]0.17.0[/B] (11-11-2026)
+- Version alignée sur l'add-on du mur (nouvelle vue « New wall test »).
+
 [B]0.16.2[/B] (11-11-2026)
 - Version alignée sur l'add-on du mur (mesure des performances désactivée par défaut).
 

@@ -1,3 +1,11 @@
+[B]0.17.0[/B] (11-11-2026)
+- Nouvelle vue « New wall test » (nom provisoire), à côté du mur actuel : C > View Options > New wall test (On / Off). Le choix est mémorisé (films et séries séparément) et le mur se rouvre sur la même jaquette. Le mur classique, la liste, les collections et les autres vues ne changent pas.
+- Badges de format : seulement sur la jaquette sélectionnée, quand le mur s'arrête dessus (les autres jaquettes n'en portent plus, ce qui allège aussi le mur pour la box).
+- Projecteur : quand le panneau apparaît, la jaquette sélectionnée avance (légèrement agrandie, avec une ombre portée) et le reste du mur s'assombrit ; tout revient à la touche suivante.
+- Panneau en verre fumé aux couleurs du thème (fond translucide, reflet et liseré en haut), avec le logo du film (clearlogo) à la place du titre quand la bibliothèque en a un.
+- Compteur en bas à droite, en texte simple sur un dégradé sombre le long du bas du mur.
+- Réorganisation en vague : les jaquettes qui changent se retournent sur place, de proche en proche depuis la jaquette sélectionnée, au lieu de traverser l'écran (plus de cases vides pendant l'animation, et deux fois plus court). Le panneau s'efface pendant la vague et revient après.
+
 [B]0.16.2[/B] (11-11-2026)
 - « Mesurer les performances » est désactivé par défaut. Il est coupé une fois à la mise à jour (Kodi gardait la valeur enregistrée par les versions précédentes) ; ensuite votre choix est respecté.
 

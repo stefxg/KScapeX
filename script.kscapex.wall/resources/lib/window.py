@@ -137,6 +137,21 @@ def saved_sort(kind):
     return order if order in SORTS else 'title'
 
 
+STYLES = ('classic', 'new')             # KScapeX: the classic wall, or New wall test (newwall.py)
+NEW_WALL_XML = 'script-kscape-newwall.xml'
+
+
+def style_key(kind):
+    """KScapeX: state key of the wall's look (C > New wall test) for `kind`."""
+    return f'wall_style_{kind.name}'
+
+
+def saved_style(kind):
+    """The look chosen for `kind`'s wall: New wall test is for posters only (movies, TV)."""
+    style = state.load().get(style_key(kind))
+    return style if style in STYLES and kind.layout.name == 'poster' else 'classic'
+
+
 class Pool:
     """One set of recycled cover slots. Slot k always serves grid cells congruent to it.
 
@@ -469,6 +484,9 @@ class WallWindow(xbmcgui.WindowXML):
         self.given = kwargs.get('library')           # (items, cast complete) from the wall beneath
         self.filtered = self.favourites_only or self.collection is not None or self.movie_set is not None
         self.start_view = kwargs.get('view')         # 'list' or 'wall' if chosen from Home
+        self.style = kwargs.get('style') or 'classic'  # KScapeX: 'new' in New wall test
+        self.resume = kwargs.get('resume', False)    # reopened in the other look: stay on the cover
+        self.switch_to = None                        # the look to reopen in, when closed to switch
         self.layout = kwargs.get('layout') or self.kind.layout
         self.stage = kwargs.get('stage') or displayui.current(self.kind.layout.pitch_y)
         self.session = E.Session()                   # Explore / Filter… (movies)
@@ -575,7 +593,7 @@ class WallWindow(xbmcgui.WindowXML):
         start = self.wall.cell_of(int(last)) if last.lstrip('-').isdigit() else None
         # The wall opens on its first row, whole: the remembered cover keeps the focus only when
         # it is on screen from there (an explored movie is always shown, wherever it is).
-        top = not self.nested
+        top = not (self.nested or self.resume)
         if top and start and not in_opening_view(self.wall, start):
             start = None
         self.focus = start or (0, 0)
@@ -685,7 +703,7 @@ class WallWindow(xbmcgui.WindowXML):
         it is the view in use) now shows the library's movies it matches. A favourites or
         collection wall opens a filtered wall of the whole library over itself instead."""
         if self.filtered:
-            self._covered(lambda: open_wall(self.kind, explore=(f, origin)))
+            self._covered(lambda: open_wall(self.kind, explore=(f, origin), style=self.style))
             self._after_favourites()
             return
         self.session.explore(f, origin)
@@ -949,7 +967,7 @@ class WallWindow(xbmcgui.WindowXML):
     def _open_favourites(self, view='wall'):
         """This library's favourites, over this wall (in the list view, with `view`); Back
         returns here."""
-        self._covered(lambda: open_wall(self.kind, view=view, favourites=True))
+        self._covered(lambda: open_wall(self.kind, view=view, favourites=True, style=self.style))
         self._after_favourites()
         self._after_collections()
 
@@ -1141,13 +1159,12 @@ class WallWindow(xbmcgui.WindowXML):
 
     # ---- info panel ------------------------------------------------------------------------
 
-    def _show_panel(self):
-        item = self.wall.at(*self.focus)
-        if not item:
-            return
+    def _panel_place(self):
+        """(cells, x) of the panel beside the focused cover: the cells it covers, and its left
+        edge in wall pixels (KScapeX: apart from _show_panel, for New wall test)."""
         lay = self.lay
         c, r = self.focus
-        x, y = self._cell_xy(self.focus)
+        x = self._cell_xy(self.focus)[0]
         left = [(c - i, r) for i in range(1, lay.panel_cells + 1)]
         right = [(c + i, r) for i in range(1, lay.panel_cells + 1)]
         left_on = self._cell_xy(left[-1])[0] - self.cam[0] >= 0
@@ -1163,6 +1180,16 @@ class WallWindow(xbmcgui.WindowXML):
             px = self._cell_xy((c - lay.panel_cells, r))[0]       # far cell's left edge
         else:
             px = x + lay.cover_w + G.fx(lay)                       # frame's right edge
+        return cells, px
+
+    def _show_panel(self):
+        item = self.wall.at(*self.focus)
+        if not item:
+            return
+        lay = self.lay
+        c = self.focus[0]
+        y = self._cell_xy(self.focus)[1]
+        cells, px = self._panel_place()
         self.setProperty('kscape.panel.side', 'left' if cells[0][0] < c else 'right')   # entrance direction
         self.panel.setPosition(px, y - lay.frame)
         self.panel_rect = (px, y - lay.frame, G.panel_w(lay), G.panel_h(lay))
@@ -1340,6 +1367,8 @@ class WallWindow(xbmcgui.WindowXML):
             view.append(menu.toggle('groupsets', menu.S_GROUP_SETS, self.group_sets))
         view += [menu.toggle('motion', menu.S_REDUCE_MOTION, self.reduced),
                  menu.toggle('auto', menu.S_AUTO_SHUFFLE, self.auto_shuffle)]
+        if self._restylable():
+            view.append(menu.toggle('newwall', menu.S_NEW_WALL, self.style == 'new'))
         misc = [('search', tr(menu.S_SEARCH))]
         if not self.favourites_only:
             misc.append(('favourites', tr(32187)))
@@ -1383,8 +1412,7 @@ class WallWindow(xbmcgui.WindowXML):
             self._apply_library(self.all_movies)
         elif choice == 'shuffle':
             self._finish_shuffle()
-            if not self.panel_shown:
-                self._show_panel()
+            self._before_shuffle()
             self.shuffled_for = item.key
             self._shuffle_related(item)
         elif choice == 'auto':
@@ -1399,8 +1427,26 @@ class WallWindow(xbmcgui.WindowXML):
             menu.set_reduced_motion(self.reduced)
         elif choice == 'reload':
             self._reload()
+        elif choice == 'newwall':
+            self._restyle('classic' if self.style == 'new' else 'new')
         elif choice == 'exit':
             self._close()
+
+    def _before_shuffle(self):
+        """C > Shuffle now: the panel first, so the shuffle keeps clear of it."""
+        if not self.panel_shown:
+            self._show_panel()
+
+    def _restylable(self):
+        """KScapeX: the library's own poster wall can switch to New wall test and back."""
+        return (self.lay.name != 'square' and not self.filtered and not self.nested
+                and self.style in STYLES)
+
+    def _restyle(self, style):
+        """KScapeX: close, for open_wall to reopen the wall in the other look, on this cover."""
+        state.save(**{style_key(self.kind): style})
+        self.switch_to = style
+        self._close()
 
     def _reload(self):
         """Reload Library: drop the cache and re-read the library in the background."""
@@ -1439,7 +1485,8 @@ class WallWindow(xbmcgui.WindowXML):
         """Select on a set cover: a cover wall of the set's movies over this one; Back returns."""
         self._remember(item)
         library = (self.all_movies, self.cast_complete)
-        self._covered(lambda: open_wall(self.kind, view='wall', movie_set=MS.set_id(item), library=library))
+        self._covered(lambda: open_wall(self.kind, view='wall', movie_set=MS.set_id(item), library=library,
+                                        style=self.style))
         self._after_favourites()
         self._after_collections()
 
@@ -1888,32 +1935,53 @@ def collection_empty(cid, days):
     return f'{tr(32175)}[CR][COLOR FF9AA3B5]{tr(32176)}[/COLOR]'
 
 
-def wall_xml(kind):
+def wall_xml(kind, style='classic'):
     """(script path, XML file, layout, stage) of the wall for the screen Kodi draws on now: the
-    shipped XML on a 16:9 screen, else XML built for the adapted layout (wallxml.prepare)."""
+    shipped XML on a 16:9 screen, else XML built for the adapted layout (wallxml.prepare).
+    KScapeX: `style` 'new' is New wall test's XML (newwallxml.py)."""
     stage = displayui.current(kind.layout.pitch_y)
     layout = G.adapt(kind.layout, stage)
     path = ADDON.getAddonInfo('path')
+    shipped = NEW_WALL_XML if style == 'new' else kind.wall_xml
     if layout is kind.layout:
-        return path, kind.wall_xml, layout, stage
+        return path, shipped, layout, stage
     from . import wallxml
     try:
-        root, name = wallxml.prepare(layout, stage.sx, path, xbmcvfs.translatePath(ADDON.getAddonInfo('profile')))
+        if style == 'new':
+            from . import newwallxml
+            root, name = wallxml.prepare(layout, stage.sx, path, xbmcvfs.translatePath(ADDON.getAddonInfo('profile')),
+                                         builder=newwallxml.build, prefix='script-kscape-newwall')
+        else:
+            root, name = wallxml.prepare(layout, stage.sx, path, xbmcvfs.translatePath(ADDON.getAddonInfo('profile')))
     except OSError as e:
         xbmc.log(f'kscape: could not write the adapted wall ({e}); using the 16:9 one', xbmc.LOGWARNING)
-        return path, kind.wall_xml, kind.layout, stage._replace(sx=1.0, view=(0, 0, G.SCREEN_W, G.SCREEN_H))
+        return path, shipped, kind.layout, stage._replace(sx=1.0, view=(0, 0, G.SCREEN_W, G.SCREEN_H))
     xbmc.log(f'kscape.wall: {layout.name} layout for this screen: covers {layout.cover_w}x{layout.cover_h}, '
              f'{layout.pool_cols}x{layout.pool_rows} slots, view {layout.view}, stretch {stage.sx:.3f}', xbmc.LOGINFO)
     return root, name, layout, stage
 
 
 def open_wall(kind, view=None, favourites=False, collection=None, explore=None, movie_set=None,
-              library=None):
+              library=None, style=None):
     """Run the wall for `kind` (filtered by an Explore (filter, movie key) pair, or showing one
-    Kodi movie set, if given). `library`: (items, cast complete) already loaded, if any."""
-    root, name, layout, stage = wall_xml(kind)
-    window = WallWindow(name, root, 'Default', '1080i', kind=kind, view=view, favourites=favourites,
-                        collection=collection, explore=explore, layout=layout, stage=stage,
-                        movie_set=movie_set, library=library)
-    modal.run(window)
-    del window
+    Kodi movie set, if given). `library`: (items, cast complete) already loaded, if any.
+    KScapeX: `style` the look ('classic' or 'new', New wall test); by default the library's own
+    wall has the look last chosen for it (C > New wall test), the others the classic one. A wall
+    closed to switch looks reopens at once in the other one."""
+    main = not favourites and collection is None and explore is None and movie_set is None
+    if style is None:
+        style = saved_style(kind) if main else 'classic'
+    if kind.layout.name != 'poster':
+        style = 'classic'
+    resume = False
+    while style:
+        root, name, layout, stage = wall_xml(kind, style)
+        cls = WallWindow
+        if style == 'new':
+            from .newwall import NewWallWindow as cls
+        window = cls(name, root, 'Default', '1080i', kind=kind, view=view, favourites=favourites,
+                     collection=collection, explore=explore, layout=layout, stage=stage,
+                     movie_set=movie_set, library=library, style=style, resume=resume)
+        modal.run(window)
+        style, view, resume = window.switch_to, 'wall', True
+        del window

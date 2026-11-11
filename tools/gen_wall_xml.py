@@ -3,6 +3,9 @@ script-kscape-wall.xml (2:3 posters: movies, TV shows) and script-kscape-wall-sq
 (album covers). The builder is the add-on's (resources/lib/wallxml.py), which also builds the
 wall for other screen shapes and CinemaScope bands at run time.
 
+KScapeX: also script-kscape-newwall.xml, the "New wall test" view of posters
+(resources/lib/newwallxml.py).
+
 Usage: python3 tools/gen_wall_xml.py
 """
 import os
@@ -11,7 +14,7 @@ import sys
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'script.kscapex.wall')
 sys.path.insert(0, ROOT)
 from resources.lib import geometry as G  # noqa: E402
-from resources.lib import wallxml  # noqa: E402
+from resources.lib import newwallxml, wallxml  # noqa: E402
 
 
 def main():
@@ -21,6 +24,10 @@ def main():
         with open(out, 'w') as f:
             f.write(wallxml.build(L))
         print(f'wrote {out} ({L.pool_cols * L.pool_rows} slots per pool)')
+    out = os.path.join(folder, 'script-kscape-newwall.xml')
+    with open(out, 'w') as f:
+        f.write(newwallxml.build(G.POSTER))
+    print(f'wrote {out} (New wall test)')
 
 
 if __name__ == '__main__':

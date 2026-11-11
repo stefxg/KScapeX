@@ -24,6 +24,7 @@ S_ON, S_OFF = 32030, 32031
 S_COVER_WALL, S_LIST_VIEW = 32070, 32071
 S_GROUP_SETS = 32411
 S_SORT = 32413                          # KScapeX: the wall's order
+S_NEW_WALL = 32417                      # KScapeX: New wall test (newwall.py), on / off
 SORT_LABELS = {'title': 32414, 'released': 32415, 'added': 32416}
 PROP_REDUCED = 'kscape.reduced'         # read by the info screen's slide-in animation
 

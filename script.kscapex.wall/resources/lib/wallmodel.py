@@ -301,3 +301,12 @@ def detour(start, end, keep_out, size, margin):
         if best is None or key < best[0]:
             best = (key, route)
     return best[1]
+
+
+def wave_delay(cell, centre, layout, step_ms):
+    """KScapeX New wall test: when a cover turns over in the shuffle's wave (newwall.py), in ms:
+    its distance from `centre` on screen, in cover widths, times `step_ms` - so the wave spreads
+    from the selected cover in rings, as round on screen as the covers are tall."""
+    dx = (cell[0] - centre[0]) * layout.pitch_x
+    dy = (cell[1] - centre[1]) * layout.pitch_y
+    return int(round(math.hypot(dx, dy) / layout.pitch_x * step_ms))

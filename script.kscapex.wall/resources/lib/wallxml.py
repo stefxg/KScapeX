@@ -79,7 +79,7 @@ def badge_width(n, L):
     return min(L.cover_w - 2 * x(8), x(dict(BADGE_WIDTHS)[n]))
 
 
-def slot(base, L):
+def slot(base, L, badge=True):
     """The pool's slots. Each draws its item from the pool's hidden data list (SOURCES): slot k
     shows ListItemAbsolute(k)'s poster art and its properties - on (shown), text (no artwork),
     badge, fav. Python updates those offscreen list items, which takes no GUI lock; only moving
@@ -89,7 +89,10 @@ def slot(base, L):
     every control and condition of the window on every frame, idle or not, so this is what the
     AM6B+ pays 60 times a second. The format badge is one disabled button whose width follows
     its text (width auto) in a right-aligned grouplist, its box a 9-slice texture tinted amber,
-    instead of four fixed-width boxes of three controls each."""
+    instead of four fixed-width boxes of three controls each.
+
+    KScapeX "New wall test" (newwallxml.py): `badge` False leaves the badge out of the slots
+    (the selected cover shows it, in the spotlight)."""
     out = [f'''			<control type="group" id="{POOL_GROUPS[base]}">
 				<description>Pool {"A" if base == 10000 else "B"}</description>''']
     W, H = L.cover_w, L.cover_h
@@ -97,6 +100,32 @@ def slot(base, L):
     for k in range(L.pool_cols * L.pool_rows):
         item = lambda info: f'$INFO[Container({src}).ListItemAbsolute({k}).{info}]'
         has = lambda name: f'!String.IsEmpty(Container({src}).ListItemAbsolute({k}).Property({name}))'
+        badge_xml = f'''				<control type="grouplist">
+					<left>{x(8)}</left>
+					<top>{H - BADGE_H - 8}</top>
+					<width>{W - 2 * x(8)}</width>
+					<height>{BADGE_H}</height>
+					<orientation>horizontal</orientation>
+					<align>right</align>
+					<itemgap>0</itemgap>
+					<visible>{has('badge')}</visible>
+					<control type="button">
+						<pulseonselect>false</pulseonselect>
+						<width min="{x(BADGE_MIN_W)}" max="{W - 2 * x(8)}">auto</width>
+						<height>{BADGE_H}</height>
+						<textoffsetx>{x(10)}</textoffsetx>
+						<align>center</align>
+						<aligny>center</aligny>
+						<font>kscape_badge</font>
+						<textcolor>{AMBER}</textcolor>
+						<disabledcolor>{AMBER}</disabledcolor>
+						<enable>false</enable>
+						<texturenofocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturenofocus>
+						<texturefocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturefocus>
+						<label>{item('Property(badge)')}</label>
+					</control>
+				</control>
+''' if badge else ''
         out.append(f'''			<control type="group" id="{base + k}">
 				<width>{W}</width>
 				<height>{H}</height>
@@ -124,32 +153,7 @@ def slot(base, L):
 					<fadetime>120</fadetime>
 					<texture background="true">{item('Art(poster)')}</texture>
 				</control>
-				<control type="grouplist">
-					<left>{x(8)}</left>
-					<top>{H - BADGE_H - 8}</top>
-					<width>{W - 2 * x(8)}</width>
-					<height>{BADGE_H}</height>
-					<orientation>horizontal</orientation>
-					<align>right</align>
-					<itemgap>0</itemgap>
-					<visible>{has('badge')}</visible>
-					<control type="button">
-						<pulseonselect>false</pulseonselect>
-						<width min="{x(BADGE_MIN_W)}" max="{W - 2 * x(8)}">auto</width>
-						<height>{BADGE_H}</height>
-						<textoffsetx>{x(10)}</textoffsetx>
-						<align>center</align>
-						<aligny>center</aligny>
-						<font>kscape_badge</font>
-						<textcolor>{AMBER}</textcolor>
-						<disabledcolor>{AMBER}</disabledcolor>
-						<enable>false</enable>
-						<texturenofocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturenofocus>
-						<texturefocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturefocus>
-						<label>{item('Property(badge)')}</label>
-					</control>
-				</control>
-				<control type="group">
+{badge_xml}				<control type="group">
 					<left>{W - x(HEART_BOX) - x(8)}</left>
 					<top>8</top>
 					<visible>{has('fav')}</visible>
@@ -458,14 +462,15 @@ def _build(L):
 '''
 
 
-def prepare(L, sx, addon_path, profile_path):
+def prepare(L, sx, addon_path, profile_path, builder=None, prefix='script-kscape-wall'):
     """The XML for an adapted layout, written to (and opened from) the add-on's profile folder,
     with a copy of the wall's images beside it (Kodi looks for them next to the XML). Returns
-    (script path for WindowXML, file name). Files of earlier layouts are removed."""
+    (script path for WindowXML, file name). Files of earlier layouts are removed.
+    KScapeX: `builder` and `prefix` build another wall's XML (newwallxml.py, "New wall test")."""
     import shutil
-    xml = build(L, sx)
+    xml = (builder or build)(L, sx)
     tag = hashlib.sha1(xml.encode('utf-8')).hexdigest()[:10]
-    name = f'script-kscape-wall-{L.name}-{tag}.xml'
+    name = f'{prefix}-{L.name}-{tag}.xml'
     skin = os.path.join(profile_path, 'display', 'resources', 'skins', 'Default')
     folder, media = os.path.join(skin, '1080i'), os.path.join(skin, 'media')
     os.makedirs(folder, exist_ok=True)
@@ -476,7 +481,7 @@ def prepare(L, sx, addon_path, profile_path):
         if not os.path.exists(dst) or os.path.getsize(dst) != os.path.getsize(src):
             shutil.copyfile(src, dst)
     for f in os.listdir(folder):
-        if f.startswith(f'script-kscape-wall-{L.name}-') and f != name:
+        if f.startswith(f'{prefix}-{L.name}-') and f != name:
             os.remove(os.path.join(folder, f))
     path = os.path.join(folder, name)
     if not os.path.exists(path):
