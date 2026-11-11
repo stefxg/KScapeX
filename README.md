@@ -1,4 +1,49 @@
-# KScape
+# KScapeX
+
+> **KScapeX is a modified version of [KScape](https://github.com/Oxiadust/kscape) by Oxiadust,
+> adapted exclusively for the Ugoos AM6B+ running CoreELEC avdvplus**
+> (21.3-Omega_avdvplus, Kodi 21.3). It is not an official KScape release: report problems here
+> (stefxg/KScapeX), not to the KScape project. It is only tested on that box, and some changes
+> assume it (CoreELEC settings, TinyPPI, Dolby Vision information).
+
+## About KScapeX
+
+KScapeX diverged from KScape 0.14.0. The add-ons were renamed so both can be installed side by
+side: the skin is `skin.kscapex`, the wall add-on `script.kscapex.wall`. They are published in
+the stefxg Kodi repository (see *Install*). What differs from KScape:
+
+- **Performance on the AM6B+.** Idle screens no longer redraw every frame (no pulsing focus
+  button, no live video window in the now-playing chips); the cover wall is lighter (one
+  auto-width badge per cover: 1,457 controls instead of 3,641); covers that change place after
+  a key press are moved in the background; the related-cover shuffle only flies the covers you
+  can see. **Measure performance** (add-on settings → Performance, off by default) shows frame
+  rate, CPU, memory and temperature on screen and writes `kscape.perf` lines to `kodi.log`;
+  **Show redrawn areas** toggles Kodi's dirty-region view.
+- **Home screen.** No KScape wordmark, clock or weather; no Music tab; the tabs (Movies, TV
+  Shows, System, Power) are centred. No view cards: Movies and TV Shows open their last view
+  (wall or list) directly. **System** starts with **Videos** (sources, shares, folders and files,
+  shown as a list) and **CoreELEC** (CoreELEC's settings).
+- **Cover wall.** Filled left to right, row by row (A to Z reads like a page). **C → Sort by**:
+  Alphabetical, Release date or Date added (newest first), remembered per library. Moving up or
+  down scrolls one row at a time with the frame kept on the middle row, as across.
+- **Playback controls.** Stop first on the top row. A second row in the same style: **Playback
+  info** (opens [TinyPPI](https://github.com/CE-Repo/script.tinyppi) when it is installed - the
+  full avdvplus overlay with Dolby Vision RPU/EL, L1/L5/L6 metadata, VS10 and Atmos details -
+  otherwise Kodi's player process info, which now shows the HDR type: Dolby Vision, HDR10,
+  HDR10+, HLG or SDR), Audio settings, Video settings, Subtitle settings, Find subtitles,
+  Bookmarks and Information.
+- **French.** Both add-ons are translated into French and follow Kodi's language. With Kodi in
+  French they also follow its regional formats: dates ("6 novembre"), 24-hour clock, durations
+  ("2 h 43"), amounts, titles sorted without Le / La / Les / L' and accents, French age ratings,
+  and TMDB and Wikipedia answers in French (English when French has none).
+- **CoreELEC.** A **CoreELEC** entry in Settings and on Home → System, and the fonts CoreELEC's
+  settings windows use, so they display at their intended sizes. The fonts TinyPPI requires
+  are part of the skin, so TinyPPI never rewrites `Font.xml`.
+
+The rest of this document describes KScape's features as they remain in KScapeX; where KScapeX
+changed something, the text says so.
+
+## KScape
 
 A cinematic skin for Kodi 21 (Omega), built around an edge-to-edge wall of covers you glide
 across with a remote. Pause on a movie, album or TV show and its synopsis appears, then related
@@ -11,7 +56,7 @@ KScape is built only from Kodi's own skinning and Python APIs and your own libra
 
 ## What it does
 
-- **Home screen.** Back from the wall. Random fanart from your movie library fills the screen
+- **Home screen.** *(KScapeX: no clock, weather, Music tab or view cards; see above.)* Back from the wall. Random fanart from your movie library fills the screen
   and crossfades to another movie every ~11 s (the movie's title shows bottom right), with a
   navigation bar in the theme colour along the bottom: **Movies**, **Music**, **TV Shows**, **System**
   and **Power**. Left/Right wrap around.
@@ -37,8 +82,9 @@ KScape is built only from Kodi's own skinning and Python APIs and your own libra
     Hibernate, Reboot, Log off, master mode, idle shutdown, Favourites, Reload skin, Skin
     settings, Settings); its submenu is SiLVO's: Power off, Reboot, Suspend, Hibernate, Log off,
     Quit. Entries the system cannot do are hidden, as in SiLVO.
-- **Cover wall.** Kodi always starts on Home; the wall opens from its Movies card. About 9 × 3.6 covers are visible, bleeding off every edge,
-  in title order running down the columns and across to the right.
+- **Cover wall.** Kodi always starts on Home; the wall opens from its Movies tab. About 9 × 3.6 covers are visible, bleeding off every edge,
+  in title order (KScapeX: left to right, row by row; **C → Sort by** for release date or date
+  added).
 - **Focus frame.** A thick amber frame hugs the selected cover, in front of the wall, filling
   the gutter to its neighbours.
 - **Camera follow.** The focus frame glides to the next cover with a soft overshoot
@@ -190,7 +236,9 @@ KScape is built only from Kodi's own skinning and Python APIs and your own libra
   Favourite covers and list rows carry an amber heart. **C → Favourites** on a cover wall opens
   the wall of just your favourites of that kind (Back returns), updated as soon as one is added
   or removed (here or in Kodi's own favourites window); with none it explains how to add one.
-- **Collections** for movies, music and TV shows, each from its Home card. Laid out like
+- **Collections** for movies, music and TV shows. (KScape opens these screens from its Home
+  cards; KScapeX removed the cards, so they are no longer reached from Home, while **C → Add to
+  collection…** and movie info → Collections still file titles into your collections.) Laid out like
   Kaleidescape's collections screen: a tab bar of collections along the bottom, the selected
   collection's titles on the left with the focused one in a tall blue band, its poster (or album
   cover) on the right; while the tab bar has focus, the right side previews the collection (one
@@ -256,8 +304,10 @@ KScape is built only from Kodi's own skinning and Python APIs and your own libra
   directors; albums match album and artist (then genre); shows match titles, then cast - with a
   heading saying what was searched and how many matched, or a message when nothing did. C on
   the results searches again.
-- **Playback controls** in the same style: play/pause, back/forward 30 s, audio track, subtitles
-  (both cycle in place), stop, plus a title strip and an info screen.
+- **Playback controls** in the same style: stop, play/pause, back/forward 30 s, audio track,
+  subtitles (both cycle in place), plus a title strip and an info screen. KScapeX adds a second
+  row: Playback info (TinyPPI when installed), Audio, Video and Subtitle settings, Find
+  subtitles, Bookmarks and Information.
 
 ### Remote / keyboard
 
@@ -267,7 +317,7 @@ KScape is built only from Kodi's own skinning and Python APIs and your own libra
 | Select / Enter | Open the movie info screen |
 | Play | Play the movie (resumes from the last position if there is one) |
 | Back / Esc | Leave the wall, straight back to Home (the shuffles can be undone from the menu) |
-| Menu / C / Info | The menu, in three sections. **View Options**: **View** (switch to the list view), **Group by Collection** On/Off (movies), **Reduce Motion** On/Off, **Automatic Shuffle** On/Off. **Misc Options**: **Search…**, **Favourites** (the wall of your favourites), **Filter…** (movies; **Clear all filters** when some are on). **Actions**: **Undo shuffle** (after a shuffle), shuffle now, **Reload library**, **Add to / Remove from Favourites** (labelled for the selected item), **Add to collection…**, the movie's scene entries, then **Exit to Home Page** (or **Exit to Wall** / **Exit to Collections** on a wall opened over another view) |
+| Menu / C / Info | The menu, in three sections. **View Options**: **View** (switch to the list view), **Group by Collection** On/Off (movies), **Reduce Motion** On/Off, **Automatic Shuffle** On/Off, **Sort by** (KScapeX, cover wall). **Misc Options**: **Search…**, **Favourites** (the wall of your favourites), **Filter…** (movies; **Clear all filters** when some are on). **Actions**: **Undo shuffle** (after a shuffle), shuffle now, **Reload library**, **Add to / Remove from Favourites** (labelled for the selected item), **Add to collection…**, the movie's scene entries, then **Exit to Home Page** (or **Exit to Wall** / **Exit to Collections** on a wall opened over another view) |
 
 In the **list view**: Up/Down move through items, Left/Right between columns, Select opens the
 info, album or show screen, Play plays, Back goes back to Home (or, when the list was opened
@@ -297,13 +347,23 @@ and the usual Kodi playback keys (pause, seek, stop) keep working.
 
 ## Install
 
-Requires Kodi 21 Omega. Both add-ons are needed for the animated wall; without
-`script.kscapex.wall` the skin falls back to a static poster grid.
+Requires Kodi 21 Omega; KScapeX targets the Ugoos AM6B+ with CoreELEC avdvplus. Both add-ons
+are needed for the animated wall; without `script.kscapex.wall` the skin falls back to a static
+poster grid.
 
-### From ZIP (recommended)
+### From the stefxg repository (recommended)
 
-Download `script.kscapex.wall-<version>.zip` and `skin.kscapex-<version>.zip` from the
-[latest release](https://github.com/Oxiadust/kscape/releases/latest), or build them yourself:
+1. In Kodi: **Settings → File manager → Add source**, enter
+   `https://raw.githubusercontent.com/stefxg/skin.rapier.avdvplus/repo/` and name it, for
+   example, `stefxg`.
+2. **Settings → Add-ons → Install from zip file** → `stefxg` → `repository.stefxg` →
+   `repository.stefxg-<version>.zip`. (Allow "Unknown sources" if Kodi asks.)
+3. **Install from repository → Dépôt stefxg → Look and feel → Skin → KScapeX.** Kodi installs
+   `script.kscapex.wall` with it, and later versions arrive as normal add-on updates.
+
+### From ZIP
+
+Build the zips yourself:
 
 ```sh
 tools/build_zips.sh          # writes dist/skin.kscapex-<ver>.zip and dist/script.kscapex.wall-<ver>.zip
@@ -341,8 +401,8 @@ then set `lookandfeel.skin` to `skin.kscapex` in `userdata/guisettings.xml`.
 KScape has its own versions of Kodi's settings screens (Settings, its category pages, System info, Profiles,
 File manager, Event log, add-on browser/information/settings, keyboard and the other dialogs they
 open), drawn in the theme colour. **Skin settings** has five categories, chosen on the left:
-**General** (Reduce motion), **Colours**, **Home screen** (hide the background artwork, clock
-or movie title), **Movie versions** (format badges on covers, the version Play starts, prefer
+**General** (Reduce motion), **Colours**, **Home screen** (hide the background artwork or
+movie title; KScapeX has no clock), **Movie versions** (format badges on covers, the version Play starts, prefer
 3D) and **Display & aspect ratio** (see *Ultrawide and CinemaScope*).
 
 **Colours.** KScape is drawn in two colours, and Skin settings lets you pick each:
@@ -611,7 +671,9 @@ add-on's window XML and Python are re-read each time a view opens).
   answer slowly (a server name that does not always resolve), that can take a long while and
   looks like a freeze. It is Kodi's own behaviour, with any skin; see *Library update on
   startup* in Kodi's media settings.
-- Tested on macOS with Kodi 21.3 at 1080p, with a real 757-movie library, a synthetic
+- KScapeX: tested on an Ugoos AM6B+ with CoreELEC 21.3-Omega_avdvplus (R10), GUI at 1080p 60 Hz,
+  with a 142-movie library. Not tested on other devices.
+- KScape (upstream): tested on macOS with Kodi 21.3 at 1080p, with a real 757-movie library, a synthetic
   5,000-movie library, and the generated 30-album / 5-show test library (ranking and placement for 5,000 movies take about 55 ms on the
   development Mac). Not yet tested at 4K, on low-power devices, or on Linux/Android/Windows.
 - The info screen lays out its right-hand column from estimated line counts (Kodi cannot
@@ -634,7 +696,8 @@ add-on's window XML and Python are re-read each time a view opens).
 
 ## License
 
-KScape is released under the [MIT License](LICENSE); a copy ships inside each add-on
+KScape is released under the [MIT License](LICENSE), and so are the KScapeX modifications
+(Copyright (c) 2026 stefxg, alongside the original copyright); a copy ships inside each add-on
 (`LICENSE.txt`). Kodi itself, and artwork and metadata from your library, keep their own licenses.
 
 **Exception:** two skin files closely follow the control layout of Kodi's Estuary skin (by phil65 /
