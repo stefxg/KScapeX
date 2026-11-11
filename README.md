@@ -8,6 +8,10 @@
 
 ## About KScapeX
 
+**Thank you to [Oxiadust](https://github.com/Oxiadust) for all the wonderful work on KScape.**
+The cover wall, its motion and shuffle, the views, collections, scenes and Demo Scripts are
+his; KScapeX only adapts them to one box. Everything good here started with KScape.
+
 KScapeX diverged from KScape 0.14.0. The add-ons were renamed so both can be installed side by
 side: the skin is `skin.kscapex`, the wall add-on `script.kscapex.wall`. They are published in
 the stefxg Kodi repository (see *Install*). What differs from KScape:
