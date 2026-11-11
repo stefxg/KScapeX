@@ -1,3 +1,6 @@
+[B]0.16.2[/B] (11-11-2026)
+- « Mesurer les performances » est désactivé par défaut. Il est coupé une fois à la mise à jour (Kodi gardait la valeur enregistrée par les versions précédentes) ; ensuite votre choix est respecté.
+
 [B]0.16.1[/B] (06-11-2026)
 - Version alignée sur la skin (aucun changement dans l'add-on du mur).
 

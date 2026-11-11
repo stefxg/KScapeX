@@ -63,7 +63,7 @@
 			<group id="1">
 				<setting id="perf" type="boolean" label="32701" help="32702">
 					<level>0</level>
-					<default>true</default>
+					<default>false</default>
 					<control type="toggle"/>
 				</setting>
 				<setting id="dirty_regions" type="action" label="32703" help="32704">

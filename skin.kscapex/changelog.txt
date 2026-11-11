@@ -1,3 +1,6 @@
+[B]0.16.2[/B] (11-11-2026)
+- Version alignée sur l'add-on du mur (mesure des performances désactivée par défaut).
+
 [B]0.16.1[/B] (06-11-2026)
 - Réglages CoreELEC : entrée « CoreELEC » dans Paramètres et dans le sous-menu Système de l'Accueil (seule l'entrée LibreELEC existait, masquée sur CoreELEC).
 - Fenêtres des réglages CoreELEC (service.coreelec.settings) : polices qu'elles demandent ajoutées (font10, font12, font13_title, font16caps, font23_title, font24_title) ; sans elles Kodi affichait tout leur texte dans la même taille (descriptions trop grandes, titres pas plus gros que le texte).

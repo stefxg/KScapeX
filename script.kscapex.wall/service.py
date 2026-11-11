@@ -48,6 +48,21 @@ def follow_display():
             break
 
 
+def perf_off_once():
+    """KScapeX 0.16.2: "Measure performance" is off by default now. Kodi keeps the value an
+    earlier version saved (on, the old default), so switch it off once; afterwards the user's
+    own choice stands."""
+    import xbmcaddon
+    from resources.lib import state
+    if state.load().get('perf_default_off'):
+        return
+    try:
+        xbmcaddon.Addon('script.kscapex.wall').setSettingBool('perf', False)
+        state.save(perf_default_off=True)
+    except Exception as e:
+        xbmc.log(f'kscape: switching performance measuring off: {e}', xbmc.LOGWARNING)
+
+
 def sample_performance():
     """Performance test builds: while the add-on setting "perf" is on, show the skin's overlay
     (Window(Home).Property(kscape.perf)) and write a sample line to kodi.log every second
@@ -77,6 +92,7 @@ def sample_performance():
 
 if __name__ == '__main__':
     install_splash()
+    perf_off_once()
     threading.Thread(target=follow_display, daemon=True).start()
     threading.Thread(target=sample_performance, daemon=True).start()
     run()
