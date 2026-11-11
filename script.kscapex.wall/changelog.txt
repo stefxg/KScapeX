@@ -1,3 +1,11 @@
+[B]0.19.0[/B] (11-11-2026)
+Vue « New wall test » :
+- L'ordre s'inverse : la réorganisation d'abord (2 s après le dernier appui), le panneau ensuite (~1 s après la fin de la vague, soit ~4 s). Ils ne se marchent plus dessus. Sans vague à venir (réorganisation automatique coupée, ou mur déjà organisé autour de ce film), le panneau arrive directement à 1,2 s.
+- Le synopsis du panneau défile lentement quand il dépasse ses quatre lignes (4 s d'attente, boucle), seulement pendant que le panneau est affiché.
+- Nouvelle fiche cinéma (films) : le fanart emplit tout l'écran sous un voile sombre, un dégradé côté texte et un vignettage ; panneaux en verre fumé aux couleurs du thème ; le clearlogo remplace le titre ; elle s'ouvre en fondu avec un léger épanouissement (plus de glissement par le bas) et se ferme en fondu. Mêmes boutons aux mêmes places. Elle ne s'ouvre que depuis le New wall test ; la fiche d'origine ne change pas (la nouvelle en est dérivée automatiquement, à l'octet près vérifié par les tests).
+Partout :
+- Lancer une vidéo n'affiche plus le grand logo KSCAPE sur fond noir : l'écran d'attente ne montre plus rien pendant 1,5 s, puis seulement un petit logo discret en bas à droite si l'attente dure (chargements longs). La fermeture forcée au bout de 10 s reste.
+
 [B]0.18.0[/B] (11-11-2026)
 Vue « New wall test » : version cinéma.
 - Fond fanart : quand le panneau s'ouvre, l'image du film emplit l'écran derrière le mur (fondu, léger recul, voile sombre et vignettage) ; les jaquettes transparaissent faiblement. Sans fanart, le mur s'assombrit simplement. Fanart et logo sont lus ensemble, une fois par film, en arrière-plan.

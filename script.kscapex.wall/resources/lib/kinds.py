@@ -69,7 +69,7 @@ class Kind:
     def from_cache(self, d):
         return self.record.from_cache(d)
 
-    def activate(self, item, favs, library=None, page=None, resolver=None):
+    def activate(self, item, favs, library=None, page=None, resolver=None, info_xml=None):
         """Select on an item. Returns 'search' if the user asked to search from there, or
         ('explore', filter) when they chose an Explore filter on a movie's info screen.
         `library` is what Explore filters (for its counts), `page` the info screen page to open
@@ -142,14 +142,14 @@ class Movies(Kind):
             return item
         return replace(item, cast=old.cast, versions=lib.mark_default(old.versions, item.file))
 
-    def activate(self, item, favs, library=None, page=None, resolver=None):
+    def activate(self, item, favs, library=None, page=None, resolver=None, info_xml=None):
         from . import modal
         from . import scenes as S
         from .details import show_details
         focus = None
         while True:
             choice, details, extra = show_details(item, favs, library=library, page=page, focus=focus,
-                                                  resolver=resolver)
+                                                  resolver=resolver, xml=info_xml)
             if choice == 'movie':                  # another movie, chosen on a person's screen
                 other = lib.fetch_movie(extra['movieid'])
                 if not other:
@@ -211,7 +211,7 @@ class Music(Kind):
     def fallback(self, item):
         return f'{item.title}[CR][COLOR FF9AA3B5]{item.artist}[/COLOR]' if item.artist else item.title
 
-    def activate(self, item, favs, library=None, page=None, resolver=None):
+    def activate(self, item, favs, library=None, page=None, resolver=None, info_xml=None):
         from .browse import show_album
         choice = show_album(item, favs)
         while choice and choice[0] == 'album':            # an album chosen on an artist's screen
@@ -259,7 +259,7 @@ class TV(Kind):
     def fetch_one(self, key):
         return lib.fetch_show(key)
 
-    def activate(self, item, favs, library=None, page=None, resolver=None):
+    def activate(self, item, favs, library=None, page=None, resolver=None, info_xml=None):
         from .browse import show_tvshow
         choice = show_tvshow(item, favs)
         if choice and choice[0] == 'episode':

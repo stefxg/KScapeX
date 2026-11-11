@@ -15,18 +15,23 @@ C > New wall test switches a library's wall (movies or TV shows) to this look an
   Spotlight  the selected cover comes forward (zoom, soft shadow, a floor reflection, a light
              glint); everything goes at the next key press.
   Panel      smoked glass in the theme's colours at 90%, the film's clear logo in place of its
-             title when the library has one.
+             title when the library has one; a synopsis longer than its four lines scrolls
+             slowly through them (XML autoscroll, only while the panel is up).
   Counter    plain text on a dark fade along the bottom of the wall.
   Shuffle    the covers that change cross-fade where they stand, in a wave that spreads from
              the selected cover, instead of flying across the wall, which left empty cells on
-             the way; a soft whoosh (xbmc.playSFX) marks it. The panel steps aside while the
-             wave runs and comes back after it.
+             the way; a soft whoosh (xbmc.playSFX) marks it.
+  Order      the wave comes first (2 s), the panel after it has settled (~1 s later), so the
+             two never fight: the wall rearranges itself around the film, rests, and then the
+             scene lights up. When no wave is coming (automatic shuffle off, or the wall is
+             already arranged around this film), the panel comes at 1.2 s instead.
 
 Cost on the AM6B+: the spotlight and backdrop are one property write and one setPosition when
 the panel opens, one property write when it closes (everything else comes from a hidden list
 item, which takes no GUI lock); the wave makes the same number of control calls as the classic
 flight.
 """
+import math
 import os
 import threading
 import time
@@ -37,11 +42,15 @@ import xbmcgui
 
 from . import geometry as G
 from . import moviesets as MS
+from . import newinfoxml as NX2
 from . import newwallxml as NX
 from .library import rpc
 from .wallmodel import wave_delay
 from .window import HOME, WallWindow, _is
 
+SHUFFLE_DELAY_S = 2.0           # the wave, 2 s after the last key press (before the panel)
+PANEL_PROMPT_S = 1.2            # the panel, when no wave is coming
+PANEL_REST_S = 1.0              # ...and this long after a wave has settled
 WAVE_STEP_MS = 55               # the wave's delay per cover width of distance
 FADE_OUT_MS = 240               # the old cover fades away...
 FADE_IN_MS = 340                # ...as the new one fades in over it (an overlap: no gap)
@@ -126,6 +135,7 @@ class NewWallWindow(WallWindow):
             self.backdrop = self.getControl(1009)    # parked at the camera when the panel opens
             self.art = {}                    # item key -> {'logo', 'fanart'} ('' for none)
             self.art_for = None              # the item whose artwork is wanted now
+            self.wave_rest_until = 0.0       # the wave has settled; the panel waits until then
         super().onInit()
         if first:
             # The opening cascade plays while kscape.opened is unset; after that, coming back
@@ -140,6 +150,25 @@ class NewWallWindow(WallWindow):
         except RuntimeError:                 # the window has closed
             pass
 
+    # ---- the order of the dwell: wave first, then the panel ---------------------------------
+
+    shuffle_delay_s = SHUFFLE_DELAY_S
+    info_xml = NX2.NAME              # the cinema fiche (newinfoxml.py)
+
+    @property
+    def panel_delay_s(self):
+        """The wave first: while one is still to come for this film, the panel holds back
+        entirely (the wave, and then _show_panel's rest, bring it in afterwards)."""
+        item = self.wall.at(*self.focus)
+        waving = (self.auto_shuffle and item is not None and self.shuffled_for != item.key
+                  and len(self.wall.movies()) > 1)
+        return math.inf if waving else PANEL_PROMPT_S
+
+    def _finish_shuffle(self):
+        if self.shuffle_until:
+            self.wave_rest_until = time.time() + PANEL_REST_S
+        super()._finish_shuffle()
+
     # ---- spotlight and panel ----------------------------------------------------------------
 
     def _panel_place(self):
@@ -151,8 +180,8 @@ class NewWallWindow(WallWindow):
         return cells, px
 
     def _show_panel(self):
-        if self.shuffle_until:
-            return                       # the wave first: the dwell loop brings the panel back
+        if self.shuffle_until or time.time() < self.wave_rest_until:
+            return                       # the wave first, and a breath after it settles
         item = self.wall.at(*self.focus)
         if not item:
             return

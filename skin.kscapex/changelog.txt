@@ -1,3 +1,7 @@
+[B]0.19.0[/B] (11-11-2026)
+- Écran d'attente discret : plus de grand logo KSCAPE sur fond noir au lancement d'une vidéo (rien pendant 1,5 s, puis un petit logo en bas à droite si l'attente dure).
+- Version alignée sur l'add-on du mur (New wall test : vague avant panneau, synopsis défilant, fiche cinéma).
+
 [B]0.18.0[/B] (11-11-2026)
 - Version alignée sur l'add-on du mur (New wall test : version cinéma — fond fanart, reflet, éclat, fondu enchaîné, cascade, souffle).
 

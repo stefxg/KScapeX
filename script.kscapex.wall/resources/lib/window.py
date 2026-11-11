@@ -474,6 +474,10 @@ class WallWindow(xbmcgui.WindowXML):
     ready = False
     base_total = 0                   # covers before filters (the counter's "of")
     shown_total = 0                  # movies the wall shows (a set's cover counts its movies)
+    # KScapeX: the dwell delays and the fiche, so New wall test (newwall.py) can use its own.
+    panel_delay_s = G.PANEL_DELAY_S
+    shuffle_delay_s = G.SHUFFLE_DELAY_S
+    info_xml = None                  # the info screen's XML (None: details.py's classic fiche)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args)
@@ -908,7 +912,7 @@ class WallWindow(xbmcgui.WindowXML):
         self._remember(item)
         library = self._library() if self.kind.explores else None
         follow = self._covered(lambda: self.kind.activate(item, self.favs, library=library, page=page,
-                                                          resolver=self.resolver))
+                                                          resolver=self.resolver, info_xml=self.info_xml))
         self._after_favourites()
         from . import actions
         actions.take_changes()              # the monitor has patched the wall (actions.announce_change)
@@ -1292,11 +1296,11 @@ class WallWindow(xbmcgui.WindowXML):
                 if heal:
                     self.heal_at = now + HEAL_EVERY_S
                 item = self.wall.at(*self.focus)
-                if item and not self.panel_shown and idle >= G.PANEL_DELAY_S:
+                if item and not self.panel_shown and idle >= self.panel_delay_s:
                     t0 = perf.now()
                     self._show_panel()
                     perf.log('wall.panel', ms=perf.ms_since(t0))
-                if (item and self.auto_shuffle and idle >= G.SHUFFLE_DELAY_S and not self.shuffle_until
+                if (item and self.auto_shuffle and idle >= self.shuffle_delay_s and not self.shuffle_until
                         and self.shuffled_for != item.key and len(self.wall.movies()) > 1):
                     self.shuffled_for = item.key
                     self._shuffle_related(item)

@@ -230,13 +230,18 @@ def panel_width(L):
 
 def panel(L):
     """The classic panel (wallxml.panel) in smoked glass, with the clear logo above the
-    synopsis when the film has one."""
+    synopsis when the film has one, and a synopsis that scrolls slowly through its lines when
+    it is longer than them (only while the panel is up, so it costs nothing at rest)."""
     pw, ph = panel_width(L), G.panel_h(L)
     no_logo = f'String.IsEmpty(Container({SPOT_SRC}).ListItemAbsolute(0).Property(logo))'
     text = W.panel_text(L, pw)
     title = '<control type="label" id="1901">'
     if title in text:            # posters (albums keep a textbox title and no logo)
         text = text.replace(title, f'{title}\n\t\t\t\t\t<visible>{no_logo}</visible>', 1)
+    body = '<control type="textbox" id="1902">'
+    scroll = ('<autoscroll delay="4000" time="6000" repeat="9000">'
+              '!String.IsEmpty(Window.Property(kscape.panel.open))</autoscroll>')
+    text = text.replace(body, f'{body}\n\t\t\t\t\t{scroll}', 1)
     return f'''			<control type="group" id="1900">
 				<description>Info panel in smoked glass beside the focused cover (placed by Python)</description>
 				<left>-4000</left>

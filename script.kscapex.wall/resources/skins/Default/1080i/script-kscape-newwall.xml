@@ -7607,6 +7607,7 @@
 					<textcolor>FFFFFFFF</textcolor>
 				</control>
 				<control type="textbox" id="1902">
+					<autoscroll delay="4000" time="6000" repeat="9000">!String.IsEmpty(Window.Property(kscape.panel.open))</autoscroll>
 					<left>34</left>
 					<top>110</top>
 					<width>526</width>

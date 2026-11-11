@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 
 from resources.lib import display as D  # noqa: E402
 from resources.lib import geometry as G  # noqa: E402
+from resources.lib import newinfoxml as NX2  # noqa: E402
 from resources.lib import newwallxml as NX  # noqa: E402
 from resources.lib import wallxml  # noqa: E402
 from resources.lib.wallmodel import Wall, wave_delay  # noqa: E402
@@ -45,6 +46,24 @@ class ShippedXmlTest(unittest.TestCase):
 
     def test_new_wall_is_generated(self):
         self.assertEqual(NX.build(G.POSTER), shipped('script-kscape-newwall.xml'))
+
+    def test_cinema_fiche_is_transformed_from_the_untouched_classic_one(self):
+        classic = shipped('script-kscape-info.xml')
+        self.assertIn('Hand-written', classic)                   # the classic fiche is untouched
+        self.assertNotIn('GENERATED', classic)
+        new = NX2.transform(classic)
+        self.assertEqual(new, shipped(NX2.NAME))
+        self.assertLessEqual({'100', '151', '153', '221', '310', '410', '510', '610', '710'}, ids(new))
+        self.assertEqual(ids(new), ids(classic))                 # same controls: details.py drives both
+        self.assertIn('Window.Property(fanart)', new)
+        self.assertIn('Window.Property(clearlogo)', new)
+        self.assertNotIn('effect="slide" start="0,1032"', new)   # fade + bloom, no slide from the bottom
+        self.assertIn('effect="zoom" start="97"', new)
+        ET.fromstring(new)
+
+    def test_transform_refuses_a_changed_classic_fiche(self):
+        with self.assertRaises(ValueError):
+            NX2.transform('<window/>')
 
 
 class NewWallXmlTest(unittest.TestCase):
@@ -147,6 +166,31 @@ class WaveTest(unittest.TestCase):
         self.assertLess(int(f_in['delay']), int(f_out['delay']) + int(f_out['time']))
         self.assertEqual(f_zoom['effect'], 'zoom')
         self.assertEqual(f_in['condition'], 'C')
+
+
+def source(name):
+    with open(os.path.join(os.path.dirname(__file__), '..', 'resources', 'lib', name), encoding='utf-8') as f:
+        return f.read()
+
+
+class OrderTest(unittest.TestCase):
+    # Under the Kodi mocks the window classes become mocks themselves, so the wiring of the
+    # class attributes is checked in the source; the behaviour runs in the fake-Kodi harness.
+    def test_wave_first_then_panel(self):
+        self.assertEqual(NW.SHUFFLE_DELAY_S, 2.0)
+        self.assertLess(NW.PANEL_PROMPT_S, NW.SHUFFLE_DELAY_S)   # no wave coming: the panel is prompt
+        self.assertGreater(NW.PANEL_REST_S, 0)
+        new = source('newwall.py')
+        self.assertIn('shuffle_delay_s = SHUFFLE_DELAY_S', new)
+        self.assertIn('def panel_delay_s(self):', new)
+        self.assertIn('info_xml = NX2.NAME', new)
+        classic = source('window.py')
+        self.assertIn('panel_delay_s = G.PANEL_DELAY_S', classic)     # the classic wall keeps its
+        self.assertIn('shuffle_delay_s = G.SHUFFLE_DELAY_S', classic)  # order and its fiche
+        self.assertIn('info_xml = None', classic)
+
+    def test_panel_scrolls_a_long_synopsis(self):
+        self.assertIn('<autoscroll', NX.panel(G.POSTER))
 
 
 class ArtTest(unittest.TestCase):

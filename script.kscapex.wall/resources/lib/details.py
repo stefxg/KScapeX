@@ -123,6 +123,9 @@ class DetailsDialog(xbmcgui.WindowXMLDialog):
         self._mark_favourite()
         self.setProperty('poster', m.poster)
         self.setProperty('badge', m.badge)
+        art = d.get('art') or {}                     # KScapeX: the cinema fiche's backdrop and
+        self.setProperty('fanart', art.get('fanart') or '')     # logo (inert in the classic one)
+        self.setProperty('clearlogo', art.get('clearlogo') or '')
         self._layout()
         self._fill_menu()
         self._ask_provider()
@@ -557,9 +560,11 @@ class DetailsDialog(xbmcgui.WindowXMLDialog):
         if not fresh:
             return
         self.details = fresh
-        poster = (fresh.get('art') or {}).get('poster') or self.movie.poster
+        art = fresh.get('art') or {}
         self.setProperty('title', fresh.get('title') or self.movie.title)
-        self.setProperty('poster', poster)
+        self.setProperty('poster', art.get('poster') or self.movie.poster)
+        self.setProperty('fanart', art.get('fanart') or '')
+        self.setProperty('clearlogo', art.get('clearlogo') or '')
         self.cast_people = []
         self.meta = {}
         self.store.poll()
@@ -771,14 +776,15 @@ class DetailsDialog(xbmcgui.WindowXMLDialog):
         self.setProperty('favourite', '1' if fav else '')
 
 
-def show_details(movie, favs=None, library=None, page=None, focus=None, resolver=None):
+def show_details(movie, favs=None, library=None, page=None, focus=None, resolver=None, xml=None):
     """Open the info screen for `movie` (on its Explore or Play Scenes page if `page` says so).
+    KScapeX: `xml` opens another dressing of the same screen (the cinema fiche, newinfoxml.py).
     Returns (choice, details, extra): choice is 'play', 'resume', 'trailer', 'search' (from the
     C menu), 'explore' (extra['filter']), 'scenes' (extra['ids'] to play, extra['focus']),
     'extra' (extra['file'], extra['title'] to play), 'movie' (extra['movieid']: another movie,
     chosen on a person's screen) or None for Return/Back; details is the GetMovieDetails dict (or None)."""
     details = fetch_details(movie.movieid)
-    dialog = DetailsDialog('script-kscape-info.xml', ADDON.getAddonInfo('path'), 'Default', '1080i',
+    dialog = DetailsDialog(xml or 'script-kscape-info.xml', ADDON.getAddonInfo('path'), 'Default', '1080i',
                            movie=movie, details=details, favs=favs, library=library, page=page,
                            focus=focus, resolver=resolver)
     modal.run(dialog)
