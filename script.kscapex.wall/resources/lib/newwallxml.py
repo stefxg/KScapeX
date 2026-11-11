@@ -16,8 +16,8 @@ is not touched. What changes, against wallxml's control map:
                newwall.py parks it at the camera's position when the panel opens (the camera
                stands still while the panel is up), so it fills the view
   1001         focus frame, now also:
-    1010         spotlight: the frame's bars - polished rods (kscape-bar.png tinted amber, with
-                 a specular catch along the top) - and a copy of the selected cover: soft
+    1010         spotlight: the frame's bars - flat amber, no gloss: the gradient tried in
+                 0.20.0 looked streaky on screen - and a copy of the selected cover: soft
                  shadow, floor reflection (the poster mirrored through kscape-reflect.png), a
                  still sheen and a lit top edge (laminated, as under glass), and a glint that
                  crosses it once (kscape-gloss.png). It zooms in (SPOT_ZOOM) while kscape.spot
@@ -51,11 +51,12 @@ REFLECT_FRACTION = 0.45         # of the cover's height (kscape-reflect.png fade
 # lit edge along its top - what turns a translucent rectangle into a slab of glass. The sheen
 # texture peaks at 20% white, so these tint it down from there.
 SHEEN = 'FFFFFFFF'
-SHEEN_COVER = '4DFFFFFF'        # on the selected cover: a laminated poster, not a mirror
-FOOT_SHADOW = '66000000'
-FOOT_H = 64
-RIM = '73FFFFFF'                # the lit top edge of a pane
-RIM_COVER = '59FFFFFF'
+SHEEN_COVER = 'A6FFFFFF'        # on the selected cover: a laminated poster, not a mirror
+FOOT_SHADOW = '8C000000'
+FOOT_H = 80
+RIM = 'B3FFFFFF'                # the lit top edge of a pane
+RIM_H = 2                       # 1 px vanishes on a television seen from across the room
+RIM_COVER = '99FFFFFF'
 FADE_H = 110                    # bottom fade under the counter
 LOGO_H = 76
 
@@ -181,7 +182,7 @@ def focus_frame(L):
 						<control type="image">
 							<description>Lit edge along the cover's top</description>
 							<width>{cw}</width>
-							<height>1</height>
+							<height>{RIM_H}</height>
 							<texture colordiffuse="{RIM_COVER}">kscape-white.png</texture>
 						</control>
 						<control type="image">
@@ -212,8 +213,8 @@ def focus_frame(L):
 								<textcolor>{AMBER}</textcolor>
 								<disabledcolor>{AMBER}</disabledcolor>
 								<enable>false</enable>
-								<texturenofocus border="2" colordiffuse="{AMBER}">kscape-badge-glossy.png</texturenofocus>
-								<texturefocus border="2" colordiffuse="{AMBER}">kscape-badge-glossy.png</texturefocus>
+								<texturenofocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturenofocus>
+								<texturefocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturefocus>
 								<label>{spot('Property(badge)')}</label>
 							</control>
 						</control>
@@ -241,13 +242,7 @@ def focus_frame(L):
 						<top>{by}</top>
 						<width>{bw}</width>
 						<height>{bh}</height>
-						<texture colordiffuse="{AMBER}">kscape-bar.png</texture>
-					</control>''')
-    out.append(f'''					<control type="image">
-						<description>Specular catch along the frame's top bar</description>
-						<width>{w}</width>
-						<height>2</height>
-						<texture colordiffuse="{RIM}">kscape-white.png</texture>
+						<texture colordiffuse="{AMBER}">kscape-white.png</texture>
 					</control>''')
     out.append('''				</control>
 			</control>''')
@@ -328,7 +323,7 @@ def panel(L):
 				<control type="image">
 					<description>Lit edge along the top</description>
 					<width>{pw}</width>
-					<height>1</height>
+					<height>{RIM_H}</height>
 					<texture colordiffuse="{RIM}">kscape-white.png</texture>
 				</control>
 				<control type="image" id="1906">

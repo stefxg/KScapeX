@@ -100,14 +100,14 @@ def transform(xml):
 					<description>Sheen lying across the glass</description>
 					<width>1728</width>
 					<height>984</height>
-					<texture colordiffuse="A6FFFFFF">kscape-sheen.png</texture>
+					<texture colordiffuse="FFFFFFFF">kscape-sheen.png</texture>
 				</control>
 				<control type="image">
 					<description>Shadow pooling at the foot of the pane</description>
-					<top>864</top>
+					<top>834</top>
 					<width>1728</width>
-					<height>120</height>
-					<texture colordiffuse="59000000" flipy="true">kscape-fade.png</texture>
+					<height>150</height>
+					<texture colordiffuse="8C000000" flipy="true">kscape-fade.png</texture>
 				</control>
 				<control type="image">
 					<width>1728</width>
@@ -117,8 +117,8 @@ def transform(xml):
 				<control type="image">
 					<description>Lit edge along the top</description>
 					<width>1728</width>
-					<height>1</height>
-					<texture colordiffuse="6EFFFFFF">kscape-white.png</texture>
+					<height>2</height>
+					<texture colordiffuse="B3FFFFFF">kscape-white.png</texture>
 				</control>''')
     # A selected row is lit from above instead of a flat block of colour (every list's focused
     # row, and the menu's marker for the page that is open).

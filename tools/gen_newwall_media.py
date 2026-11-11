@@ -6,10 +6,8 @@ resources/lib/newwallxml.py), into the wall's media folder:
   kscape-vignette.png      dark edges over the fanart backdrop (stretched full view)
   kscape-gloss.png         diagonal light band that glints across the selected cover
   kscape-reflect.png       alpha mask of the floor reflection (opaque at the cover, gone at 45%)
-  kscape-sheen.png         wide, soft diagonal highlight across the glass panels
-  kscape-bar.png           greyscale rod gradient for the focus frame's bars (tinted amber)
+  kscape-sheen.png         wide diagonal highlight across the glass panels
   kscape-row.png           greyscale gradient for a selected row, lit from above (tinted)
-  kscape-badge-glossy.png  the badge box (9-slice, border 2) with a sheen inside it
 
 White or black on transparent, so the XML tints them (colordiffuse); and, into
 resources/sounds:
@@ -78,21 +76,9 @@ def gloss():
 
 
 def sheen():
-    """The still highlight lying across a pane of glass: wider and far fainter."""
-    return band(512, 256, peak=52, width=0.30, centre=0.34)
-
-
-def rod(h=64, top=255, low=148, peak_at=0.22, spread=0.42):
-    """Greyscale gradient of a polished rod: a highlight near the top, falling off below.
-    Opaque, so colordiffuse paints it the theme's colour (the frame's bars)."""
-    img = Image.new('RGBA', (4, h), (255, 255, 255, 255))
-    px = img.load()
-    for y in range(h):
-        p = y / (h - 1)
-        v = int(low + (top - low) * math.exp(-((p - peak_at) / spread) ** 2))
-        for x in range(4):
-            px[x, y] = (v, v, v, 255)
-    return img
+    """The still highlight lying across a pane of glass: wider, and strong enough to read on a
+    television from across the room (0.20.0 peaked at 20% white and was invisible there)."""
+    return band(512, 256, peak=96, width=0.30, centre=0.34)
 
 
 def row(h=64, top=255, bottom=166):
@@ -103,20 +89,6 @@ def row(h=64, top=255, bottom=166):
         v = int(top + (bottom - top) * (y / (h - 1)) ** 0.9)
         for x in range(4):
             px[x, y] = (v, v, v, 255)
-    return img
-
-
-def badge_glossy(size=12, border=2, lit=46):
-    """The badge box as kscape-badge-box.png, with a sheen down its middle: a white edge
-    (colordiffuse paints it), and a near-black fill that lifts towards the top."""
-    img = Image.new('RGBA', (size, size), (255, 255, 255, 255))
-    px = img.load()
-    inner = size - 2 * border
-    for y in range(border, size - border):
-        p = (y - border) / max(1, inner - 1)
-        v = int(lit * (1.0 - p) ** 1.4)
-        for x in range(border, size - border):
-            px[x, y] = (v, v, v, 240)
     return img
 
 
@@ -162,8 +134,7 @@ def main():
     for name, img in (('kscape-shadow.png', shadow()), ('kscape-glass-border.png', outline()),
                       ('kscape-vignette.png', vignette()), ('kscape-gloss.png', gloss()),
                       ('kscape-reflect.png', reflect_mask()), ('kscape-sheen.png', sheen()),
-                      ('kscape-bar.png', rod()), ('kscape-row.png', row()),
-                      ('kscape-badge-glossy.png', badge_glossy())):
+                      ('kscape-row.png', row())):
         path = os.path.join(MEDIA, name)
         img.save(path, optimize=True)
         print(f'wrote {path} {img.size}')

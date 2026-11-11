@@ -119,12 +119,19 @@ class NewWallXmlTest(unittest.TestCase):
         self.assertIn('kscape-reflect.png', self.xml)
         self.assertIn('flipy="true"', self.xml)
         self.assertEqual(self.xml.count('kscape-gloss.png'), 2)   # the still sheen and the glint
-        self.assertIn('kscape-bar.png', self.xml)                 # the frame's bars are rods
-        self.assertIn('kscape-badge-glossy.png', self.xml)
-        self.assertNotIn('kscape-badge-box.png', self.xml)        # the flat box is the classic one's
+
+    def test_the_amber_carries_no_gloss(self):
+        # 0.20.0 gave the frame's bars a gradient and the badge a sheen: streaky on screen, so
+        # every amber part is flat again, as the classic wall's.
+        frame = NX.focus_frame(G.POSTER)
+        self.assertIn(f'colordiffuse="{NX.AMBER}">kscape-white.png', frame)
+        self.assertNotIn('kscape-bar.png', self.xml)
+        self.assertNotIn('kscape-badge-glossy.png', self.xml)
+        self.assertIn('kscape-badge-box.png', self.xml)
 
     def test_panels_are_polished_glass(self):
         self.assertIn('kscape-sheen.png', self.xml)               # sheen across the pane
+        self.assertGreaterEqual(NX.RIM_H, 2)                      # 1 px vanishes on a television
         self.assertIn(f'colordiffuse="{NX.FOOT_SHADOW}" flipy="true">kscape-fade.png', self.xml)
         self.assertIn(f'colordiffuse="{NX.RIM}">kscape-white.png', self.xml)   # lit top edge
 
@@ -137,7 +144,7 @@ class NewWallXmlTest(unittest.TestCase):
 
     def test_gloss_textures_are_shipped(self):
         media = os.path.join(os.path.dirname(__file__), '..', 'resources', 'skins', 'Default', 'media')
-        for name in ('kscape-sheen.png', 'kscape-bar.png', 'kscape-row.png', 'kscape-badge-glossy.png'):
+        for name in ('kscape-sheen.png', 'kscape-row.png'):
             self.assertTrue(os.path.exists(os.path.join(media, name)), name)
 
     def test_panel_glass_is_the_dense_shade(self):
