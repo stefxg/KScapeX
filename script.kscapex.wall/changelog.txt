@@ -1,3 +1,6 @@
+[B]0.22.3[/B] (11-11-2026)
+- Le voile du fond passe du noir au blanc (60 %) et se place désormais SOUS le fanart au lieu d'être par-dessus. Les jaquettes reculent derrière une brume laiteuse, le fanart (50 %) se lit sur ce fond clair sans se mélanger au détail des affiches, et le panneau sombre se détache des deux. Au-dessus et en noir, le voile ne faisait qu'assombrir le mélange.
+
 [B]0.22.2[/B] (11-11-2026)
 - Fond fanart : 50 % d'opacité et teinte à 90 % de blanc (une seule valeur, 80E6E6E6), au lieu d'une image opaque.
 

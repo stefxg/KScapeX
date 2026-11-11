@@ -93,12 +93,16 @@ class NewWallXmlTest(unittest.TestCase):
         self.assertEqual(title.find('visible').text,
                          f'String.IsEmpty(Container({NX.SPOT_SRC}).ListItemAbsolute(0).Property(logo))')
 
-    def test_backdrop_fills_the_view_with_fanart_under_an_even_veil(self):
+    def test_the_scrim_goes_under_the_fanart_not_over_it(self):
+        # Over the fanart, and black, it only darkened the mix and left the covers showing
+        # through as strongly as the film (0.22.2): the scrim comes first, and it is pale.
         back = next(c for c in ET.fromstring(self.xml).iter('control') if c.get('id') == '1009')
         images = list(back.iter('control'))[1:]
         self.assertEqual([i.find('texture').text for i in images],
-                         [f'$INFO[Container({NX.SPOT_SRC}).ListItemAbsolute(0).Property(fanart)]',
-                          'kscape-white.png'])
+                         ['kscape-white.png',
+                          f'$INFO[Container({NX.SPOT_SRC}).ListItemAbsolute(0).Property(fanart)]'])
+        self.assertEqual(images[0].find('texture').get('colordiffuse'), NX.VEIL)
+        self.assertTrue(NX.VEIL.endswith('FFFFFF'), NX.VEIL)      # pale, not black
         for i in images:
             self.assertEqual(int(i.find('width').text), G.SCREEN_W)
             self.assertEqual(int(i.find('height').text), G.SCREEN_H)

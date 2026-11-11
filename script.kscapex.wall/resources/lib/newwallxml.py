@@ -17,8 +17,8 @@ is not touched. What changes, against wallxml's control map:
                activations from replaying it)
   1992         hidden data list holding one item: the selected cover's poster, badge, favourite
                mark, text, clear logo and fanart (newwall.py sets them; no GUI lock)
-  1009         backdrop while Window.Property(kscape.spot) is set: the selected film's fanart
-               over the whole view (FANART_TINT), under an even veil. It sits inside the camera,
+  1009         backdrop while Window.Property(kscape.spot) is set: a pale scrim over the whole
+               view (VEIL), and the selected film's fanart on it (FANART_TINT). It sits inside the camera,
                between the covers and the frame; newwall.py parks it at the camera's position
                when the panel opens (the camera stands still while the panel is up), so it
                fills the view
@@ -44,7 +44,11 @@ SPOT_SRC = 1992
 SPOT_IN_MS, SPOT_OUT_MS = 240, 160
 BACK_IN_MS, BACK_OUT_MS = 550, 350       # the fanart backdrop's fades
 FANART_TINT = '80E6E6E6'        # the fanart: 50% opaque (80), tinted 90% white (E6E6E6)
-VEIL = '8C000000'               # even veil over it (no vignette: that is depth)
+VEIL = '99FFFFFF'               # a pale scrim UNDER the fanart (60% white): it puts the covers
+                                # behind a milky haze, so the fanart reads on a light ground
+                                # instead of mixing with poster detail, and the dark panel
+                                # detaches from both. Over the fanart, and black, it only made
+                                # everything darker and muddier (0.22.2)
 PANEL_BG = 'kscape_bg'          # solid, not glass: translucency is depth too
 LOGO_H = 76
 
@@ -72,8 +76,8 @@ def spot_source():
 
 def backdrop(L):
     """The selected film's fanart filling the view while the panel is up, behind the frame:
-    the image eases back from 106% once, and an even veil darkens it enough for the panel to
-    carry. With no fanart, the veil alone dims the wall."""
+    a pale scrim puts the covers behind a milky haze first, then the fanart lies on it and
+    eases back from 106% once. With no fanart, the scrim alone pushes the wall back."""
     vw, vh = G.view_size(L)
     return f'''			<control type="group" id="1009">
 				<description>Backdrop: the film's fanart under an even veil (newwall.py parks it at the camera)</description>
@@ -81,17 +85,19 @@ def backdrop(L):
 				<animation effect="fade" start="0" end="100" time="{BACK_IN_MS}">Visible</animation>
 				<animation effect="fade" start="100" end="0" time="{BACK_OUT_MS}">Hidden</animation>
 				<control type="image">
+					<description>Pale scrim: the covers step back behind it</description>
+					<width>{vw}</width>
+					<height>{vh}</height>
+					<texture colordiffuse="{VEIL}">kscape-white.png</texture>
+				</control>
+				<control type="image">
+					<description>The film's fanart, on the scrim</description>
 					<width>{vw}</width>
 					<height>{vh}</height>
 					<aspectratio>scale</aspectratio>
 					<fadetime>400</fadetime>
 					<texture background="true" colordiffuse="{FANART_TINT}">{spot('Property(fanart)')}</texture>
 					<animation effect="zoom" start="106" end="100" center="auto" time="1600" tween="sine" easing="out" reversible="false" condition="{SPOT}">Conditional</animation>
-				</control>
-				<control type="image">
-					<width>{vw}</width>
-					<height>{vh}</height>
-					<texture colordiffuse="{VEIL}">kscape-white.png</texture>
 				</control>
 			</control>'''
 
