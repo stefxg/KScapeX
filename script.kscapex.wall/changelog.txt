@@ -1,3 +1,7 @@
+[B]0.21.1[/B] (11-11-2026)
+- Le plexiglas devient une vraie plaque : un seul reflet traverse tout l'écran et reste fixe pendant que les jaquettes défilent derrière, comme une vitrine. Il remplace le petit reflet répété sur chacune des 150 jaquettes (0.21.0), qui ressemblait à 150 taches plutôt qu'à du verre. Le reflet est une image de synthèse convertie en transparence (kscape-plexi.png).
+- Le mur redescend à 1171 contrôles (1327 en 0.21.0) : la plaque n'en coûte qu'un seul pour tout l'écran.
+
 [B]0.21.0[/B] (11-11-2026)
 - Toutes les jaquettes du mur sont sous plexiglas brillant, sélectionnées ou non : un reflet doux traverse chaque affiche, celle qui est sélectionnée en a un peu plus. (Le mur passe de 1174 à 1327 contrôles, soit toujours moins que le mur classique qui en a 1457.)
 - Le trait blanc en haut du panneau, de la jaquette sélectionnée et de la fiche est supprimé : il était moche à l'écran.

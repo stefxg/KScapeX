@@ -5,11 +5,11 @@ is not touched. What changes, against wallxml's control map:
 
   slots        no format badge (the selected cover shows it, in the spotlight): two controls
                and one condition fewer per slot, on every frame
-  slots        every cover under glossy plexiglas (wallxml.slot(gloss=SHEEN_SLOT): one sheen
-               image per slot, the wall's only per-slot cost), and the opening cascade - each
-               cover fades and grows in once, column by column, when the window opens
-               (wallxml.slot(opening=True); Window.Property(kscape.opened), set by newwall.py a
-               moment later, keeps later activations from replaying it)
+  slots        the opening cascade: each cover fades and grows in once, column by column, when
+               the window opens (wallxml.slot(opening=True); Window.Property(kscape.opened),
+               set by newwall.py a moment later, keeps later activations from replaying it)
+  1967         the sheet of plexiglas in front of the whole wall (plexiglas()): one still
+               reflection over everything, fixed while the covers slide behind it
   1992         hidden data list holding one item: the selected cover's poster, badge, favourite
                mark, text, clear logo and fanart (newwall.py sets them; no GUI lock)
   1009         backdrop while Window.Property(kscape.spot) is set: the selected film's fanart
@@ -20,8 +20,8 @@ is not touched. What changes, against wallxml's control map:
   1001         focus frame, now also:
     1010         spotlight: the frame's bars - flat amber, no gloss: the gradient tried in
                  0.20.0 looked streaky on screen - and a copy of the selected cover: soft
-                 shadow, floor reflection (the poster mirrored through kscape-reflect.png), a
-                 sheen a touch brighter than the wall's own, and a glint that
+                 shadow, floor reflection (the poster mirrored through kscape-reflect.png) and
+                 a glint that
                  crosses it once (kscape-gloss.png). It zooms in (SPOT_ZOOM) while kscape.spot
                  is set, and loads in the background, like the slots: Kodi hands it the slot's
                  texture, already loaded
@@ -52,8 +52,8 @@ REFLECT_FRACTION = 0.45         # of the cover's height (kscape-reflect.png fade
 # lit edge along its top - what turns a translucent rectangle into a slab of glass. The sheen
 # texture peaks at 20% white, so these tint it down from there.
 SHEEN = 'FFFFFFFF'
-SHEEN_SLOT = '99FFFFFF'         # every cover of the wall, under glossy plexiglas
-SHEEN_COVER = 'BFFFFFFF'        # the selected one, a touch brighter still
+PLEXI = '59FFFFFF'              # the sheet of plexiglas in front of the wall: how much of
+                                # kscape-plexi.png's reflection comes through (one hex to tune)
 FOOT_SHADOW = '8C000000'
 FOOT_H = 80
 FADE_H = 110                    # bottom fade under the counter
@@ -171,12 +171,6 @@ def focus_frame(L):
 							<height>{int(ch * REFLECT_FRACTION / 0.45)}</height>
 							<aspectratio>scale</aspectratio>
 							<texture background="true" flipy="true" diffuse="kscape-reflect.png" colordiffuse="8CFFFFFF">{spot('Art(poster)')}</texture>
-						</control>
-						<control type="image">
-							<description>Laminated: a still sheen on the poster, as under glass</description>
-							<width>{cw}</width>
-							<height>{ch}</height>
-							<texture colordiffuse="{SHEEN_COVER}">kscape-gloss.png</texture>
 						</control>
 						<control type="image">
 							<description>Light glint: crosses the cover once when the spotlight comes on</description>
@@ -330,6 +324,25 @@ def panel(L):
 			</control>'''
 
 
+def plexiglas(L):
+    """One sheet of glossy plexiglas in front of the whole wall: a single still reflection
+    running across the view, with the covers sliding behind it, instead of the same little
+    sheen repeated on every cover (0.21.0), which read as 150 smudges rather than glass.
+
+    It sits in the viewport but outside the camera, so the wall moves and the reflection does
+    not - as a real sheet would. It is one control for the whole wall, and it lies over the
+    covers, the frame and the panel alike, the way a shop window covers what is behind it;
+    the counter and the now-playing chip are drawn after it, so they stay crisp."""
+    vw, vh = G.view_size(L)
+    return f'''			<control type="image" id="1967">
+				<description>The sheet's reflection (kscape-plexi.png, from a 16:9 render)</description>
+				<width>{vw}</width>
+				<height>{vh}</height>
+				<texture colordiffuse="{PLEXI}">kscape-plexi.png</texture>
+			</control>
+'''
+
+
 def bottom_fade(L):
     vw, vh = G.view_size(L)
     return f'''			<control type="image" id="1966">
@@ -403,13 +416,13 @@ def _build(L):
 			<description>Viewport: the screen, or a CinemaScope band (window.py places it)</description>
 		<control type="group" id="1000">
 			<description>Camera</description>
-{W.slot(10000, L, badge=False, opening=True, gloss=SHEEN_SLOT)}
-{W.slot(20000, L, badge=False, opening=True, gloss=SHEEN_SLOT)}
+{W.slot(10000, L, badge=False, opening=True)}
+{W.slot(20000, L, badge=False, opening=True)}
 {backdrop(L)}
 {focus_frame(L)}
 {panel(L)}
 		</control>
-{bottom_fade(L)}		</control>
+{plexiglas(L)}{bottom_fade(L)}		</control>
 {W.masks()}
 		<control type="image" id="1951">
 			<description>KScape logo while the library loads: Python sets Window.Property(kscape.loading).</description>

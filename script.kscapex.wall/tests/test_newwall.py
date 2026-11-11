@@ -137,13 +137,25 @@ class NewWallXmlTest(unittest.TestCase):
         self.assertNotIn('Lit edge', self.xml)
         self.assertNotIn('Lit edge', shipped(NX2.NAME))
 
-    def test_every_cover_sits_under_plexiglas(self):
-        slots = G.POSTER.pool_cols * G.POSTER.pool_rows
-        self.assertEqual(self.xml.count('kscape-gloss.png'), 2 * slots + 2)   # + the selected one
-        self.assertIn(f'colordiffuse="{NX.SHEEN_SLOT}">kscape-gloss.png', self.xml)
-        # The classic wall carries none of it: its slots stay as light as they were.
-        self.assertNotIn('kscape-gloss.png', wallxml.slot(10000, G.POSTER))
-        self.assertNotIn('kscape-gloss.png', shipped('script-kscape-wall.xml'))
+    def test_one_sheet_of_plexiglas_in_front_of_the_whole_wall(self):
+        tree = ET.fromstring(self.xml)
+        sheet = next(c for c in tree.iter('control') if c.get('id') == '1967')
+        self.assertEqual(sheet.find('texture').text, 'kscape-plexi.png')
+        self.assertEqual((int(sheet.find('width').text), int(sheet.find('height').text)),
+                         (G.SCREEN_W, G.SCREEN_H))
+        # One control for the wall, not one per slot, and none in the classic wall's.
+        self.assertEqual(self.xml.count('>kscape-plexi.png<'), 1)   # one control, not one per slot
+        self.assertNotIn('kscape-gloss.png', wallxml.slot(10000, G.POSTER, gloss=''))
+        self.assertNotIn('kscape-plexi.png', shipped('script-kscape-wall.xml'))
+
+    def test_the_sheet_is_fixed_while_the_wall_slides_behind_it(self):
+        # Outside the camera (1000), inside the viewport (998): the covers move, it does not.
+        viewport = next(c for c in ET.fromstring(self.xml).iter('control') if c.get('id') == '998')
+        children = [c.get('id') for c in viewport.findall('control')]
+        self.assertIn('1967', children)
+        camera = next(c for c in viewport.findall('control') if c.get('id') == '1000')
+        self.assertNotIn('1967', [c.get('id') for c in camera.iter('control')])
+        self.assertLess(children.index('1000'), children.index('1967'))   # drawn over the wall
 
     def test_gloss_textures_are_shipped(self):
         media = os.path.join(os.path.dirname(__file__), '..', 'resources', 'skins', 'Default', 'media')
