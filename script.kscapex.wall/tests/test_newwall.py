@@ -59,6 +59,10 @@ class ShippedXmlTest(unittest.TestCase):
         self.assertIn('Window.Property(clearlogo)', new)
         self.assertNotIn('effect="slide" start="0,1032"', new)   # fade + bloom, no slide from the bottom
         self.assertIn('effect="zoom" start="97"', new)
+        self.assertIn('kscape-sheen.png', new)                   # polished glass, selected rows lit
+        self.assertEqual(new.count('kscape-row.png'), 8)
+        self.assertNotIn('kscape-sheen.png', classic)            # none of it in the classic fiche
+        self.assertNotIn('kscape-row.png', classic)
         ET.fromstring(new)
 
     def test_transform_refuses_a_changed_classic_fiche(self):
@@ -111,10 +115,30 @@ class NewWallXmlTest(unittest.TestCase):
             self.assertEqual(int(i.find('height').text), G.SCREEN_H)
         self.assertIn('kscape.spot', back.find('visible').text)
 
-    def test_spotlight_carries_reflection_and_glint(self):
+    def test_spotlight_carries_reflection_glint_and_polish(self):
         self.assertIn('kscape-reflect.png', self.xml)
         self.assertIn('flipy="true"', self.xml)
-        self.assertIn('kscape-gloss.png', self.xml)
+        self.assertEqual(self.xml.count('kscape-gloss.png'), 2)   # the still sheen and the glint
+        self.assertIn('kscape-bar.png', self.xml)                 # the frame's bars are rods
+        self.assertIn('kscape-badge-glossy.png', self.xml)
+        self.assertNotIn('kscape-badge-box.png', self.xml)        # the flat box is the classic one's
+
+    def test_panels_are_polished_glass(self):
+        self.assertIn('kscape-sheen.png', self.xml)               # sheen across the pane
+        self.assertIn(f'colordiffuse="{NX.FOOT_SHADOW}" flipy="true">kscape-fade.png', self.xml)
+        self.assertIn(f'colordiffuse="{NX.RIM}">kscape-white.png', self.xml)   # lit top edge
+
+    def test_the_polish_never_reaches_the_covers_of_the_wall(self):
+        # Per-slot controls are what Kodi pays for on every frame: the gloss stays on the
+        # selected cover and the panes, never on the 156 slots.
+        slot = wallxml.slot(10000, G.POSTER, badge=False, opening=True)
+        for texture in ('kscape-sheen.png', 'kscape-gloss.png', 'kscape-bar.png', 'kscape-row.png'):
+            self.assertNotIn(texture, slot)
+
+    def test_gloss_textures_are_shipped(self):
+        media = os.path.join(os.path.dirname(__file__), '..', 'resources', 'skins', 'Default', 'media')
+        for name in ('kscape-sheen.png', 'kscape-bar.png', 'kscape-row.png', 'kscape-badge-glossy.png'):
+            self.assertTrue(os.path.exists(os.path.join(media, name)), name)
 
     def test_panel_glass_is_the_dense_shade(self):
         panel = next(c for c in ET.fromstring(self.xml).iter('control') if c.get('id') == '1903')

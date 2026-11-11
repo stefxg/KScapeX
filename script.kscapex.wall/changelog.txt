@@ -1,3 +1,12 @@
+[B]0.20.0[/B] (11-11-2026)
+Vue « New wall test » : finition brillante, là où elle compte.
+- Panneaux en verre poli (le panneau du mur et la fiche) : un reflet doux en diagonale sur toute la surface, une ombre qui se dépose au pied du panneau et une arête lumineuse sur le bord supérieur. Ils ressemblent à une dalle de verre plutôt qu'à un rectangle translucide.
+- Cadre ambre métallique : chaque barre est un jonc poli (dégradé clair en haut, profond en bas) avec un éclat le long de la barre du haut, au lieu d'un aplat.
+- Jaquette sélectionnée laminée : un reflet fixe et un liseré lumineux en haut, comme une affiche sous plexiglas, en plus de l'éclat qui la traverse déjà.
+- Fiche : la ligne sélectionnée (menu et toutes les listes) est éclairée par le haut au lieu d'être un aplat de couleur.
+- Badge de la jaquette sélectionnée : un soupçon de brillance dans son fond.
+Les jaquettes du mur restent mates volontairement : c'est le contraste qui fait ressortir celle qui est sélectionnée, et aucun reflet n'est ajouté aux 156 cases que la box redessine en permanence.
+
 [B]0.19.0[/B] (11-11-2026)
 Vue « New wall test » :
 - L'ordre s'inverse : la réorganisation d'abord (2 s après le dernier appui), le panneau ensuite (~1 s après la fin de la vague, soit ~4 s). Ils ne se marchent plus dessus. Sans vague à venir (réorganisation automatique coupée, ou mur déjà organisé autour de ce film), le panneau arrive directement à 1,2 s.

@@ -8,9 +8,11 @@ details.py drives both without knowing which one is open; only the dressing chan
 - the whole screen sits on the film's fanart (Window.Property(fanart), set by details.py),
   darkened by a veil, a left-hand gradient where the text is, and a vignette - with no
   fanart, the veil alone dims the wall behind;
-- the panel becomes smoked glass (the theme's background, translucent) instead of opaque
-  blue; the left column a darker glass; the header strip a quiet band with a line in the
-  theme colour under it;
+- the panel becomes a slab of polished glass (the theme's background, translucent) instead of
+  opaque blue: a sheen lying across it, a shadow pooling at its foot and a lit top edge; the
+  left column a darker glass; the header strip a quiet band with a line in the theme colour
+  under it;
+- a selected row is lit from above (kscape-row.png) instead of a flat block of colour;
 - the clear logo (Window.Property(clearlogo)) replaces the title when the library has one;
 - it opens as a fade with a slight bloom (zoom 97 -> 100) instead of sliding up from the
   bottom, and closes as a fade - the wall behind already shows the same fanart, so the
@@ -95,10 +97,35 @@ def transform(xml):
 					<texture colordiffuse="kscape_bg_veil">kscape-white.png</texture>
 				</control>
 				<control type="image">
+					<description>Sheen lying across the glass</description>
+					<width>1728</width>
+					<height>984</height>
+					<texture colordiffuse="A6FFFFFF">kscape-sheen.png</texture>
+				</control>
+				<control type="image">
+					<description>Shadow pooling at the foot of the pane</description>
+					<top>864</top>
+					<width>1728</width>
+					<height>120</height>
+					<texture colordiffuse="59000000" flipy="true">kscape-fade.png</texture>
+				</control>
+				<control type="image">
 					<width>1728</width>
 					<height>984</height>
 					<texture border="2" colordiffuse="28FFFFFF">kscape-glass-border.png</texture>
+				</control>
+				<control type="image">
+					<description>Lit edge along the top</description>
+					<width>1728</width>
+					<height>1</height>
+					<texture colordiffuse="6EFFFFFF">kscape-white.png</texture>
 				</control>''')
+    # A selected row is lit from above instead of a flat block of colour (every list's focused
+    # row, and the menu's marker for the page that is open).
+    out = _swap(out, '<texture colordiffuse="kscape_blue_light">kscape-white.png</texture>',
+                '<texture colordiffuse="kscape_blue_light">kscape-row.png</texture>', count=7)
+    out = _swap(out, '<texture colordiffuse="kscape_blue_mid">kscape-white.png</texture>',
+                '<texture colordiffuse="kscape_blue_mid">kscape-row.png</texture>', count=1)
     out = _swap(out, '''					<description>Left column</description>
 					<top>64</top>
 					<width>480</width>

@@ -7465,6 +7465,18 @@
 							<texture background="true" flipy="true" diffuse="kscape-reflect.png" colordiffuse="8CFFFFFF">$INFO[Container(1992).ListItemAbsolute(0).Art(poster)]</texture>
 						</control>
 						<control type="image">
+							<description>Laminated: a still sheen on the poster, as under glass</description>
+							<width>186</width>
+							<height>279</height>
+							<texture colordiffuse="4DFFFFFF">kscape-gloss.png</texture>
+						</control>
+						<control type="image">
+							<description>Lit edge along the cover's top</description>
+							<width>186</width>
+							<height>1</height>
+							<texture colordiffuse="59FFFFFF">kscape-white.png</texture>
+						</control>
+						<control type="image">
 							<description>Light glint: crosses the cover once when the spotlight comes on</description>
 							<width>186</width>
 							<height>279</height>
@@ -7492,8 +7504,8 @@
 								<textcolor>kscape_amber</textcolor>
 								<disabledcolor>kscape_amber</disabledcolor>
 								<enable>false</enable>
-								<texturenofocus border="2" colordiffuse="kscape_amber">kscape-badge-box.png</texturenofocus>
-								<texturefocus border="2" colordiffuse="kscape_amber">kscape-badge-box.png</texturefocus>
+								<texturenofocus border="2" colordiffuse="kscape_amber">kscape-badge-glossy.png</texturenofocus>
+								<texturefocus border="2" colordiffuse="kscape_amber">kscape-badge-glossy.png</texturefocus>
 								<label>$INFO[Container(1992).ListItemAbsolute(0).Property(badge)]</label>
 							</control>
 						</control>
@@ -7520,28 +7532,34 @@
 						<top>0</top>
 						<width>230</width>
 						<height>22</height>
-						<texture colordiffuse="kscape_amber">kscape-white.png</texture>
+						<texture colordiffuse="kscape_amber">kscape-bar.png</texture>
 					</control>
 					<control type="image" id="1003">
 						<left>0</left>
 						<top>301</top>
 						<width>230</width>
 						<height>22</height>
-						<texture colordiffuse="kscape_amber">kscape-white.png</texture>
+						<texture colordiffuse="kscape_amber">kscape-bar.png</texture>
 					</control>
 					<control type="image" id="1004">
 						<left>0</left>
 						<top>22</top>
 						<width>22</width>
 						<height>279</height>
-						<texture colordiffuse="kscape_amber">kscape-white.png</texture>
+						<texture colordiffuse="kscape_amber">kscape-bar.png</texture>
 					</control>
 					<control type="image" id="1005">
 						<left>208</left>
 						<top>22</top>
 						<width>22</width>
 						<height>279</height>
-						<texture colordiffuse="kscape_amber">kscape-white.png</texture>
+						<texture colordiffuse="kscape_amber">kscape-bar.png</texture>
+					</control>
+					<control type="image">
+						<description>Specular catch along the frame's top bar</description>
+						<width>230</width>
+						<height>2</height>
+						<texture colordiffuse="73FFFFFF">kscape-white.png</texture>
 					</control>
 				</control>
 			</control>
@@ -7577,6 +7595,19 @@
 					<texture colordiffuse="kscape_blue_quiet">kscape-fade.png</texture>
 				</control>
 				<control type="image">
+					<description>Sheen lying across the glass</description>
+					<width>594</width>
+					<height>323</height>
+					<texture colordiffuse="FFFFFFFF">kscape-sheen.png</texture>
+				</control>
+				<control type="image">
+					<description>Shadow pooling at the foot of the pane (the text draws over it)</description>
+					<top>259</top>
+					<width>594</width>
+					<height>64</height>
+					<texture colordiffuse="66000000" flipy="true">kscape-fade.png</texture>
+				</control>
+				<control type="image">
 					<width>594</width>
 					<height>323</height>
 					<texture border="2" colordiffuse="30FFFFFF">kscape-glass-border.png</texture>
@@ -7585,6 +7616,12 @@
 					<width>594</width>
 					<height>3</height>
 					<texture colordiffuse="kscape_blue">kscape-white.png</texture>
+				</control>
+				<control type="image">
+					<description>Lit edge along the top</description>
+					<width>594</width>
+					<height>1</height>
+					<texture colordiffuse="73FFFFFF">kscape-white.png</texture>
 				</control>
 				<control type="image" id="1906">
 					<description>Clear logo in place of the title</description>

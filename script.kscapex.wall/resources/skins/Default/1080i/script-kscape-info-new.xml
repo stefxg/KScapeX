@@ -66,9 +66,28 @@
 					<texture colordiffuse="kscape_bg_veil">kscape-white.png</texture>
 				</control>
 				<control type="image">
+					<description>Sheen lying across the glass</description>
+					<width>1728</width>
+					<height>984</height>
+					<texture colordiffuse="A6FFFFFF">kscape-sheen.png</texture>
+				</control>
+				<control type="image">
+					<description>Shadow pooling at the foot of the pane</description>
+					<top>864</top>
+					<width>1728</width>
+					<height>120</height>
+					<texture colordiffuse="59000000" flipy="true">kscape-fade.png</texture>
+				</control>
+				<control type="image">
 					<width>1728</width>
 					<height>984</height>
 					<texture border="2" colordiffuse="28FFFFFF">kscape-glass-border.png</texture>
+				</control>
+				<control type="image">
+					<description>Lit edge along the top</description>
+					<width>1728</width>
+					<height>1</height>
+					<texture colordiffuse="6EFFFFFF">kscape-white.png</texture>
 				</control>
 				<control type="image">
 					<description>Left column</description>
@@ -184,7 +203,7 @@
 							<description>The page this entry opened, while its list has focus</description>
 							<width>480</width>
 							<height>52</height>
-							<texture colordiffuse="kscape_blue_mid">kscape-white.png</texture>
+							<texture colordiffuse="kscape_blue_mid">kscape-row.png</texture>
 							<visible>String.IsEqual(ListItem.Property(action),Window.Property(page))</visible>
 						</control>
 						<control type="label">
@@ -211,7 +230,7 @@
 						<control type="image">
 							<width>480</width>
 							<height>52</height>
-							<texture colordiffuse="kscape_blue_light">kscape-white.png</texture>
+							<texture colordiffuse="kscape_blue_light">kscape-row.png</texture>
 						</control>
 						<control type="label">
 							<left>30</left>
@@ -520,7 +539,7 @@
 							<control type="image">
 								<width>1248</width>
 								<height>58</height>
-								<texture colordiffuse="kscape_blue_light">kscape-white.png</texture>
+								<texture colordiffuse="kscape_blue_light">kscape-row.png</texture>
 								<visible>String.IsEmpty(ListItem.Property(heading))</visible>
 							</control>
 							<control type="label">
@@ -624,7 +643,7 @@
 							<control type="image">
 								<width>1248</width>
 								<height>58</height>
-								<texture colordiffuse="kscape_blue_light">kscape-white.png</texture>
+								<texture colordiffuse="kscape_blue_light">kscape-row.png</texture>
 							</control>
 							<control type="image">
 								<left>50</left>
@@ -723,7 +742,7 @@
 							<control type="image">
 								<width>1248</width>
 								<height>104</height>
-								<texture colordiffuse="kscape_blue_light">kscape-white.png</texture>
+								<texture colordiffuse="kscape_blue_light">kscape-row.png</texture>
 							</control>
 							<control type="image">
 								<left>50</left>
@@ -839,7 +858,7 @@
 							<control type="image">
 								<width>1248</width>
 								<height>58</height>
-								<texture colordiffuse="kscape_blue_light">kscape-white.png</texture>
+								<texture colordiffuse="kscape_blue_light">kscape-row.png</texture>
 								<visible>String.IsEmpty(ListItem.Property(heading))</visible>
 							</control>
 							<control type="label">
@@ -875,7 +894,7 @@
 								<top>18</top>
 								<width>22</width>
 								<height>22</height>
-								<texture colordiffuse="kscape_blue_light">kscape-white.png</texture>
+								<texture colordiffuse="kscape_blue_light">kscape-row.png</texture>
 								<visible>!String.IsEmpty(ListItem.Property(box))</visible>
 							</control>
 							<control type="image">
@@ -928,7 +947,7 @@
 							<control type="image">
 								<width>1248</width>
 								<height>58</height>
-								<texture colordiffuse="kscape_blue_light">kscape-white.png</texture>
+								<texture colordiffuse="kscape_blue_light">kscape-row.png</texture>
 							</control>
 							<control type="label">
 								<left>50</left>

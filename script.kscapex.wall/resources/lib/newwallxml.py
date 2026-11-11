@@ -16,14 +16,17 @@ is not touched. What changes, against wallxml's control map:
                newwall.py parks it at the camera's position when the panel opens (the camera
                stands still while the panel is up), so it fills the view
   1001         focus frame, now also:
-    1010         spotlight: the frame's bars and a copy of the selected cover - soft shadow,
-                 floor reflection (the poster mirrored through kscape-reflect.png), a light
-                 glint that crosses it once (kscape-gloss.png) - zooming in (SPOT_ZOOM) while
-                 kscape.spot is set. The copy loads in the background, like the slots: Kodi
-                 hands it the slot's texture, already loaded
-  1900         info panel in smoked glass: the theme's background at 90% (kscape_bg_shade), a
-               glow and a line in the theme colour along the top, a thin outline; SPOT_GAP
-               narrower than the classic
+    1010         spotlight: the frame's bars - polished rods (kscape-bar.png tinted amber, with
+                 a specular catch along the top) - and a copy of the selected cover: soft
+                 shadow, floor reflection (the poster mirrored through kscape-reflect.png), a
+                 still sheen and a lit top edge (laminated, as under glass), and a glint that
+                 crosses it once (kscape-gloss.png). It zooms in (SPOT_ZOOM) while kscape.spot
+                 is set, and loads in the background, like the slots: Kodi hands it the slot's
+                 texture, already loaded
+  1900         info panel as a slab of polished glass: the theme's background at 90%
+               (kscape_bg_shade), a glow and a line in the theme colour along the top, a sheen
+               lying across it, a shadow pooling at its foot, a lit top edge and a thin
+               outline; SPOT_GAP narrower than the classic
                one, so the zoomed frame never slides under it. 1906 the film's clear logo in
                place of the title (1901 hides while there is one)
   1966         dark fade along the bottom of the view; the counter (1965) sits on it as plain
@@ -44,6 +47,15 @@ FANART_ALPHA = 'D8FFFFFF'       # the fanart over the covers: they ghost through
 VEIL = 'B4000000'               # dark veil over the fanart, so the spotlight and panel carry
 SHADOW_PAD, SHADOW_DROP = 30, 12
 REFLECT_FRACTION = 0.45         # of the cover's height (kscape-reflect.png fades it out sooner)
+# The polish: a still sheen lying across each pane of glass, a shadow pooling at its foot and a
+# lit edge along its top - what turns a translucent rectangle into a slab of glass. The sheen
+# texture peaks at 20% white, so these tint it down from there.
+SHEEN = 'FFFFFFFF'
+SHEEN_COVER = '4DFFFFFF'        # on the selected cover: a laminated poster, not a mirror
+FOOT_SHADOW = '66000000'
+FOOT_H = 64
+RIM = '73FFFFFF'                # the lit top edge of a pane
+RIM_COVER = '59FFFFFF'
 FADE_H = 110                    # bottom fade under the counter
 LOGO_H = 76
 
@@ -161,6 +173,18 @@ def focus_frame(L):
 							<texture background="true" flipy="true" diffuse="kscape-reflect.png" colordiffuse="8CFFFFFF">{spot('Art(poster)')}</texture>
 						</control>
 						<control type="image">
+							<description>Laminated: a still sheen on the poster, as under glass</description>
+							<width>{cw}</width>
+							<height>{ch}</height>
+							<texture colordiffuse="{SHEEN_COVER}">kscape-gloss.png</texture>
+						</control>
+						<control type="image">
+							<description>Lit edge along the cover's top</description>
+							<width>{cw}</width>
+							<height>1</height>
+							<texture colordiffuse="{RIM_COVER}">kscape-white.png</texture>
+						</control>
+						<control type="image">
 							<description>Light glint: crosses the cover once when the spotlight comes on</description>
 							<width>{cw}</width>
 							<height>{ch}</height>
@@ -188,8 +212,8 @@ def focus_frame(L):
 								<textcolor>{AMBER}</textcolor>
 								<disabledcolor>{AMBER}</disabledcolor>
 								<enable>false</enable>
-								<texturenofocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturenofocus>
-								<texturefocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturefocus>
+								<texturenofocus border="2" colordiffuse="{AMBER}">kscape-badge-glossy.png</texturenofocus>
+								<texturefocus border="2" colordiffuse="{AMBER}">kscape-badge-glossy.png</texturefocus>
 								<label>{spot('Property(badge)')}</label>
 							</control>
 						</control>
@@ -217,7 +241,13 @@ def focus_frame(L):
 						<top>{by}</top>
 						<width>{bw}</width>
 						<height>{bh}</height>
-						<texture colordiffuse="{AMBER}">kscape-white.png</texture>
+						<texture colordiffuse="{AMBER}">kscape-bar.png</texture>
+					</control>''')
+    out.append(f'''					<control type="image">
+						<description>Specular catch along the frame's top bar</description>
+						<width>{w}</width>
+						<height>2</height>
+						<texture colordiffuse="{RIM}">kscape-white.png</texture>
 					</control>''')
     out.append('''				</control>
 			</control>''')
@@ -273,6 +303,19 @@ def panel(L):
 					<texture colordiffuse="kscape_blue_quiet">kscape-fade.png</texture>
 				</control>
 				<control type="image">
+					<description>Sheen lying across the glass</description>
+					<width>{pw}</width>
+					<height>{ph}</height>
+					<texture colordiffuse="{SHEEN}">kscape-sheen.png</texture>
+				</control>
+				<control type="image">
+					<description>Shadow pooling at the foot of the pane (the text draws over it)</description>
+					<top>{ph - FOOT_H}</top>
+					<width>{pw}</width>
+					<height>{FOOT_H}</height>
+					<texture colordiffuse="{FOOT_SHADOW}" flipy="true">kscape-fade.png</texture>
+				</control>
+				<control type="image">
 					<width>{pw}</width>
 					<height>{ph}</height>
 					<texture border="2" colordiffuse="30FFFFFF">kscape-glass-border.png</texture>
@@ -281,6 +324,12 @@ def panel(L):
 					<width>{pw}</width>
 					<height>3</height>
 					<texture colordiffuse="kscape_blue">kscape-white.png</texture>
+				</control>
+				<control type="image">
+					<description>Lit edge along the top</description>
+					<width>{pw}</width>
+					<height>1</height>
+					<texture colordiffuse="{RIM}">kscape-white.png</texture>
 				</control>
 				<control type="image" id="1906">
 					<description>Clear logo in place of the title</description>
