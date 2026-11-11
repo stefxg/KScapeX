@@ -1,3 +1,9 @@
+[B]0.24.0[/B] (11-11-2026)
+- Les affiches du New wall test sont désormais jointives : plus aucune gouttière. Elles gardent exactement la même taille (186 x 279), donc les mêmes proportions ; il en tient davantage à l'écran, 10,3 colonnes sur 3,9 lignes au lieu de 9,1 sur 3,6.
+- Le cadre ambre reste autour de l'affiche sélectionnée et déborde donc sur ses voisines : la jaquette reste entière, et le cadre se lit comme une bordure posée sur la mosaïque.
+- Le panneau d'information couvre toujours trois cases, soit 536 px de large au lieu de 608.
+- Le mur classique garde ses gouttières de 24 px, inchangé.
+
 [B]0.23.0[/B] (11-11-2026)
 - Le fond fanart et son voile sont retirés, du mur comme de la fiche : le mur lui-même reste visible autour du panneau, comme pour la vue classique.
 - Le filet bleu sous le titre de la fiche est retiré.

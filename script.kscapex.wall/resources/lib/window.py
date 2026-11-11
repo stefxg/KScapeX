@@ -1942,12 +1942,13 @@ def collection_empty(cid, days):
 def wall_xml(kind, style='classic'):
     """(script path, XML file, layout, stage) of the wall for the screen Kodi draws on now: the
     shipped XML on a 16:9 screen, else XML built for the adapted layout (wallxml.prepare).
-    KScapeX: `style` 'new' is New wall test's XML (newwallxml.py)."""
-    stage = displayui.current(kind.layout.pitch_y)
-    layout = G.adapt(kind.layout, stage)
+    KScapeX: `style` 'new' is New wall test's XML (newwallxml.py), on its gutterless grid."""
+    base = G.POSTER_TIGHT if style == 'new' else kind.layout
+    stage = displayui.current(base.pitch_y)
+    layout = G.adapt(base, stage)
     path = ADDON.getAddonInfo('path')
     shipped = NEW_WALL_XML if style == 'new' else kind.wall_xml
-    if layout is kind.layout:
+    if layout is base:
         return path, shipped, layout, stage
     from . import wallxml
     try:
@@ -1959,7 +1960,7 @@ def wall_xml(kind, style='classic'):
             root, name = wallxml.prepare(layout, stage.sx, path, xbmcvfs.translatePath(ADDON.getAddonInfo('profile')))
     except OSError as e:
         xbmc.log(f'kscape: could not write the adapted wall ({e}); using the 16:9 one', xbmc.LOGWARNING)
-        return path, shipped, kind.layout, stage._replace(sx=1.0, view=(0, 0, G.SCREEN_W, G.SCREEN_H))
+        return path, shipped, base, stage._replace(sx=1.0, view=(0, 0, G.SCREEN_W, G.SCREEN_H))
     xbmc.log(f'kscape.wall: {layout.name} layout for this screen: covers {layout.cover_w}x{layout.cover_h}, '
              f'{layout.pool_cols}x{layout.pool_rows} slots, view {layout.view}, stretch {stage.sx:.3f}', xbmc.LOGINFO)
     return root, name, layout, stage

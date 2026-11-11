@@ -35,6 +35,14 @@ def panel_h(layout):
 # too). The recycled pool covers the screen plus slack for a camera glide.
 POSTER = Layout('poster', cover_w=186, cover_h=279, pitch_x=210, pitch_y=303, frame=22,
                 pool_cols=13, pool_rows=6, panel_cells=3, min_rows=3)
+# KScapeX "New wall test" (newwallxml.py): the same posters, the same size, with no gutter at
+# all - a mosaic. 10.3 x 3.9 visible instead of 9.1 x 3.6, so the pool needs a column more to
+# keep the same slack for a camera glide. The focus frame still sits around its cover, which
+# with no gutter means it lies over the four neighbours: on screen that reads as a border drawn
+# on the grid, and it leaves the selected poster whole (the alternative, insetting the frame,
+# crops the artwork exactly where the eye is).
+POSTER_TIGHT = POSTER._replace(pitch_x=POSTER.cover_w, pitch_y=POSTER.cover_h, pool_cols=14)
+
 # Album covers (1:1): ~7.6 x 4.3 visible, as in the music reference (prompts/assets).
 SQUARE = Layout('square', cover_w=228, cover_h=228, pitch_x=254, pitch_y=254, frame=24,
                 pool_cols=11, pool_rows=7, panel_cells=3, min_rows=4)

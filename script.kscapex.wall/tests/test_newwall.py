@@ -46,7 +46,7 @@ class ShippedXmlTest(unittest.TestCase):
         self.assertNotIn('WindowOpen', wallxml.build(G.POSTER))     # the cascade is the new wall's
 
     def test_new_wall_is_generated(self):
-        self.assertEqual(NX.build(G.POSTER), shipped('script-kscape-newwall.xml'))
+        self.assertEqual(NX.build(G.POSTER_TIGHT), shipped('script-kscape-newwall.xml'))
 
     def test_cinema_fiche_is_transformed_from_the_untouched_classic_one(self):
         classic = shipped('script-kscape-info.xml')
@@ -69,7 +69,7 @@ class ShippedXmlTest(unittest.TestCase):
 
 class NewWallXmlTest(unittest.TestCase):
     def setUp(self):
-        self.xml = NX.build(G.POSTER)
+        self.xml = NX.build(G.POSTER_TIGHT)
 
     def test_controls_python_needs(self):
         # Every control WallWindow looks up, and the new ones.
@@ -77,11 +77,23 @@ class NewWallXmlTest(unittest.TestCase):
                 '1911', '1912', '1914', '1950', '1951', '1960', '1961', '1962', '1963', '1965', '1980',
                 '1971', '1972', '1973', '1974', '1990', '1991',
                 '1906', str(NX.SPOT_SRC)}
-        slots = {str(b + k) for b in (10000, 20000) for k in range(G.POSTER.pool_cols * G.POSTER.pool_rows)}
+        slots = {str(b + k) for b in (10000, 20000)
+                 for k in range(G.POSTER_TIGHT.pool_cols * G.POSTER_TIGHT.pool_rows)}
         self.assertLessEqual(need | slots, ids(self.xml))
 
+    def test_the_grid_has_no_gutter(self):
+        # Same posters, same size, stuck together: a mosaic instead of a grid of gutters.
+        T = G.POSTER_TIGHT
+        self.assertEqual((T.cover_w, T.cover_h), (G.POSTER.cover_w, G.POSTER.cover_h))
+        self.assertEqual((T.pitch_x, T.pitch_y), (T.cover_w, T.cover_h))
+        self.assertGreater(T.pool_cols, G.POSTER.pool_cols)      # more cells fit, so more slots
+        self.assertLessEqual(T.pool_cols, G.MAX_POOL['poster'][0])
+        self.assertGreaterEqual(T.pool_cols * T.pitch_x, G.SCREEN_W + 2 * T.pitch_x)  # slack to glide
+        self.assertGreaterEqual(T.pool_rows * T.pitch_y, G.SCREEN_H + T.pitch_y)
+        self.assertEqual(G.POSTER.pitch_x - G.POSTER.cover_w, 24)       # the classic keeps its gutters
+
     def test_slots_carry_no_badge(self):
-        slot = wallxml.slot(10000, G.POSTER, badge=False)
+        slot = wallxml.slot(10000, G.POSTER_TIGHT, badge=False)
         self.assertNotIn('Property(badge)', slot)
         spot = f'Container({NX.SPOT_SRC}).ListItemAbsolute(0).Property(badge)'
         self.assertEqual(self.xml.count('Property(badge)'), self.xml.count(spot))   # the spotlight's own
@@ -121,26 +133,35 @@ class NewWallXmlTest(unittest.TestCase):
             self.assertEqual(xml.count('effect="zoom"'), xml.count('effect="zoom" start="106"'))
 
     def test_the_focus_frame_is_the_classic_one(self):
-        frame = wallxml.focus_frame(G.POSTER)
+        frame = wallxml.focus_frame(G.POSTER_TIGHT)
         self.assertIn(frame, self.xml)                           # four flat amber bars, as always
         self.assertNotIn('animation', frame)                     # nothing grows when selected
+
+    def test_the_frame_lies_over_its_neighbours(self):
+        # With no gutter the amber bars have nowhere else to go: they sit on the four
+        # neighbours rather than cropping the selected poster (the inset alternative).
+        T = G.POSTER_TIGHT
+        self.assertGreater(G.fx(T), 0)
+        frame = ET.fromstring(f'<r>{wallxml.focus_frame(T)}</r>').find('control')
+        self.assertEqual(int(frame.find('width').text), T.cover_w + 2 * G.fx(T))
+        self.assertEqual(int(frame.find('height').text), T.cover_h + 2 * T.frame)
 
     def test_panel_is_solid(self):
         panel = next(c for c in ET.fromstring(self.xml).iter('control') if c.get('id') == '1903')
         self.assertEqual(panel.find('texture').get('colordiffuse'), NX.PANEL_BG)
         self.assertEqual(panel.find('texture').text, 'kscape-white.png')
-        self.assertEqual(NX.panel_width(G.POSTER), G.panel_w(G.POSTER))   # no gap to leave now
+        self.assertEqual(NX.panel_width(G.POSTER_TIGHT), G.panel_w(G.POSTER_TIGHT))
 
     def test_opening_cascade_plays_once_and_only_fades(self):
         self.assertIn('WindowOpen', self.xml)
         self.assertIn('String.IsEmpty(Window.Property(kscape.opened))', self.xml)
-        slot = wallxml.slot(10000, G.POSTER, opening=True)
+        slot = wallxml.slot(10000, G.POSTER_TIGHT, opening=True)
         self.assertIn('effect="fade"', slot)
         self.assertNotIn('effect="zoom"', slot)
 
     def test_adapted_layouts_build(self):
         for stage in (D.stage(2560, 1080), D.stage(1920, 1080, '2.40', rows='3')):
-            lay = G.adapt(G.POSTER, stage)
+            lay = G.adapt(G.POSTER_TIGHT, stage)
             xml = NX.build(lay, stage.sx)
             self.assertIn('1992', ids(xml))
             self.assertEqual(wallxml.SX, 1.0)                    # restored after the build

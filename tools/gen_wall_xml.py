@@ -4,7 +4,7 @@ script-kscape-wall.xml (2:3 posters: movies, TV shows) and script-kscape-wall-sq
 wall for other screen shapes and CinemaScope bands at run time.
 
 KScapeX: also script-kscape-newwall.xml, the "New wall test" view of posters
-(resources/lib/newwallxml.py), and script-kscape-info-new.xml, its cinema fiche, transformed
+(resources/lib/newwallxml.py, on the gutterless POSTER_TIGHT grid), and script-kscape-info-new.xml, its cinema fiche, transformed
 from the hand-written script-kscape-info.xml (resources/lib/newinfoxml.py).
 
 Usage: python3 tools/gen_wall_xml.py
@@ -27,7 +27,7 @@ def main():
         print(f'wrote {out} ({L.pool_cols * L.pool_rows} slots per pool)')
     out = os.path.join(folder, 'script-kscape-newwall.xml')
     with open(out, 'w') as f:
-        f.write(newwallxml.build(G.POSTER))
+        f.write(newwallxml.build(G.POSTER_TIGHT))
     print(f'wrote {out} (New wall test)')
     with open(os.path.join(folder, 'script-kscape-info.xml')) as f:
         classic = f.read()
