@@ -7241,7 +7241,7 @@
 					<height>1080</height>
 					<aspectratio>scale</aspectratio>
 					<fadetime>400</fadetime>
-					<texture background="true" colordiffuse="FFFFFFFF">$INFO[Container(1992).ListItemAbsolute(0).Property(fanart)]</texture>
+					<texture background="true" colordiffuse="80E6E6E6">$INFO[Container(1992).ListItemAbsolute(0).Property(fanart)]</texture>
 					<animation effect="zoom" start="106" end="100" center="auto" time="1600" tween="sine" easing="out" reversible="false" condition="!String.IsEmpty(Window.Property(kscape.spot))">Conditional</animation>
 				</control>
 				<control type="image">

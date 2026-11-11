@@ -1,3 +1,6 @@
+[B]0.22.2[/B] (11-11-2026)
+- Fond fanart : 50 % d'opacité et teinte à 90 % de blanc (une seule valeur, 80E6E6E6), au lieu d'une image opaque.
+
 [B]0.22.1[/B] (11-11-2026)
 - Le filet bleu en haut du panneau est retiré (reste de la version en verre).
 - Plus de badge de résolution sur la jaquette sélectionnée : le panneau à côté donne déjà le format.
