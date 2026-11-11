@@ -1,37 +1,38 @@
 """KScapeX "New wall test": the cover wall's XML in its new look (newwall.py drives it).
 
+Flat by design. Versions 0.18 to 0.21 tried the opposite - a spotlight, drop shadows, a floor
+reflection, polished glass, a sheet of plexiglas over the whole wall - and every one of them
+fought the artwork: a wall of film posters is already saturated and high-contrast, so anything
+laid on top competes with it instead of serving it. What is left carries hierarchy through
+colour, weight and spacing alone: no gradient, no shadow, no reflection, no zoom. The amber
+frame marks the selection, and the posters are the only thing on screen with any shine.
+
 Built from the classic wall's pieces (wallxml.py), so both stay in step; the classic wall's XML
 is not touched. What changes, against wallxml's control map:
 
-  slots        no format badge (the selected cover shows it, in the spotlight): two controls
-               and one condition fewer per slot, on every frame
-  slots        the opening cascade: each cover fades and grows in once, column by column, when
-               the window opens (wallxml.slot(opening=True); Window.Property(kscape.opened),
-               set by newwall.py a moment later, keeps later activations from replaying it)
-  1967         the sheet of plexiglas in front of the whole wall (plexiglas()): one still
-               reflection over everything, fixed while the covers slide behind it
+  slots        no format badge (the selected cover shows its own, beside the panel): two
+               controls and one condition fewer per slot, on every frame. They fade in once,
+               column by column, when the window opens (wallxml.slot(opening=True); the
+               kscape.opened property, set by newwall.py a moment later, keeps later
+               activations from replaying it)
   1992         hidden data list holding one item: the selected cover's poster, badge, favourite
                mark, text, clear logo and fanart (newwall.py sets them; no GUI lock)
   1009         backdrop while Window.Property(kscape.spot) is set: the selected film's fanart
-               over the whole view - the covers ghost through it - under a dark veil and a
-               vignette. It sits inside the camera, between the covers and the spotlight;
-               newwall.py parks it at the camera's position when the panel opens (the camera
-               stands still while the panel is up), so it fills the view
-  1001         focus frame, now also:
-    1010         spotlight: the frame's bars - flat amber, no gloss: the gradient tried in
-                 0.20.0 looked streaky on screen - and a copy of the selected cover: soft
-                 shadow, floor reflection (the poster mirrored through kscape-reflect.png) and
-                 a glint that
-                 crosses it once (kscape-gloss.png). It zooms in (SPOT_ZOOM) while kscape.spot
-                 is set, and loads in the background, like the slots: Kodi hands it the slot's
-                 texture, already loaded
-  1900         info panel as a slab of polished glass: the theme's background at 90%
-               (kscape_bg_shade), a glow and a line in the theme colour along the top, a sheen
-               lying across it, a shadow pooling at its foot and a thin outline; SPOT_GAP narrower than the classic
-               one, so the zoomed frame never slides under it. 1906 the film's clear logo in
-               place of the title (1901 hides while there is one)
-  1966         dark fade along the bottom of the view; the counter (1965) sits on it as plain
-               text, without its box
+               over the whole view - the covers ghost through it - under an even veil. It sits
+               inside the camera, between the covers and the frame; newwall.py parks it at the
+               camera's position when the panel opens (the camera stands still while the panel
+               is up), so it fills the view
+  1001         focus frame: four flat amber bars, and 1010 a copy of the selected cover, which
+               has to be drawn again here to sit above the backdrop and to carry the format
+               badge. The copy loads in the background, like the slots: Kodi hands it the
+               slot's texture, already loaded
+  1900         info panel: a solid dark panel (kscape_bg) with a line in the theme colour along
+               its top, the film's clear logo in place of the title when the library has one
+               (1901 hides while there is one), and a synopsis that scrolls through its lines
+               when it is longer than them
+  1965         the item counter as plain text, with no chip behind it
+
+No <visible> tags on Python-driven controls: a visibility condition overrides setVisible().
 """
 from . import geometry as G
 from . import npchip as np_chip
@@ -40,23 +41,11 @@ from .wallxml import AMBER, BADGE_H, BADGE_MIN_W, CARD, HEART, HEART_BOX, x
 
 SPOT = '!String.IsEmpty(Window.Property(kscape.spot))'
 SPOT_SRC = 1992
-SPOT_ZOOM = 108                 # percent: the selected cover while it is in the spotlight
-SPOT_GAP = 14                   # px between the zoomed frame and the panel (>= the zoom's growth)
 SPOT_IN_MS, SPOT_OUT_MS = 240, 160
 BACK_IN_MS, BACK_OUT_MS = 550, 350       # the fanart backdrop's fades
 FANART_ALPHA = 'D8FFFFFF'       # the fanart over the covers: they ghost through at ~15%
-VEIL = 'B4000000'               # dark veil over the fanart, so the spotlight and panel carry
-SHADOW_PAD, SHADOW_DROP = 30, 12
-REFLECT_FRACTION = 0.45         # of the cover's height (kscape-reflect.png fades it out sooner)
-# The polish: a still sheen lying across each pane of glass, a shadow pooling at its foot and a
-# lit edge along its top - what turns a translucent rectangle into a slab of glass. The sheen
-# texture peaks at 20% white, so these tint it down from there.
-SHEEN = 'FFFFFFFF'
-PLEXI = '59FFFFFF'              # the sheet of plexiglas in front of the wall: how much of
-                                # kscape-plexi.png's reflection comes through (one hex to tune)
-FOOT_SHADOW = '8C000000'
-FOOT_H = 80
-FADE_H = 110                    # bottom fade under the counter
+VEIL = 'BF000000'               # even veil over the fanart (no vignette: that is depth)
+PANEL_BG = 'kscape_bg'          # solid, not glass: translucency is depth too
 LOGO_H = 76
 
 
@@ -70,7 +59,7 @@ def spot_has(name):
 
 def spot_source():
     return f'''		<control type="list" id="{SPOT_SRC}">
-			<description>Data for the spotlight (newwall.py): the selected cover's poster, badge, mark, logo, fanart</description>
+			<description>Data for the selected cover (newwall.py): poster, badge, mark, logo, fanart</description>
 			<left>-4000</left>
 			<top>-4000</top>
 			<width>10</width>
@@ -82,12 +71,12 @@ def spot_source():
 
 
 def backdrop(L):
-    """The selected film's fanart filling the view while the panel is up, behind the spotlight:
-    the image eases back from 106% once, a veil and a vignette darken it, and the covers ghost
-    through (FANART_ALPHA). With no fanart, the veil and vignette still dim the wall."""
+    """The selected film's fanart filling the view while the panel is up, behind the frame:
+    the image eases back from 106% once, and an even veil darkens it so the panel and the
+    covers carry. With no fanart, the veil alone dims the wall."""
     vw, vh = G.view_size(L)
     return f'''			<control type="group" id="1009">
-				<description>Backdrop: fanart, veil and vignette while the panel is up (newwall.py parks it at the camera)</description>
+				<description>Backdrop: the film's fanart under an even veil (newwall.py parks it at the camera)</description>
 				<visible>{SPOT}</visible>
 				<animation effect="fade" start="0" end="100" time="{BACK_IN_MS}">Visible</animation>
 				<animation effect="fade" start="100" end="0" time="{BACK_OUT_MS}">Hidden</animation>
@@ -104,146 +93,114 @@ def backdrop(L):
 					<height>{vh}</height>
 					<texture colordiffuse="{VEIL}">kscape-white.png</texture>
 				</control>
-				<control type="image">
-					<width>{vw}</width>
-					<height>{vh}</height>
-					<texture>kscape-vignette.png</texture>
-				</control>
 			</control>'''
 
 
 def focus_frame(L):
-    """The amber frame and the spotlit copy of the selected cover (shadow, reflection, glint)."""
+    """Four flat amber bars around the focused cell, and a copy of the cover inside them: it
+    has to be drawn again here to sit above the backdrop, and it carries the format badge and
+    the favourite mark, which the slots of the wall no longer show."""
     t, tx = L.frame, G.fx(L)
     w, h = L.cover_w + 2 * tx, L.cover_h + 2 * t
     cw, ch = L.cover_w, L.cover_h
     bars = [(0, 0, w, t), (0, h - t, w, t), (0, t, tx, h - 2 * t), (w - tx, t, tx, h - 2 * t)]
-    pad = SHADOW_PAD
     out = [f'''			<control type="group" id="1001">
-				<description>Focus frame and spotlight (newwallxml)</description>
+				<description>Focus frame and the copy of the selected cover (newwallxml)</description>
 				<width>{w}</width>
 				<height>{h}</height>
 				<control type="group" id="1010">
-					<description>Spotlight: zooms the frame and the copy of the cover</description>
-					<width>{w}</width>
-					<height>{h}</height>
-					<animation effect="zoom" start="100" end="{SPOT_ZOOM}" center="auto" time="{SPOT_IN_MS}" tween="cubic" easing="out" condition="{SPOT}">Conditional</animation>
-					<control type="group">
-						<description>Copy of the selected cover (shown at once, gone at once: it travels with the frame)</description>
-						<left>{tx}</left>
-						<top>{t}</top>
+					<description>The selected cover, drawn again above the backdrop</description>
+					<left>{tx}</left>
+					<top>{t}</top>
+					<width>{cw}</width>
+					<height>{ch}</height>
+					<visible>{SPOT}</visible>
+					<control type="image">
 						<width>{cw}</width>
 						<height>{ch}</height>
-						<visible>{SPOT}</visible>
-						<control type="image">
-							<left>{-x(pad)}</left>
-							<top>{-pad + SHADOW_DROP}</top>
-							<width>{cw + 2 * x(pad)}</width>
-							<height>{ch + 2 * pad}</height>
-							<texture border="32">kscape-shadow.png</texture>
-						</control>
-						<control type="image">
-							<width>{cw}</width>
-							<height>{ch}</height>
-							<texture colordiffuse="{CARD}">kscape-white.png</texture>
-						</control>
-						<control type="textbox">
-							<left>{x(12)}</left>
-							<top>12</top>
-							<width>{cw - x(24)}</width>
-							<height>{ch - 24}</height>
+						<texture colordiffuse="{CARD}">kscape-white.png</texture>
+					</control>
+					<control type="textbox">
+						<left>{x(12)}</left>
+						<top>12</top>
+						<width>{cw - x(24)}</width>
+						<height>{ch - 24}</height>
+						<align>center</align>
+						<aligny>center</aligny>
+						<font>kscape_small</font>
+						<textcolor>FFC8C8D0</textcolor>
+						<label>{spot('Property(text)')}</label>
+					</control>
+					<control type="image">
+						<width>{cw}</width>
+						<height>{ch}</height>
+						<aspectratio>scale</aspectratio>
+						<texture background="true">{spot('Art(poster)')}</texture>
+					</control>
+					<control type="grouplist">
+						<left>{x(8)}</left>
+						<top>{ch - BADGE_H - 8}</top>
+						<width>{cw - 2 * x(8)}</width>
+						<height>{BADGE_H}</height>
+						<orientation>horizontal</orientation>
+						<align>right</align>
+						<itemgap>0</itemgap>
+						<visible>{spot_has('badge')}</visible>
+						<control type="button">
+							<pulseonselect>false</pulseonselect>
+							<width min="{x(BADGE_MIN_W)}" max="{cw - 2 * x(8)}">auto</width>
+							<height>{BADGE_H}</height>
+							<textoffsetx>{x(10)}</textoffsetx>
 							<align>center</align>
 							<aligny>center</aligny>
-							<font>kscape_small</font>
-							<textcolor>FFC8C8D0</textcolor>
-							<label>{spot('Property(text)')}</label>
+							<font>kscape_badge</font>
+							<textcolor>{AMBER}</textcolor>
+							<disabledcolor>{AMBER}</disabledcolor>
+							<enable>false</enable>
+							<texturenofocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturenofocus>
+							<texturefocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturefocus>
+							<label>{spot('Property(badge)')}</label>
+						</control>
+					</control>
+					<control type="group">
+						<left>{cw - x(HEART_BOX) - x(8)}</left>
+						<top>8</top>
+						<visible>{spot_has('fav')}</visible>
+						<control type="image">
+							<width>{x(HEART_BOX)}</width>
+							<height>{HEART_BOX}</height>
+							<texture colordiffuse="C8141210">kscape-white.png</texture>
 						</control>
 						<control type="image">
-							<width>{cw}</width>
-							<height>{ch}</height>
-							<aspectratio>scale</aspectratio>
-							<texture background="true">{spot('Art(poster)')}</texture>
+							<left>{(x(HEART_BOX) - x(HEART)) // 2}</left>
+							<top>{(HEART_BOX - HEART) // 2 + 1}</top>
+							<width>{x(HEART)}</width>
+							<height>{HEART}</height>
+							<texture colordiffuse="{AMBER}">kscape-heart.png</texture>
 						</control>
-						<control type="image">
-							<description>Floor reflection: the poster mirrored, fading out (kscape-reflect.png)</description>
-							<top>{ch + 6}</top>
-							<width>{cw}</width>
-							<height>{int(ch * REFLECT_FRACTION / 0.45)}</height>
-							<aspectratio>scale</aspectratio>
-							<texture background="true" flipy="true" diffuse="kscape-reflect.png" colordiffuse="8CFFFFFF">{spot('Art(poster)')}</texture>
-						</control>
-						<control type="image">
-							<description>Light glint: crosses the cover once when the spotlight comes on</description>
-							<width>{cw}</width>
-							<height>{ch}</height>
-							<texture>kscape-gloss.png</texture>
-							<animation effect="fade" start="0" end="100" delay="350" time="280" tween="sine" easing="out" reversible="false" condition="{SPOT}">Conditional</animation>
-							<animation effect="fade" start="100" end="0" delay="700" time="450" tween="sine" easing="in" reversible="false" condition="{SPOT}">Conditional</animation>
-						</control>
-						<control type="grouplist">
-							<left>{x(8)}</left>
-							<top>{ch - BADGE_H - 8}</top>
-							<width>{cw - 2 * x(8)}</width>
-							<height>{BADGE_H}</height>
-							<orientation>horizontal</orientation>
-							<align>right</align>
-							<itemgap>0</itemgap>
-							<visible>{spot_has('badge')}</visible>
-							<control type="button">
-								<pulseonselect>false</pulseonselect>
-								<width min="{x(BADGE_MIN_W)}" max="{cw - 2 * x(8)}">auto</width>
-								<height>{BADGE_H}</height>
-								<textoffsetx>{x(10)}</textoffsetx>
-								<align>center</align>
-								<aligny>center</aligny>
-								<font>kscape_badge</font>
-								<textcolor>{AMBER}</textcolor>
-								<disabledcolor>{AMBER}</disabledcolor>
-								<enable>false</enable>
-								<texturenofocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturenofocus>
-								<texturefocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturefocus>
-								<label>{spot('Property(badge)')}</label>
-							</control>
-						</control>
-						<control type="group">
-							<left>{cw - x(HEART_BOX) - x(8)}</left>
-							<top>8</top>
-							<visible>{spot_has('fav')}</visible>
-							<control type="image">
-								<width>{x(HEART_BOX)}</width>
-								<height>{HEART_BOX}</height>
-								<texture colordiffuse="C8141210">kscape-white.png</texture>
-							</control>
-							<control type="image">
-								<left>{(x(HEART_BOX) - x(HEART)) // 2}</left>
-								<top>{(HEART_BOX - HEART) // 2 + 1}</top>
-								<width>{x(HEART)}</width>
-								<height>{HEART}</height>
-								<texture colordiffuse="{AMBER}">kscape-heart.png</texture>
-							</control>
-						</control>
-					</control>''']
+					</control>
+				</control>''']
     for n, (bx, by, bw, bh) in enumerate(bars):
-        out.append(f'''					<control type="image" id="{1002 + n}">
-						<left>{bx}</left>
-						<top>{by}</top>
-						<width>{bw}</width>
-						<height>{bh}</height>
-						<texture colordiffuse="{AMBER}">kscape-white.png</texture>
-					</control>''')
-    out.append('''				</control>
-			</control>''')
+        out.append(f'''				<control type="image" id="{1002 + n}">
+					<left>{bx}</left>
+					<top>{by}</top>
+					<width>{bw}</width>
+					<height>{bh}</height>
+					<texture colordiffuse="{AMBER}">kscape-white.png</texture>
+				</control>''')
+    out.append('			</control>')
     return '\n'.join(out)
 
 
 def panel_width(L):
-    return G.panel_w(L) - SPOT_GAP
+    """The classic width: nothing grows into the gap any more (no zoom on the cover)."""
+    return G.panel_w(L)
 
 
 def panel(L):
-    """The classic panel (wallxml.panel) in smoked glass, with the clear logo above the
-    synopsis when the film has one, and a synopsis that scrolls slowly through its lines when
-    it is longer than them (only while the panel is up, so it costs nothing at rest)."""
+    """The classic panel (wallxml.panel), solid instead of glass, with the clear logo above the
+    synopsis when the film has one, and a synopsis that scrolls slowly through its lines when it
+    is longer than them (only while the panel is up, so it costs nothing at rest)."""
     pw, ph = panel_width(L), G.panel_h(L)
     no_logo = f'String.IsEmpty(Container({SPOT_SRC}).ListItemAbsolute(0).Property(logo))'
     text = W.panel_text(L, pw)
@@ -255,7 +212,7 @@ def panel(L):
               '!String.IsEmpty(Window.Property(kscape.panel.open))</autoscroll>')
     text = text.replace(body, f'{body}\n\t\t\t\t\t{scroll}', 1)
     return f'''			<control type="group" id="1900">
-				<description>Info panel in smoked glass beside the focused cover (placed by Python)</description>
+				<description>Info panel beside the focused cover (placed by Python)</description>
 				<left>-4000</left>
 				<width>{pw}</width>
 				<height>{ph}</height>
@@ -273,34 +230,10 @@ def panel(L):
 						<visible>!String.IsEmpty(Window.Property(kscape.panel.open))</visible>
 {W.panel_animations()}
 				<control type="image" id="1903">
-					<description>Smoked glass: the theme's background at 90%</description>
+					<description>Solid panel, no gradient and no transparency</description>
 					<width>{pw}</width>
 					<height>{ph}</height>
-					<texture colordiffuse="kscape_bg_shade">kscape-white.png</texture>
-				</control>
-				<control type="image">
-					<description>Glow of the theme colour from the top</description>
-					<width>{pw}</width>
-					<height>{ph * 3 // 5}</height>
-					<texture colordiffuse="kscape_blue_quiet">kscape-fade.png</texture>
-				</control>
-				<control type="image">
-					<description>Sheen lying across the glass</description>
-					<width>{pw}</width>
-					<height>{ph}</height>
-					<texture colordiffuse="{SHEEN}">kscape-sheen.png</texture>
-				</control>
-				<control type="image">
-					<description>Shadow pooling at the foot of the pane (the text draws over it)</description>
-					<top>{ph - FOOT_H}</top>
-					<width>{pw}</width>
-					<height>{FOOT_H}</height>
-					<texture colordiffuse="{FOOT_SHADOW}" flipy="true">kscape-fade.png</texture>
-				</control>
-				<control type="image">
-					<width>{pw}</width>
-					<height>{ph}</height>
-					<texture border="2" colordiffuse="30FFFFFF">kscape-glass-border.png</texture>
+					<texture colordiffuse="{PANEL_BG}">kscape-white.png</texture>
 				</control>
 				<control type="image">
 					<width>{pw}</width>
@@ -324,42 +257,11 @@ def panel(L):
 			</control>'''
 
 
-def plexiglas(L):
-    """One sheet of glossy plexiglas in front of the whole wall: a single still reflection
-    running across the view, with the covers sliding behind it, instead of the same little
-    sheen repeated on every cover (0.21.0), which read as 150 smudges rather than glass.
-
-    It sits in the viewport but outside the camera, so the wall moves and the reflection does
-    not - as a real sheet would. It is one control for the whole wall, and it lies over the
-    covers, the frame and the panel alike, the way a shop window covers what is behind it;
-    the counter and the now-playing chip are drawn after it, so they stay crisp."""
-    vw, vh = G.view_size(L)
-    return f'''			<control type="image" id="1967">
-				<description>The sheet's reflection (kscape-plexi.png, from a 16:9 render)</description>
-				<width>{vw}</width>
-				<height>{vh}</height>
-				<texture colordiffuse="{PLEXI}">kscape-plexi.png</texture>
-			</control>
-'''
-
-
-def bottom_fade(L):
-    vw, vh = G.view_size(L)
-    return f'''			<control type="image" id="1966">
-				<description>Dark fade along the bottom of the view, under the counter</description>
-				<top>{vh - FADE_H}</top>
-				<width>{vw}</width>
-				<height>{FADE_H}</height>
-				<texture colordiffuse="kscape_bg_shade" flipy="true">kscape-fade.png</texture>
-			</control>
-'''
-
-
 def count_label(cid=1965):
-    """The counter as plain text on the bottom fade (window.py places it as the classic chip)."""
+    """The counter as plain text (window.py places it as the classic chip)."""
     label = '$INFO[Window.Property(kscape.count)]'
     return f'''		<control type="group" id="{cid}">
-			<description>Item counter, plain text on the bottom fade</description>
+			<description>Item counter, plain text</description>
 			<animation effect="fade" start="0" end="100" time="250">Visible</animation>
 			<visible>!String.IsEmpty(Window.Property(kscape.count))</visible>
 			<control type="grouplist">
@@ -422,7 +324,7 @@ def _build(L):
 {focus_frame(L)}
 {panel(L)}
 		</control>
-{plexiglas(L)}{bottom_fade(L)}		</control>
+		</control>
 {W.masks()}
 		<control type="image" id="1951">
 			<description>KScape logo while the library loads: Python sets Window.Property(kscape.loading).</description>

@@ -4,20 +4,18 @@ C > New wall test switches a library's wall (movies or TV shows) to this look an
 (window.open_wall); the choice is kept per library. Everything else is the classic wall
 (WallWindow): navigation, menus, list view, info screen. What changes:
 
-  Opening    the covers cascade in, column by column, once (the XML's WindowOpen animations;
+  Opening    the covers fade in, column by column, once (the XML's WindowOpen animations;
              the kscape.opened property, set 3 s later, keeps returns from replaying them).
   Badges     the covers carry no format badge; the selected cover shows its own, once the
              wall rests on it (newwallxml.py drops them from the slots, which Kodi then no
              longer processes every frame).
   Backdrop   with the synopsis panel, the selected film's fanart fills the view behind the
-             spotlight, darkened and vignetted, with a slow settle; the wall ghosts through.
-             The fanart comes with the clear logo, one JSON-RPC call per film, cached.
-  Spotlight  the selected cover comes forward (zoom, soft shadow, a floor reflection, a light
-             glint); everything goes at the next key press.
-  Panel      smoked glass in the theme's colours at 90%, the film's clear logo in place of its
-             title when the library has one; a synopsis longer than its four lines scrolls
-             slowly through them (XML autoscroll, only while the panel is up).
-  Counter    plain text on a dark fade along the bottom of the wall.
+             covers, under an even veil, with a slow settle; the wall ghosts through. The
+             fanart comes with the clear logo, one JSON-RPC call per film, cached.
+  Panel      a solid panel in the theme's colours, the film's clear logo in place of its title
+             when the library has one; a synopsis longer than its four lines scrolls slowly
+             through them (XML autoscroll, only while the panel is up).
+  Counter    plain text, bottom right.
   Shuffle    the covers that change cross-fade where they stand, in a wave that spreads from
              the selected cover, instead of flying across the wall, which left empty cells on
              the way; a soft whoosh (xbmc.playSFX) marks it.
@@ -26,10 +24,14 @@ C > New wall test switches a library's wall (movies or TV shows) to this look an
              scene lights up. When no wave is coming (automatic shuffle off, or the wall is
              already arranged around this film), the panel comes at 1.2 s instead.
 
-Cost on the AM6B+: the spotlight and backdrop are one property write and one setPosition when
-the panel opens, one property write when it closes (everything else comes from a hidden list
-item, which takes no GUI lock); the wave makes the same number of control calls as the classic
-flight.
+It is flat on purpose: 0.18 to 0.21 tried a spotlight, shadows, a reflection, polished glass
+and a sheet of plexiglas over the wall, and each of them fought the posters. Hierarchy now
+comes from colour, weight and spacing alone.
+
+Cost on the AM6B+: the selected cover and the backdrop are one property write and one
+setPosition when the panel opens, one property write when it closes (everything else comes
+from a hidden list item, which takes no GUI lock); the wave makes the same number of control
+calls as the classic flight.
 """
 import math
 import os
@@ -115,12 +117,10 @@ def turn_out(delay, on):
 
 
 def turn_in(delay, on):
-    """The new cover fades in over the old one, a touch behind it, growing the last few percent."""
-    start = delay + FADE_LAG_MS
-    return [('Conditional', f'effect=fade start=0 end=100 delay={start} '
-                            f'time={FADE_IN_MS} tween=sine easing=out reversible=false condition={on}'),
-            ('Conditional', f'effect=zoom start=96 end=100 center=auto delay={start} '
-                            f'time={FADE_IN_MS} tween=cubic easing=out reversible=false condition={on}')]
+    """The new cover fades in over the old one, a touch behind it. A plain fade: the wall is
+    flat, so nothing grows or shrinks."""
+    return [('Conditional', f'effect=fade start=0 end=100 delay={delay + FADE_LAG_MS} '
+                            f'time={FADE_IN_MS} tween=sine easing=out reversible=false condition={on}')]
 
 
 class NewWallWindow(WallWindow):
@@ -171,14 +171,6 @@ class NewWallWindow(WallWindow):
 
     # ---- spotlight and panel ----------------------------------------------------------------
 
-    def _panel_place(self):
-        """The classic place, narrower by SPOT_GAP on the cover's side (newwallxml.panel): the
-        zoomed frame grows into the gap instead of sliding under the panel."""
-        cells, px = super()._panel_place()
-        if cells[0][0] > self.focus[0]:
-            px += NX.SPOT_GAP
-        return cells, px
-
     def _show_panel(self):
         if self.shuffle_until or time.time() < self.wave_rest_until:
             return                       # the wave first, and a breath after it settles
@@ -188,15 +180,12 @@ class NewWallWindow(WallWindow):
         self._spot(item)
         self.backdrop.setPosition(int(self.cam[0]), int(self.cam[1]))   # fill the view (camera
         super()._show_panel()                                           # rests while it shows)
-        if self.panel_rect:
-            px, py, pw, ph = self.panel_rect
-            self.panel_rect = (px, py, pw - NX.SPOT_GAP, ph)
         self.setProperty('kscape.spot', '1')
         self.spot_on = True
 
     def _hide_panel(self):
         if self.spot_on:
-            self.setProperty('kscape.spot', '')    # at once: the copy must not travel with the frame
+            self.setProperty('kscape.spot', '')    # at once: the copy travels with the frame
             self.spot_on = False
         super()._hide_panel()
 

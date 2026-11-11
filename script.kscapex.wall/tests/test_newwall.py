@@ -21,6 +21,7 @@ with mock.patch.dict(sys.modules, {n: mock.MagicMock() for n in ('xbmc', 'xbmcad
     from resources.lib import newwall as NW  # noqa: E402
 
 SKIN = os.path.join(os.path.dirname(__file__), '..', 'resources', 'skins', 'Default', '1080i')
+MEDIA = os.path.join(os.path.dirname(__file__), '..', 'resources', 'skins', 'Default', 'media')
 
 
 def shipped(name):
@@ -57,12 +58,8 @@ class ShippedXmlTest(unittest.TestCase):
         self.assertEqual(ids(new), ids(classic))                 # same controls: details.py drives both
         self.assertIn('Window.Property(fanart)', new)
         self.assertIn('Window.Property(clearlogo)', new)
-        self.assertNotIn('effect="slide" start="0,1032"', new)   # fade + bloom, no slide from the bottom
-        self.assertIn('effect="zoom" start="97"', new)
-        self.assertIn('kscape-sheen.png', new)                   # polished glass, selected rows lit
-        self.assertEqual(new.count('kscape-row.png'), 8)
-        self.assertNotIn('kscape-sheen.png', classic)            # none of it in the classic fiche
-        self.assertNotIn('kscape-row.png', classic)
+        self.assertNotIn('0,1032', new)              # a plain fade: no slide up from the bottom
+        self.assertNotIn('effect="zoom"', new)       # and no bloom
         ET.fromstring(new)
 
     def test_transform_refuses_a_changed_classic_fiche(self):
@@ -79,7 +76,7 @@ class NewWallXmlTest(unittest.TestCase):
         need = {'900', '998', '1000', '1001', '1006', '1007', '1900', '1901', '1902', '1905', '1909',
                 '1911', '1912', '1914', '1950', '1951', '1960', '1961', '1962', '1963', '1965', '1980',
                 '1971', '1972', '1973', '1974', '1990', '1991',
-                '1009', '1010', '1906', '1966', str(NX.SPOT_SRC)}
+                '1009', '1010', '1906', str(NX.SPOT_SRC)}
         slots = {str(b + k) for b in (10000, 20000) for k in range(G.POSTER.pool_cols * G.POSTER.pool_rows)}
         self.assertLessEqual(need | slots, ids(self.xml))
 
@@ -91,84 +88,56 @@ class NewWallXmlTest(unittest.TestCase):
         count = lambda xml: len(list(ET.fromstring(xml).iter('control')))
         self.assertLess(count(self.xml), count(wallxml.build(G.POSTER)))     # lighter every frame
 
-    def test_panel_leaves_room_for_the_zoomed_frame(self):
-        frame_w = G.POSTER.cover_w + 2 * G.fx(G.POSTER)
-        growth = frame_w * (NX.SPOT_ZOOM - 100) / 200.0
-        self.assertGreaterEqual(NX.SPOT_GAP, growth)
-        self.assertEqual(NX.panel_width(G.POSTER), G.panel_w(G.POSTER) - NX.SPOT_GAP)
-        panel = next(c for c in ET.fromstring(self.xml).iter('control') if c.get('id') == '1900')
-        self.assertEqual(int(panel.find('width').text), NX.panel_width(G.POSTER))
-
     def test_title_hides_while_there_is_a_logo(self):
         title = next(c for c in ET.fromstring(self.xml).iter('control') if c.get('id') == '1901')
         self.assertEqual(title.find('visible').text,
                          f'String.IsEmpty(Container({NX.SPOT_SRC}).ListItemAbsolute(0).Property(logo))')
 
-    def test_backdrop_fills_the_view_with_fanart_veil_and_vignette(self):
+    def test_backdrop_fills_the_view_with_fanart_under_an_even_veil(self):
         back = next(c for c in ET.fromstring(self.xml).iter('control') if c.get('id') == '1009')
         images = list(back.iter('control'))[1:]
         self.assertEqual([i.find('texture').text for i in images],
                          [f'$INFO[Container({NX.SPOT_SRC}).ListItemAbsolute(0).Property(fanart)]',
-                          'kscape-white.png', 'kscape-vignette.png'])
+                          'kscape-white.png'])
         for i in images:
             self.assertEqual(int(i.find('width').text), G.SCREEN_W)
             self.assertEqual(int(i.find('height').text), G.SCREEN_H)
         self.assertIn('kscape.spot', back.find('visible').text)
 
-    def test_spotlight_carries_reflection_glint_and_polish(self):
-        self.assertIn('kscape-reflect.png', self.xml)
-        self.assertIn('flipy="true"', self.xml)
+    def test_nothing_in_relief_anywhere(self):
+        # 0.18 to 0.21 tried a spotlight, shadows, a reflection, glass and plexiglas; the wall
+        # is flat now, and so is its fiche. No gradient, no shadow, no gloss, no zoom.
+        fiche = shipped(NX2.NAME)
+        gone = ('kscape-plexi.png', 'kscape-sheen.png', 'kscape-gloss.png', 'kscape-shadow.png',
+                'kscape-reflect.png', 'kscape-vignette.png', 'kscape-row.png',
+                'kscape-glass-border.png', 'kscape-bar.png', 'kscape-badge-glossy.png')
+        for texture in gone:
+            self.assertNotIn(texture, self.xml, texture)
+            self.assertNotIn(texture, fiche, texture)
+            self.assertFalse(os.path.exists(os.path.join(MEDIA, texture)), texture)
+        self.assertNotIn('kscape-fade.png', self.xml)            # no gradient left on the wall
+        self.assertNotIn('kscape-hfade.png', fiche)
+        # The only zoom left is the fanart easing back once behind the panel.
+        for xml in (self.xml, fiche):
+            self.assertEqual(xml.count('effect="zoom"'), xml.count('effect="zoom" start="106"'))
 
-    def test_the_amber_carries_no_gloss(self):
-        # 0.20.0 gave the frame's bars a gradient and the badge a sheen: streaky on screen, so
-        # every amber part is flat again, as the classic wall's.
+    def test_the_amber_frame_is_flat_and_alone(self):
         frame = NX.focus_frame(G.POSTER)
-        self.assertIn(f'colordiffuse="{NX.AMBER}">kscape-white.png', frame)
-        self.assertNotIn('kscape-bar.png', self.xml)
-        self.assertNotIn('kscape-badge-glossy.png', self.xml)
-        self.assertIn('kscape-badge-box.png', self.xml)
+        self.assertEqual(frame.count(f'colordiffuse="{NX.AMBER}">kscape-white.png'), 4)   # 4 bars
+        self.assertNotIn('animation', frame)                     # nothing grows when selected
 
-    def test_panels_are_polished_glass(self):
-        self.assertIn('kscape-sheen.png', self.xml)               # sheen across the pane
-        self.assertIn(f'colordiffuse="{NX.FOOT_SHADOW}" flipy="true">kscape-fade.png', self.xml)
-
-    def test_no_white_rim_anywhere(self):
-        # A white line across the top of a pane looked bad on screen: gone from both.
-        self.assertNotIn('Lit edge', self.xml)
-        self.assertNotIn('Lit edge', shipped(NX2.NAME))
-
-    def test_one_sheet_of_plexiglas_in_front_of_the_whole_wall(self):
-        tree = ET.fromstring(self.xml)
-        sheet = next(c for c in tree.iter('control') if c.get('id') == '1967')
-        self.assertEqual(sheet.find('texture').text, 'kscape-plexi.png')
-        self.assertEqual((int(sheet.find('width').text), int(sheet.find('height').text)),
-                         (G.SCREEN_W, G.SCREEN_H))
-        # One control for the wall, not one per slot, and none in the classic wall's.
-        self.assertEqual(self.xml.count('>kscape-plexi.png<'), 1)   # one control, not one per slot
-        self.assertNotIn('kscape-gloss.png', wallxml.slot(10000, G.POSTER, gloss=''))
-        self.assertNotIn('kscape-plexi.png', shipped('script-kscape-wall.xml'))
-
-    def test_the_sheet_is_fixed_while_the_wall_slides_behind_it(self):
-        # Outside the camera (1000), inside the viewport (998): the covers move, it does not.
-        viewport = next(c for c in ET.fromstring(self.xml).iter('control') if c.get('id') == '998')
-        children = [c.get('id') for c in viewport.findall('control')]
-        self.assertIn('1967', children)
-        camera = next(c for c in viewport.findall('control') if c.get('id') == '1000')
-        self.assertNotIn('1967', [c.get('id') for c in camera.iter('control')])
-        self.assertLess(children.index('1000'), children.index('1967'))   # drawn over the wall
-
-    def test_gloss_textures_are_shipped(self):
-        media = os.path.join(os.path.dirname(__file__), '..', 'resources', 'skins', 'Default', 'media')
-        for name in ('kscape-sheen.png', 'kscape-row.png'):
-            self.assertTrue(os.path.exists(os.path.join(media, name)), name)
-
-    def test_panel_glass_is_the_dense_shade(self):
+    def test_panel_is_solid(self):
         panel = next(c for c in ET.fromstring(self.xml).iter('control') if c.get('id') == '1903')
-        self.assertIn('kscape_bg_shade', panel.find('texture').get('colordiffuse'))
+        self.assertEqual(panel.find('texture').get('colordiffuse'), NX.PANEL_BG)
+        self.assertEqual(panel.find('texture').text, 'kscape-white.png')
+        self.assertEqual(NX.panel_width(G.POSTER), G.panel_w(G.POSTER))   # no gap to leave now
 
-    def test_opening_cascade_plays_once(self):
+    def test_opening_cascade_plays_once_and_only_fades(self):
         self.assertIn('WindowOpen', self.xml)
         self.assertIn('String.IsEmpty(Window.Property(kscape.opened))', self.xml)
+        slot = wallxml.slot(10000, G.POSTER, opening=True)
+        self.assertIn('effect="fade"', slot)
+        self.assertNotIn('effect="zoom"', slot)
 
     def test_adapted_layouts_build(self):
         for stage in (D.stage(2560, 1080), D.stage(1920, 1080, '2.40', rows='3')):
@@ -202,15 +171,13 @@ class WaveTest(unittest.TestCase):
 
     def test_fades_cross_each_other(self):
         out_, = NW.turn_out(120, 'C')
-        fade_in, zoom_in = NW.turn_in(120, 'C')
+        fade_in, = NW.turn_in(120, 'C')             # a plain cross-fade: the wall is flat
         f_out = dict(f.split('=', 1) for f in out_[1].split(' '))
         f_in = dict(f.split('=', 1) for f in fade_in[1].split(' '))
-        f_zoom = dict(f.split('=', 1) for f in zoom_in[1].split(' '))
         self.assertEqual((f_out['effect'], f_out['start'], f_out['end']), ('fade', '100', '0'))
         self.assertEqual((f_in['effect'], f_in['start'], f_in['end']), ('fade', '0', '100'))
         self.assertEqual(int(f_in['delay']), 120 + NW.FADE_LAG_MS)          # overlap: never a gap
         self.assertLess(int(f_in['delay']), int(f_out['delay']) + int(f_out['time']))
-        self.assertEqual(f_zoom['effect'], 'zoom')
         self.assertEqual(f_in['condition'], 'C')
 
 

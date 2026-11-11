@@ -1,3 +1,6 @@
+[B]0.22.0[/B] (11-11-2026)
+- Version alignée sur l'add-on du mur (New wall test entièrement mat et plat).
+
 [B]0.21.1[/B] (11-11-2026)
 - Version alignée sur l'add-on du mur (plexiglas en une seule plaque fixe).
 
