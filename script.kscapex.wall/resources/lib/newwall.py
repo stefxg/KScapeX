@@ -6,9 +6,9 @@ C > New wall test switches a library's wall (movies or TV shows) to this look an
 
   Opening    the covers fade in, column by column, once (the XML's WindowOpen animations;
              the kscape.opened property, set 3 s later, keeps returns from replaying them).
-  Badges     the covers carry no format badge; the selected cover shows its own, once the
-             wall rests on it (newwallxml.py drops them from the slots, which Kodi then no
-             longer processes every frame).
+  Badges     no format badge on any cover: the panel beside the selected one already gives the
+             format, so repeating it on the poster was noise (and two controls and one
+             condition per slot that Kodi no longer processes every frame).
   Backdrop   with the synopsis panel, the selected film's fanart fills the view behind the
              covers, under an even veil, with a slow settle; the wall ghosts through. The
              fanart comes with the clear logo, one JSON-RPC call per film, cached.
@@ -193,7 +193,6 @@ class NewWallWindow(WallWindow):
         li = self.spot_item
         li.setArt({'poster': item.poster})
         li.setProperty('text', '' if item.poster else self.kind.fallback(item))
-        li.setProperty('badge', self.kind.cover_badge(item, self.show_badges) or '')
         li.setProperty('fav', '1' if self._is_favourite(item) else '')
         self.art_for = item.key
         art = self.art.get(item.key)

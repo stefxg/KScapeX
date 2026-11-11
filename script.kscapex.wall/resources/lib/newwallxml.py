@@ -18,16 +18,16 @@ is not touched. What changes, against wallxml's control map:
   1992         hidden data list holding one item: the selected cover's poster, badge, favourite
                mark, text, clear logo and fanart (newwall.py sets them; no GUI lock)
   1009         backdrop while Window.Property(kscape.spot) is set: the selected film's fanart
-               over the whole view - the covers ghost through it - under an even veil. It sits
-               inside the camera, between the covers and the frame; newwall.py parks it at the
-               camera's position when the panel opens (the camera stands still while the panel
-               is up), so it fills the view
+               over the whole view, opaque, under an even veil. It sits inside the camera,
+               between the covers and the frame; newwall.py parks it at the camera's position
+               when the panel opens (the camera stands still while the panel is up), so it
+               fills the view
   1001         focus frame: four flat amber bars, and 1010 a copy of the selected cover, which
-               has to be drawn again here to sit above the backdrop and to carry the format
-               badge. The copy loads in the background, like the slots: Kodi hands it the
-               slot's texture, already loaded
-  1900         info panel: a solid dark panel (kscape_bg) with a line in the theme colour along
-               its top, the film's clear logo in place of the title when the library has one
+               has to be drawn again here to sit above the backdrop. No format badge on it:
+               the panel beside it already gives the format. The copy loads in the background,
+               like the slots: Kodi hands it the slot's texture, already loaded
+  1900         info panel: a solid dark panel (kscape_bg), nothing along its top, the film's
+               clear logo in place of the title when the library has one
                (1901 hides while there is one), and a synopsis that scrolls through its lines
                when it is longer than them
   1965         the item counter as plain text, with no chip behind it
@@ -37,14 +37,15 @@ No <visible> tags on Python-driven controls: a visibility condition overrides se
 from . import geometry as G
 from . import npchip as np_chip
 from . import wallxml as W
-from .wallxml import AMBER, BADGE_H, BADGE_MIN_W, CARD, HEART, HEART_BOX, x
+from .wallxml import AMBER, CARD, HEART, HEART_BOX, x
 
 SPOT = '!String.IsEmpty(Window.Property(kscape.spot))'
 SPOT_SRC = 1992
 SPOT_IN_MS, SPOT_OUT_MS = 240, 160
 BACK_IN_MS, BACK_OUT_MS = 550, 350       # the fanart backdrop's fades
-FANART_ALPHA = 'D8FFFFFF'       # the fanart over the covers: they ghost through at ~15%
-VEIL = 'BF000000'               # even veil over the fanart (no vignette: that is depth)
+FANART_ALPHA = 'FFFFFFFF'       # the fanart covers the wall: two images showing through each
+                                # other is what made it muddy, not how dark it was
+VEIL = '8C000000'               # even veil over it (no vignette: that is depth)
 PANEL_BG = 'kscape_bg'          # solid, not glass: translucency is depth too
 LOGO_H = 76
 
@@ -72,8 +73,9 @@ def spot_source():
 
 def backdrop(L):
     """The selected film's fanart filling the view while the panel is up, behind the frame:
-    the image eases back from 106% once, and an even veil darkens it so the panel and the
-    covers carry. With no fanart, the veil alone dims the wall."""
+    the image eases back from 106% once, and an even veil darkens it enough for the panel to
+    carry. It is opaque: letting the covers ghost through made the two images fight. With no
+    fanart, the veil alone dims the wall."""
     vw, vh = G.view_size(L)
     return f'''			<control type="group" id="1009">
 				<description>Backdrop: the film's fanart under an even veil (newwall.py parks it at the camera)</description>
@@ -98,8 +100,8 @@ def backdrop(L):
 
 def focus_frame(L):
     """Four flat amber bars around the focused cell, and a copy of the cover inside them: it
-    has to be drawn again here to sit above the backdrop, and it carries the format badge and
-    the favourite mark, which the slots of the wall no longer show."""
+    has to be drawn again here to sit above the backdrop, and it carries the favourite mark,
+    which the slots of the wall no longer show. No format badge: the panel gives the format."""
     t, tx = L.frame, G.fx(L)
     w, h = L.cover_w + 2 * tx, L.cover_h + 2 * t
     cw, ch = L.cover_w, L.cover_h
@@ -136,31 +138,6 @@ def focus_frame(L):
 						<height>{ch}</height>
 						<aspectratio>scale</aspectratio>
 						<texture background="true">{spot('Art(poster)')}</texture>
-					</control>
-					<control type="grouplist">
-						<left>{x(8)}</left>
-						<top>{ch - BADGE_H - 8}</top>
-						<width>{cw - 2 * x(8)}</width>
-						<height>{BADGE_H}</height>
-						<orientation>horizontal</orientation>
-						<align>right</align>
-						<itemgap>0</itemgap>
-						<visible>{spot_has('badge')}</visible>
-						<control type="button">
-							<pulseonselect>false</pulseonselect>
-							<width min="{x(BADGE_MIN_W)}" max="{cw - 2 * x(8)}">auto</width>
-							<height>{BADGE_H}</height>
-							<textoffsetx>{x(10)}</textoffsetx>
-							<align>center</align>
-							<aligny>center</aligny>
-							<font>kscape_badge</font>
-							<textcolor>{AMBER}</textcolor>
-							<disabledcolor>{AMBER}</disabledcolor>
-							<enable>false</enable>
-							<texturenofocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturenofocus>
-							<texturefocus border="2" colordiffuse="{AMBER}">kscape-badge-box.png</texturefocus>
-							<label>{spot('Property(badge)')}</label>
-						</control>
 					</control>
 					<control type="group">
 						<left>{cw - x(HEART_BOX) - x(8)}</left>
@@ -234,11 +211,6 @@ def panel(L):
 					<width>{pw}</width>
 					<height>{ph}</height>
 					<texture colordiffuse="{PANEL_BG}">kscape-white.png</texture>
-				</control>
-				<control type="image">
-					<width>{pw}</width>
-					<height>3</height>
-					<texture colordiffuse="kscape_blue">kscape-white.png</texture>
 				</control>
 				<control type="image" id="1906">
 					<description>Clear logo in place of the title</description>

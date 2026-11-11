@@ -1,3 +1,8 @@
+[B]0.22.1[/B] (11-11-2026)
+- Le filet bleu en haut du panneau est retiré (reste de la version en verre).
+- Plus de badge de résolution sur la jaquette sélectionnée : le panneau à côté donne déjà le format.
+- Fond fanart : voile sombre allégé (de 75 % à 55 %) et image rendue opaque. Les jaquettes ne transparaissent plus à travers : c'est la superposition des deux images, et non l'obscurité, qui rendait le fond boueux.
+
 [B]0.22.0[/B] (11-11-2026)
 La vue « New wall test » devient entièrement mate et plate. Tout le relief essayé depuis la 0.18.0 est retiré : il entrait en concurrence avec les affiches au lieu de les servir.
 - Plus de plaque de plexiglas, plus de projecteur sur la jaquette sélectionnée (agrandissement, ombre portée, reflet au sol, éclat), plus de verre sur le panneau (reflet, ombre, liseré, dégradé coloré), plus de vignettage, plus de dégradé en bas du mur.

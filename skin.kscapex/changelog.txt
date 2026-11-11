@@ -1,3 +1,6 @@
+[B]0.22.1[/B] (11-11-2026)
+- Version alignée sur l'add-on du mur (filet bleu et badge retirés, fond fanart plus clair et plus net).
+
 [B]0.22.0[/B] (11-11-2026)
 - Version alignée sur l'add-on du mur (New wall test entièrement mat et plat).
 
