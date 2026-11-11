@@ -1,3 +1,12 @@
+[B]0.18.0[/B] (11-11-2026)
+Vue « New wall test » : version cinéma.
+- Fond fanart : quand le panneau s'ouvre, l'image du film emplit l'écran derrière le mur (fondu, léger recul, voile sombre et vignettage) ; les jaquettes transparaissent faiblement. Sans fanart, le mur s'assombrit simplement. Fanart et logo sont lus ensemble, une fois par film, en arrière-plan.
+- Jaquette vedette : reflet au sol (l'affiche inversée qui s'estompe) et éclat lumineux qui la traverse une fois à l'ouverture du panneau, en plus du zoom et de l'ombre.
+- Panneau en verre fumé plus opaque (90 % au lieu de 60 %) : le texte se lit sans les affiches derrière (retour vidéo).
+- Réorganisation en fondu enchaîné : chaque jaquette fond vers la nouvelle, toujours en vague depuis le film sélectionné — plus de lamelles noires à mi-retournement (retour vidéo). Un léger souffle accompagne la vague (coupé avec « Réduire les animations »).
+- Ouverture en cascade : les jaquettes apparaissent colonne par colonne, une seule fois à l'ouverture du mur.
+Le mur classique et les autres vues ne changent pas.
+
 [B]0.17.0[/B] (11-11-2026)
 - Nouvelle vue « New wall test » (nom provisoire), à côté du mur actuel : C > View Options > New wall test (On / Off). Le choix est mémorisé (films et séries séparément) et le mur se rouvre sur la même jaquette. Le mur classique, la liste, les collections et les autres vues ne changent pas.
 - Badges de format : seulement sur la jaquette sélectionnée, quand le mur s'arrête dessus (les autres jaquettes n'en portent plus, ce qui allège aussi le mur pour la box).

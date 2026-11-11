@@ -37,7 +37,7 @@
 			<focusedlayout width="10" height="10"/>
 		</control>
 		<control type="list" id="1992">
-			<description>Data for the spotlight (newwall.py): the selected cover's poster, badge, mark, logo</description>
+			<description>Data for the spotlight (newwall.py): the selected cover's poster, badge, mark, logo, fanart</description>
 			<left>-4000</left>
 			<top>-4000</top>
 			<width>10</width>
@@ -55,6 +55,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(0).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="0" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="0" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -100,6 +102,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(1).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="45" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="45" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -145,6 +149,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(2).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="90" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="90" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -190,6 +196,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(3).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="135" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="135" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -235,6 +243,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(4).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="180" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="180" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -280,6 +290,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(5).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="225" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="225" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -325,6 +337,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(6).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="270" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="270" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -370,6 +384,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(7).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="315" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="315" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -415,6 +431,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(8).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="360" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="360" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -460,6 +478,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(9).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="405" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="405" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -505,6 +525,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(10).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="450" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="450" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -550,6 +572,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(11).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="495" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="495" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -595,6 +619,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(12).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="540" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="540" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -640,6 +666,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(13).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="22" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="22" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -685,6 +713,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(14).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="67" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="67" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -730,6 +760,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(15).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="112" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="112" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -775,6 +807,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(16).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="157" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="157" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -820,6 +854,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(17).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="202" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="202" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -865,6 +901,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(18).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="247" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="247" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -910,6 +948,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(19).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="292" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="292" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -955,6 +995,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(20).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="337" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="337" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1000,6 +1042,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(21).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="382" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="382" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1045,6 +1089,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(22).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="427" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="427" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1090,6 +1136,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(23).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="472" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="472" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1135,6 +1183,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(24).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="517" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="517" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1180,6 +1230,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(25).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="562" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="562" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1225,6 +1277,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(26).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="44" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="44" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1270,6 +1324,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(27).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="89" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="89" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1315,6 +1371,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(28).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="134" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="134" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1360,6 +1418,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(29).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="179" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="179" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1405,6 +1465,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(30).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="224" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="224" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1450,6 +1512,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(31).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="269" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="269" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1495,6 +1559,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(32).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="314" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="314" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1540,6 +1606,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(33).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="359" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="359" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1585,6 +1653,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(34).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="404" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="404" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1630,6 +1700,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(35).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="449" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="449" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1675,6 +1747,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(36).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="494" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="494" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1720,6 +1794,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(37).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="539" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="539" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1765,6 +1841,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(38).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="584" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="584" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1810,6 +1888,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(39).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="66" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="66" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1855,6 +1935,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(40).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="111" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="111" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1900,6 +1982,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(41).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="156" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="156" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1945,6 +2029,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(42).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="201" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="201" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -1990,6 +2076,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(43).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="246" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="246" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2035,6 +2123,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(44).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="291" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="291" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2080,6 +2170,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(45).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="336" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="336" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2125,6 +2217,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(46).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="381" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="381" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2170,6 +2264,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(47).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="426" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="426" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2215,6 +2311,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(48).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="471" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="471" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2260,6 +2358,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(49).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="516" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="516" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2305,6 +2405,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(50).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="561" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="561" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2350,6 +2452,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(51).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="606" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="606" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2395,6 +2499,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(52).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="88" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="88" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2440,6 +2546,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(53).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="133" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="133" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2485,6 +2593,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(54).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="178" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="178" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2530,6 +2640,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(55).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="223" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="223" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2575,6 +2687,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(56).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="268" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="268" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2620,6 +2734,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(57).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="313" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="313" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2665,6 +2781,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(58).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="358" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="358" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2710,6 +2828,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(59).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="403" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="403" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2755,6 +2875,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(60).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="448" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="448" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2800,6 +2922,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(61).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="493" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="493" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2845,6 +2969,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(62).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="538" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="538" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2890,6 +3016,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(63).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="583" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="583" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2935,6 +3063,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(64).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="628" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="628" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -2980,6 +3110,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(65).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="110" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="110" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3025,6 +3157,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(66).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="155" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="155" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3070,6 +3204,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(67).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="200" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="200" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3115,6 +3251,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(68).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="245" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="245" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3160,6 +3298,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(69).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="290" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="290" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3205,6 +3345,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(70).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="335" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="335" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3250,6 +3392,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(71).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="380" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="380" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3295,6 +3439,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(72).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="425" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="425" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3340,6 +3486,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(73).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="470" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="470" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3385,6 +3533,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(74).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="515" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="515" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3430,6 +3580,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(75).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="560" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="560" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3475,6 +3627,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(76).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="605" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="605" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3520,6 +3674,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1990).ListItemAbsolute(77).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="650" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="650" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3568,6 +3724,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(0).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="0" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="0" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3613,6 +3771,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(1).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="45" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="45" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3658,6 +3818,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(2).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="90" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="90" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3703,6 +3865,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(3).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="135" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="135" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3748,6 +3912,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(4).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="180" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="180" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3793,6 +3959,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(5).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="225" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="225" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3838,6 +4006,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(6).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="270" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="270" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3883,6 +4053,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(7).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="315" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="315" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3928,6 +4100,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(8).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="360" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="360" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -3973,6 +4147,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(9).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="405" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="405" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4018,6 +4194,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(10).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="450" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="450" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4063,6 +4241,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(11).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="495" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="495" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4108,6 +4288,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(12).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="540" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="540" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4153,6 +4335,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(13).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="22" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="22" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4198,6 +4382,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(14).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="67" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="67" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4243,6 +4429,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(15).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="112" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="112" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4288,6 +4476,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(16).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="157" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="157" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4333,6 +4523,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(17).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="202" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="202" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4378,6 +4570,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(18).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="247" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="247" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4423,6 +4617,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(19).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="292" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="292" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4468,6 +4664,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(20).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="337" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="337" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4513,6 +4711,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(21).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="382" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="382" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4558,6 +4758,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(22).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="427" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="427" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4603,6 +4805,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(23).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="472" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="472" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4648,6 +4852,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(24).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="517" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="517" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4693,6 +4899,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(25).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="562" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="562" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4738,6 +4946,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(26).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="44" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="44" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4783,6 +4993,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(27).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="89" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="89" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4828,6 +5040,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(28).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="134" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="134" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4873,6 +5087,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(29).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="179" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="179" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4918,6 +5134,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(30).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="224" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="224" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -4963,6 +5181,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(31).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="269" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="269" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5008,6 +5228,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(32).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="314" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="314" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5053,6 +5275,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(33).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="359" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="359" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5098,6 +5322,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(34).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="404" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="404" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5143,6 +5369,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(35).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="449" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="449" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5188,6 +5416,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(36).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="494" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="494" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5233,6 +5463,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(37).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="539" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="539" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5278,6 +5510,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(38).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="584" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="584" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5323,6 +5557,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(39).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="66" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="66" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5368,6 +5604,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(40).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="111" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="111" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5413,6 +5651,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(41).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="156" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="156" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5458,6 +5698,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(42).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="201" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="201" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5503,6 +5745,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(43).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="246" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="246" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5548,6 +5792,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(44).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="291" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="291" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5593,6 +5839,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(45).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="336" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="336" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5638,6 +5886,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(46).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="381" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="381" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5683,6 +5933,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(47).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="426" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="426" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5728,6 +5980,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(48).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="471" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="471" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5773,6 +6027,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(49).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="516" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="516" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5818,6 +6074,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(50).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="561" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="561" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5863,6 +6121,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(51).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="606" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="606" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5908,6 +6168,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(52).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="88" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="88" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5953,6 +6215,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(53).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="133" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="133" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -5998,6 +6262,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(54).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="178" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="178" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6043,6 +6309,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(55).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="223" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="223" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6088,6 +6356,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(56).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="268" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="268" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6133,6 +6403,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(57).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="313" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="313" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6178,6 +6450,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(58).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="358" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="358" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6223,6 +6497,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(59).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="403" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="403" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6268,6 +6544,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(60).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="448" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="448" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6313,6 +6591,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(61).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="493" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="493" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6358,6 +6638,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(62).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="538" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="538" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6403,6 +6685,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(63).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="583" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="583" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6448,6 +6732,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(64).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="628" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="628" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6493,6 +6779,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(65).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="110" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="110" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6538,6 +6826,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(66).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="155" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="155" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6583,6 +6873,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(67).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="200" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="200" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6628,6 +6920,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(68).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="245" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="245" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6673,6 +6967,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(69).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="290" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="290" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6718,6 +7014,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(70).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="335" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="335" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6763,6 +7061,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(71).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="380" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="380" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6808,6 +7108,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(72).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="425" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="425" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6853,6 +7155,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(73).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="470" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="470" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6898,6 +7202,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(74).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="515" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="515" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6943,6 +7249,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(75).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="560" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="560" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -6988,6 +7296,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(76).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="605" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="605" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -7033,6 +7343,8 @@
 				<width>186</width>
 				<height>279</height>
 				<visible>!String.IsEmpty(Container(1991).ListItemAbsolute(77).Property(on))</visible>
+				<animation effect="fade" start="0" end="100" delay="650" time="300" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
+				<animation effect="zoom" start="92" end="100" center="auto" delay="650" time="300" tween="cubic" easing="out" condition="String.IsEmpty(Window.Property(kscape.opened))">WindowOpen</animation>
 				<control type="image">
 					<width>186</width>
 					<height>279</height>
@@ -7075,21 +7387,34 @@
 				</control>
 			</control>
 			</control>
+			<control type="group" id="1009">
+				<description>Backdrop: fanart, veil and vignette while the panel is up (newwall.py parks it at the camera)</description>
+				<visible>!String.IsEmpty(Window.Property(kscape.spot))</visible>
+				<animation effect="fade" start="0" end="100" time="550">Visible</animation>
+				<animation effect="fade" start="100" end="0" time="350">Hidden</animation>
+				<control type="image">
+					<width>1920</width>
+					<height>1080</height>
+					<aspectratio>scale</aspectratio>
+					<fadetime>400</fadetime>
+					<texture background="true" colordiffuse="D8FFFFFF">$INFO[Container(1992).ListItemAbsolute(0).Property(fanart)]</texture>
+					<animation effect="zoom" start="106" end="100" center="auto" time="1600" tween="sine" easing="out" reversible="false" condition="!String.IsEmpty(Window.Property(kscape.spot))">Conditional</animation>
+				</control>
+				<control type="image">
+					<width>1920</width>
+					<height>1080</height>
+					<texture colordiffuse="B4000000">kscape-white.png</texture>
+				</control>
+				<control type="image">
+					<width>1920</width>
+					<height>1080</height>
+					<texture>kscape-vignette.png</texture>
+				</control>
+			</control>
 			<control type="group" id="1001">
-				<description>Focus frame, dimmer and spotlight (newwallxml)</description>
+				<description>Focus frame and spotlight (newwallxml)</description>
 				<width>230</width>
 				<height>323</height>
-				<control type="image" id="1008">
-					<description>Dimmer: the wall behind the spotlight</description>
-					<left>-2200</left>
-					<top>-1300</top>
-					<width>4600</width>
-					<height>2700</height>
-					<texture colordiffuse="A6000000">kscape-white.png</texture>
-					<visible>!String.IsEmpty(Window.Property(kscape.spot))</visible>
-					<animation effect="fade" start="0" end="100" time="300">Visible</animation>
-					<animation effect="fade" start="100" end="0" time="160">Hidden</animation>
-				</control>
 				<control type="group" id="1010">
 					<description>Spotlight: zooms the frame and the copy of the cover</description>
 					<width>230</width>
@@ -7130,6 +7455,22 @@
 							<height>279</height>
 							<aspectratio>scale</aspectratio>
 							<texture background="true">$INFO[Container(1992).ListItemAbsolute(0).Art(poster)]</texture>
+						</control>
+						<control type="image">
+							<description>Floor reflection: the poster mirrored, fading out (kscape-reflect.png)</description>
+							<top>285</top>
+							<width>186</width>
+							<height>279</height>
+							<aspectratio>scale</aspectratio>
+							<texture background="true" flipy="true" diffuse="kscape-reflect.png" colordiffuse="8CFFFFFF">$INFO[Container(1992).ListItemAbsolute(0).Art(poster)]</texture>
+						</control>
+						<control type="image">
+							<description>Light glint: crosses the cover once when the spotlight comes on</description>
+							<width>186</width>
+							<height>279</height>
+							<texture>kscape-gloss.png</texture>
+							<animation effect="fade" start="0" end="100" delay="350" time="280" tween="sine" easing="out" reversible="false" condition="!String.IsEmpty(Window.Property(kscape.spot))">Conditional</animation>
+							<animation effect="fade" start="100" end="0" delay="700" time="450" tween="sine" easing="in" reversible="false" condition="!String.IsEmpty(Window.Property(kscape.spot))">Conditional</animation>
 						</control>
 						<control type="grouplist">
 							<left>8</left>
@@ -7224,10 +7565,10 @@
 						<animation effect="fade" start="0" end="100" time="160" condition="String.IsEqual(Window(Home).Property(kscape.reduced),1)">Visible</animation>
 						<animation effect="fade" start="100" end="0" time="120" condition="String.IsEqual(Window(Home).Property(kscape.reduced),1)">Hidden</animation>
 				<control type="image" id="1903">
-					<description>Smoked glass: the theme's background, translucent</description>
+					<description>Smoked glass: the theme's background at 90%</description>
 					<width>594</width>
 					<height>323</height>
-					<texture colordiffuse="kscape_bg_veil">kscape-white.png</texture>
+					<texture colordiffuse="kscape_bg_shade">kscape-white.png</texture>
 				</control>
 				<control type="image">
 					<description>Glow of the theme colour from the top</description>

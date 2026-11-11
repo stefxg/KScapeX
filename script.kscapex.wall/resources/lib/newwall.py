@@ -4,27 +4,35 @@ C > New wall test switches a library's wall (movies or TV shows) to this look an
 (window.open_wall); the choice is kept per library. Everything else is the classic wall
 (WallWindow): navigation, menus, list view, info screen. What changes:
 
+  Opening    the covers cascade in, column by column, once (the XML's WindowOpen animations;
+             the kscape.opened property, set 3 s later, keeps returns from replaying them).
   Badges     the covers carry no format badge; the selected cover shows its own, once the
              wall rests on it (newwallxml.py drops them from the slots, which Kodi then no
              longer processes every frame).
-  Spotlight  with the synopsis panel, the selected cover comes forward (zoom, soft shadow)
-             and the rest of the wall darkens; both go at the next key press.
-  Panel      smoked glass in the theme's colours, the film's clear logo in place of its title
-             when the library has one (fetched once per film, in the background).
+  Backdrop   with the synopsis panel, the selected film's fanart fills the view behind the
+             spotlight, darkened and vignetted, with a slow settle; the wall ghosts through.
+             The fanart comes with the clear logo, one JSON-RPC call per film, cached.
+  Spotlight  the selected cover comes forward (zoom, soft shadow, a floor reflection, a light
+             glint); everything goes at the next key press.
+  Panel      smoked glass in the theme's colours at 90%, the film's clear logo in place of its
+             title when the library has one.
   Counter    plain text on a dark fade along the bottom of the wall.
-  Shuffle    the covers that change turn over where they stand, in a wave that spreads from
-             the selected cover - the old one turns away, the new one turns in - instead of
-             flying across the wall, which left empty cells on the way. The panel steps aside
-             while the wave runs and comes back after it.
+  Shuffle    the covers that change cross-fade where they stand, in a wave that spreads from
+             the selected cover, instead of flying across the wall, which left empty cells on
+             the way; a soft whoosh (xbmc.playSFX) marks it. The panel steps aside while the
+             wave runs and comes back after it.
 
-Cost on the AM6B+: the spotlight is one property write when the panel opens and one when it
-closes (everything else it shows comes from a hidden list item, which takes no GUI lock); the
-wave makes the same number of control calls as the classic flight.
+Cost on the AM6B+: the spotlight and backdrop are one property write and one setPosition when
+the panel opens, one property write when it closes (everything else comes from a hidden list
+item, which takes no GUI lock); the wave makes the same number of control calls as the classic
+flight.
 """
+import os
 import threading
 import time
 
 import xbmc
+import xbmcaddon
 import xbmcgui
 
 from . import geometry as G
@@ -35,12 +43,32 @@ from .wallmodel import wave_delay
 from .window import HOME, WallWindow, _is
 
 WAVE_STEP_MS = 55               # the wave's delay per cover width of distance
-TURN_OUT_MS = 170               # the old cover narrows to nothing...
-TURN_IN_MS = 250                # ...then the new one opens out
+FADE_OUT_MS = 240               # the old cover fades away...
+FADE_IN_MS = 340                # ...as the new one fades in over it (an overlap: no gap)
+FADE_LAG_MS = 90                # how far the new cover trails the old one
+OPENED_AFTER_S = 3.0            # kscape.opened set this long after the open (opening cascade)
+NO_ART = {'logo': '', 'fanart': ''}
 
 
-def clearlogo(kind, item):
-    """The clear logo of a library movie, movie set or TV show ('' when it has none)."""
+def sound(name):
+    """Path of one of the add-on's sounds ('' when it is not there)."""
+    path = os.path.join(xbmcaddon.Addon('script.kscapex.wall').getAddonInfo('path'),
+                        'resources', 'sounds', name)
+    return path if os.path.exists(path) else ''
+
+
+def play_sound(name):
+    """Play one of the add-on's sounds, where Kodi offers playSFX (never required)."""
+    path, sfx = sound(name), getattr(xbmc, 'playSFX', None)
+    if path and sfx:
+        try:
+            sfx(path)
+        except (RuntimeError, TypeError):
+            pass
+
+
+def art_of(kind, item):
+    """{'logo', 'fanart'} of a library movie, movie set or TV show ('' where it has none)."""
     try:
         if kind.name == 'movies' and MS.is_set(item):
             d = rpc('VideoLibrary.GetMovieSetDetails',
@@ -52,11 +80,12 @@ def clearlogo(kind, item):
             d = rpc('VideoLibrary.GetTVShowDetails',
                     {'tvshowid': item.tvshowid, 'properties': ['art']}).get('tvshowdetails') or {}
         else:
-            return ''
+            return dict(NO_ART)
     except (ValueError, TypeError, AttributeError) as e:
-        xbmc.log(f'kscape.newwall: no clear logo for {getattr(item, "key", "?")}: {e}', xbmc.LOGWARNING)
-        return ''
-    return (d.get('art') or {}).get('clearlogo') or ''
+        xbmc.log(f'kscape.newwall: no artwork for {getattr(item, "key", "?")}: {e}', xbmc.LOGWARNING)
+        return dict(NO_ART)
+    art = d.get('art') or {}
+    return {'logo': art.get('clearlogo') or '', 'fanart': art.get('fanart') or ''}
 
 
 def wave_plan(old, new, slot_cells, seen, centre, layout):
@@ -71,28 +100,45 @@ def wave_plan(old, new, slot_cells, seen, centre, layout):
 
 
 def turn_out(delay, on):
-    """The old cover narrows to nothing about its middle (and stays so until its pool retires)."""
-    return [('Conditional', f'effect=zoom start=100,100 end=0,100 center=auto delay={delay} '
-                            f'time={TURN_OUT_MS} tween=sine easing=in reversible=false condition={on}')]
+    """The old cover fades away (and stays gone until its pool retires)."""
+    return [('Conditional', f'effect=fade start=100 end=0 delay={delay} '
+                            f'time={FADE_OUT_MS} tween=sine easing=in reversible=false condition={on}')]
 
 
 def turn_in(delay, on):
-    """The new cover, nothing wide until its turn, opens out to its full width."""
-    return [('Conditional', f'effect=zoom start=0,100 end=100,100 center=auto delay={delay + TURN_OUT_MS} '
-                            f'time={TURN_IN_MS} tween=cubic easing=out reversible=false condition={on}')]
+    """The new cover fades in over the old one, a touch behind it, growing the last few percent."""
+    start = delay + FADE_LAG_MS
+    return [('Conditional', f'effect=fade start=0 end=100 delay={start} '
+                            f'time={FADE_IN_MS} tween=sine easing=out reversible=false condition={on}'),
+            ('Conditional', f'effect=zoom start=96 end=100 center=auto delay={start} '
+                            f'time={FADE_IN_MS} tween=cubic easing=out reversible=false condition={on}')]
 
 
 class NewWallWindow(WallWindow):
 
     def onInit(self):
-        if not self.ready:
+        first = not self.ready
+        if first:
             # The spotlight's data: one offscreen item, updated without the GUI lock.
             self.spot_item = xbmcgui.ListItem(offscreen=True)
             self.getControl(NX.SPOT_SRC).addItems([self.spot_item])
             self.spot_on = False
-            self.logos = {}                  # item key -> clear logo url ('' none)
-            self.logo_for = None             # the item whose logo is wanted now
+            self.backdrop = self.getControl(1009)    # parked at the camera when the panel opens
+            self.art = {}                    # item key -> {'logo', 'fanart'} ('' for none)
+            self.art_for = None              # the item whose artwork is wanted now
         super().onInit()
+        if first:
+            # The opening cascade plays while kscape.opened is unset; after that, coming back
+            # from the info screen or playback re-opens the window without it.
+            timer = threading.Timer(OPENED_AFTER_S, self._mark_opened)
+            timer.daemon = True
+            timer.start()
+
+    def _mark_opened(self):
+        try:
+            self.setProperty('kscape.opened', '1')
+        except RuntimeError:                 # the window has closed
+            pass
 
     # ---- spotlight and panel ----------------------------------------------------------------
 
@@ -111,7 +157,8 @@ class NewWallWindow(WallWindow):
         if not item:
             return
         self._spot(item)
-        super()._show_panel()
+        self.backdrop.setPosition(int(self.cam[0]), int(self.cam[1]))   # fill the view (camera
+        super()._show_panel()                                           # rests while it shows)
         if self.panel_rect:
             px, py, pw, ph = self.panel_rect
             self.panel_rect = (px, py, pw - NX.SPOT_GAP, ph)
@@ -130,18 +177,22 @@ class NewWallWindow(WallWindow):
         li.setProperty('text', '' if item.poster else self.kind.fallback(item))
         li.setProperty('badge', self.kind.cover_badge(item, self.show_badges) or '')
         li.setProperty('fav', '1' if self._is_favourite(item) else '')
-        self.logo_for = item.key
-        if item.key in self.logos:
-            li.setProperty('logo', self.logos[item.key])
+        self.art_for = item.key
+        art = self.art.get(item.key)
+        if art is not None:
+            li.setProperty('logo', art['logo'])
+            li.setProperty('fanart', art['fanart'])
             return
         li.setProperty('logo', '')
-        threading.Thread(target=self._fetch_logo, args=(item,), daemon=True).start()
+        li.setProperty('fanart', '')
+        threading.Thread(target=self._fetch_art, args=(item,), daemon=True).start()
 
-    def _fetch_logo(self, item):
-        url = clearlogo(self.kind, item)
-        self.logos[item.key] = url
-        if url and self.logo_for == item.key and not self.closing:
-            self.spot_item.setProperty('logo', url)
+    def _fetch_art(self, item):
+        art = art_of(self.kind, item)
+        self.art[item.key] = art
+        if self.art_for == item.key and not self.closing:
+            self.spot_item.setProperty('logo', art['logo'])
+            self.spot_item.setProperty('fanart', art['fanart'])
 
     def _favourites_changed(self):
         super()._favourites_changed()
@@ -162,8 +213,8 @@ class NewWallWindow(WallWindow):
         super()._shuffle_related(anchor)
 
     def _transition(self, new, anchor_key=None):
-        """Turn over, where they stand, the covers on screen whose cell changes: the old one
-        narrows to nothing, then the new one opens out, each cell later the further it is from
+        """Cross-fade, where they stand, the covers on screen whose cell changes: the old one
+        fades away as the new one fades in over it, each cell later the further it is from
         the selected cover. Off screen, and with Reduce motion, the covers swap at once.
 
         Control calls, as in the classic flight: one per pool for each cover on screen that
@@ -204,10 +255,12 @@ class NewWallWindow(WallWindow):
                 self.back.slots[k].setAnimations(turn_in(delay, on))
             if j is not None:
                 self.front.slots[j].setAnimations(turn_out(delay, on))
-            longest = max(longest, delay + TURN_OUT_MS + TURN_IN_MS)
+            longest = max(longest, delay + FADE_LAG_MS + FADE_IN_MS)
         for k, cell in cells:
             self._bind(self.back, k, cell, new.at(*cell))
 
+        if longest and not instant:
+            play_sound('kscape-whoosh.wav')
         HOME.setProperty(self.prop_front, str(tok))  # one flip starts every animation above
         self.wall = new
         self.front, self.back = self.back, self.front

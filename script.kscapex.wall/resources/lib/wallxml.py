@@ -79,7 +79,7 @@ def badge_width(n, L):
     return min(L.cover_w - 2 * x(8), x(dict(BADGE_WIDTHS)[n]))
 
 
-def slot(base, L, badge=True):
+def slot(base, L, badge=True, opening=False):
     """The pool's slots. Each draws its item from the pool's hidden data list (SOURCES): slot k
     shows ListItemAbsolute(k)'s poster art and its properties - on (shown), text (no artwork),
     badge, fav. Python updates those offscreen list items, which takes no GUI lock; only moving
@@ -92,7 +92,9 @@ def slot(base, L, badge=True):
     instead of four fixed-width boxes of three controls each.
 
     KScapeX "New wall test" (newwallxml.py): `badge` False leaves the badge out of the slots
-    (the selected cover shows it, in the spotlight)."""
+    (the selected cover shows it, in the spotlight); `opening` adds the one-off opening cascade
+    (fade + zoom, column by column), played only while Window.Property(kscape.opened) is unset -
+    the window sets it a moment after it opens, so later activations never replay it."""
     out = [f'''			<control type="group" id="{POOL_GROUPS[base]}">
 				<description>Pool {"A" if base == 10000 else "B"}</description>''']
     W, H = L.cover_w, L.cover_h
@@ -100,6 +102,16 @@ def slot(base, L, badge=True):
     for k in range(L.pool_cols * L.pool_rows):
         item = lambda info: f'$INFO[Container({src}).ListItemAbsolute({k}).{info}]'
         has = lambda name: f'!String.IsEmpty(Container({src}).ListItemAbsolute({k}).Property({name}))'
+        if opening:
+            col, row = k % L.pool_cols, k // L.pool_cols
+            delay = col * 45 + row * 22
+            fresh = 'String.IsEmpty(Window.Property(kscape.opened))'
+            opening_xml = (f'\t\t\t\t<animation effect="fade" start="0" end="100" delay="{delay}" time="300" '
+                           f'condition="{fresh}">WindowOpen</animation>\n'
+                           f'\t\t\t\t<animation effect="zoom" start="92" end="100" center="auto" delay="{delay}" '
+                           f'time="300" tween="cubic" easing="out" condition="{fresh}">WindowOpen</animation>\n')
+        else:
+            opening_xml = ''
         badge_xml = f'''				<control type="grouplist">
 					<left>{x(8)}</left>
 					<top>{H - BADGE_H - 8}</top>
@@ -130,7 +142,7 @@ def slot(base, L, badge=True):
 				<width>{W}</width>
 				<height>{H}</height>
 				<visible>{has('on')}</visible>
-				<control type="image">
+{opening_xml}				<control type="image">
 					<width>{W}</width>
 					<height>{H}</height>
 					<texture colordiffuse="{CARD}">kscape-white.png</texture>

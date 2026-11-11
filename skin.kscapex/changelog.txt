@@ -1,3 +1,6 @@
+[B]0.18.0[/B] (11-11-2026)
+- Version alignée sur l'add-on du mur (New wall test : version cinéma — fond fanart, reflet, éclat, fondu enchaîné, cascade, souffle).
+
 [B]0.17.0[/B] (11-11-2026)
 - Version alignée sur l'add-on du mur (nouvelle vue « New wall test »).
 

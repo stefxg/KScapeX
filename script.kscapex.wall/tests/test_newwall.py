@@ -41,6 +41,7 @@ class ShippedXmlTest(unittest.TestCase):
         self.assertEqual(wallxml.build(G.POSTER), shipped('script-kscape-wall.xml'))
         self.assertEqual(wallxml.build(G.SQUARE), shipped('script-kscape-wall-square.xml'))
         self.assertIn('Property(badge)', wallxml.slot(10000, G.POSTER))
+        self.assertNotIn('WindowOpen', wallxml.build(G.POSTER))     # the cascade is the new wall's
 
     def test_new_wall_is_generated(self):
         self.assertEqual(NX.build(G.POSTER), shipped('script-kscape-newwall.xml'))
@@ -55,7 +56,7 @@ class NewWallXmlTest(unittest.TestCase):
         need = {'900', '998', '1000', '1001', '1006', '1007', '1900', '1901', '1902', '1905', '1909',
                 '1911', '1912', '1914', '1950', '1951', '1960', '1961', '1962', '1963', '1965', '1980',
                 '1971', '1972', '1973', '1974', '1990', '1991',
-                '1008', '1010', '1906', '1966', str(NX.SPOT_SRC)}
+                '1009', '1010', '1906', '1966', str(NX.SPOT_SRC)}
         slots = {str(b + k) for b in (10000, 20000) for k in range(G.POSTER.pool_cols * G.POSTER.pool_rows)}
         self.assertLessEqual(need | slots, ids(self.xml))
 
@@ -80,13 +81,29 @@ class NewWallXmlTest(unittest.TestCase):
         self.assertEqual(title.find('visible').text,
                          f'String.IsEmpty(Container({NX.SPOT_SRC}).ListItemAbsolute(0).Property(logo))')
 
-    def test_dimmer_covers_the_view_wherever_the_frame_is(self):
-        left, top, w, h = NX.DIM_BOX
-        for fx_, fy in ((0, 0), (G.SCREEN_W - 230, 0), (0, G.SCREEN_H - 323), (G.SCREEN_W, G.SCREEN_H)):
-            self.assertLessEqual(fx_ + left, 0)
-            self.assertLessEqual(fy + top, 0)
-            self.assertGreaterEqual(fx_ + left + w, G.SCREEN_W)
-            self.assertGreaterEqual(fy + top + h, G.SCREEN_H)
+    def test_backdrop_fills_the_view_with_fanart_veil_and_vignette(self):
+        back = next(c for c in ET.fromstring(self.xml).iter('control') if c.get('id') == '1009')
+        images = list(back.iter('control'))[1:]
+        self.assertEqual([i.find('texture').text for i in images],
+                         [f'$INFO[Container({NX.SPOT_SRC}).ListItemAbsolute(0).Property(fanart)]',
+                          'kscape-white.png', 'kscape-vignette.png'])
+        for i in images:
+            self.assertEqual(int(i.find('width').text), G.SCREEN_W)
+            self.assertEqual(int(i.find('height').text), G.SCREEN_H)
+        self.assertIn('kscape.spot', back.find('visible').text)
+
+    def test_spotlight_carries_reflection_and_glint(self):
+        self.assertIn('kscape-reflect.png', self.xml)
+        self.assertIn('flipy="true"', self.xml)
+        self.assertIn('kscape-gloss.png', self.xml)
+
+    def test_panel_glass_is_the_dense_shade(self):
+        panel = next(c for c in ET.fromstring(self.xml).iter('control') if c.get('id') == '1903')
+        self.assertIn('kscape_bg_shade', panel.find('texture').get('colordiffuse'))
+
+    def test_opening_cascade_plays_once(self):
+        self.assertIn('WindowOpen', self.xml)
+        self.assertIn('String.IsEmpty(Window.Property(kscape.opened))', self.xml)
 
     def test_adapted_layouts_build(self):
         for stage in (D.stage(2560, 1080), D.stage(1920, 1080, '2.40', rows='3')):
@@ -118,30 +135,41 @@ class WaveTest(unittest.TestCase):
         hidden = NW.wave_plan(old, new, cells, lambda cell: cell != new.cell_of(2), (0, 0), G.POSTER)
         self.assertEqual([cell for _, cell, _ in hidden], [new.cell_of(3)])
 
-    def test_turns_follow_each_other(self):
+    def test_fades_cross_each_other(self):
         out_, = NW.turn_out(120, 'C')
-        in_, = NW.turn_in(120, 'C')
+        fade_in, zoom_in = NW.turn_in(120, 'C')
         f_out = dict(f.split('=', 1) for f in out_[1].split(' '))
-        f_in = dict(f.split('=', 1) for f in in_[1].split(' '))
-        self.assertEqual((f_out['start'], f_out['end']), ('100,100', '0,100'))
-        self.assertEqual((f_in['start'], f_in['end']), ('0,100', '100,100'))
-        self.assertEqual(int(f_in['delay']), int(f_out['delay']) + int(f_out['time']))
+        f_in = dict(f.split('=', 1) for f in fade_in[1].split(' '))
+        f_zoom = dict(f.split('=', 1) for f in zoom_in[1].split(' '))
+        self.assertEqual((f_out['effect'], f_out['start'], f_out['end']), ('fade', '100', '0'))
+        self.assertEqual((f_in['effect'], f_in['start'], f_in['end']), ('fade', '0', '100'))
+        self.assertEqual(int(f_in['delay']), 120 + NW.FADE_LAG_MS)          # overlap: never a gap
+        self.assertLess(int(f_in['delay']), int(f_out['delay']) + int(f_out['time']))
+        self.assertEqual(f_zoom['effect'], 'zoom')
         self.assertEqual(f_in['condition'], 'C')
 
 
-class ClearLogoTest(unittest.TestCase):
-    def test_logo_of_movie_set_and_show(self):
+class ArtTest(unittest.TestCase):
+    def test_logo_and_fanart_of_movie_set_and_show(self):
         kinds = {n: types.SimpleNamespace(name=n) for n in ('movies', 'tv', 'music')}
         answers = {
-            'VideoLibrary.GetMovieDetails': {'moviedetails': {'art': {'clearlogo': 'image://m/'}}},
-            'VideoLibrary.GetMovieSetDetails': {'setdetails': {'art': {}}},
+            'VideoLibrary.GetMovieDetails': {'moviedetails': {'art': {'clearlogo': 'image://m/',
+                                                                      'fanart': 'image://f/'}}},
+            'VideoLibrary.GetMovieSetDetails': {'setdetails': {'art': {'fanart': 'image://sf/'}}},
             'VideoLibrary.GetTVShowDetails': {'tvshowdetails': {'art': {'clearlogo': 'image://t/'}}},
         }
         with mock.patch.object(NW, 'rpc', side_effect=lambda method, params: answers[method]):
-            self.assertEqual(NW.clearlogo(kinds['movies'], types.SimpleNamespace(movieid=4, key=4)), 'image://m/')
-            self.assertEqual(NW.clearlogo(kinds['movies'], types.SimpleNamespace(movieid=-2, key=-2)), '')
-            self.assertEqual(NW.clearlogo(kinds['tv'], types.SimpleNamespace(tvshowid=9, key=9)), 'image://t/')
-            self.assertEqual(NW.clearlogo(kinds['music'], types.SimpleNamespace(key=1)), '')
+            self.assertEqual(NW.art_of(kinds['movies'], types.SimpleNamespace(movieid=4, key=4)),
+                             {'logo': 'image://m/', 'fanart': 'image://f/'})
+            self.assertEqual(NW.art_of(kinds['movies'], types.SimpleNamespace(movieid=-2, key=-2)),
+                             {'logo': '', 'fanart': 'image://sf/'})
+            self.assertEqual(NW.art_of(kinds['tv'], types.SimpleNamespace(tvshowid=9, key=9)),
+                             {'logo': 'image://t/', 'fanart': ''})
+            self.assertEqual(NW.art_of(kinds['music'], types.SimpleNamespace(key=1)), NW.NO_ART)
+
+    def test_sound_shipped(self):
+        self.assertTrue(os.path.exists(os.path.join(os.path.dirname(__file__), '..', 'resources',
+                                                    'sounds', 'kscape-whoosh.wav')))
 
 
 if __name__ == '__main__':
