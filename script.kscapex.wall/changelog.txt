@@ -1,3 +1,8 @@
+[B]0.23.0[/B] (11-11-2026)
+- Le fond fanart et son voile sont retirés, du mur comme de la fiche : le mur lui-même reste visible autour du panneau, comme pour la vue classique.
+- Le filet bleu sous le titre de la fiche est retiré.
+- Dans la foulée : la copie de la jaquette sélectionnée ne servait qu'à passer devant le fond, elle disparaît ; le cadre de sélection redevient celui de la vue classique. Le mur descend à 1147 contrôles (1457 pour le mur classique).
+
 [B]0.22.3[/B] (11-11-2026)
 - Le voile du fond passe du noir au blanc (60 %) et se place désormais SOUS le fanart au lieu d'être par-dessus. Les jaquettes reculent derrière une brume laiteuse, le fanart (50 %) se lit sur ce fond clair sans se mélanger au détail des affiches, et le panneau sombre se détache des deux. Au-dessus et en noir, le voile ne faisait qu'assombrir le mélange.
 

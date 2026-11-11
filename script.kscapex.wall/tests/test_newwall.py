@@ -56,7 +56,7 @@ class ShippedXmlTest(unittest.TestCase):
         self.assertEqual(new, shipped(NX2.NAME))
         self.assertLessEqual({'100', '151', '153', '221', '310', '410', '510', '610', '710'}, ids(new))
         self.assertEqual(ids(new), ids(classic))                 # same controls: details.py drives both
-        self.assertIn('Window.Property(fanart)', new)
+        self.assertNotIn('Window.Property(fanart)', new)   # nothing behind the fiche any more
         self.assertIn('Window.Property(clearlogo)', new)
         self.assertNotIn('0,1032', new)              # a plain fade: no slide up from the bottom
         self.assertNotIn('effect="zoom"', new)       # and no bloom
@@ -76,7 +76,7 @@ class NewWallXmlTest(unittest.TestCase):
         need = {'900', '998', '1000', '1001', '1006', '1007', '1900', '1901', '1902', '1905', '1909',
                 '1911', '1912', '1914', '1950', '1951', '1960', '1961', '1962', '1963', '1965', '1980',
                 '1971', '1972', '1973', '1974', '1990', '1991',
-                '1009', '1010', '1906', str(NX.SPOT_SRC)}
+                '1906', str(NX.SPOT_SRC)}
         slots = {str(b + k) for b in (10000, 20000) for k in range(G.POSTER.pool_cols * G.POSTER.pool_rows)}
         self.assertLessEqual(need | slots, ids(self.xml))
 
@@ -93,20 +93,15 @@ class NewWallXmlTest(unittest.TestCase):
         self.assertEqual(title.find('visible').text,
                          f'String.IsEmpty(Container({NX.SPOT_SRC}).ListItemAbsolute(0).Property(logo))')
 
-    def test_the_scrim_goes_under_the_fanart_not_over_it(self):
-        # Over the fanart, and black, it only darkened the mix and left the covers showing
-        # through as strongly as the film (0.22.2): the scrim comes first, and it is pale.
-        back = next(c for c in ET.fromstring(self.xml).iter('control') if c.get('id') == '1009')
-        images = list(back.iter('control'))[1:]
-        self.assertEqual([i.find('texture').text for i in images],
-                         ['kscape-white.png',
-                          f'$INFO[Container({NX.SPOT_SRC}).ListItemAbsolute(0).Property(fanart)]'])
-        self.assertEqual(images[0].find('texture').get('colordiffuse'), NX.VEIL)
-        self.assertTrue(NX.VEIL.endswith('FFFFFF'), NX.VEIL)      # pale, not black
-        for i in images:
-            self.assertEqual(int(i.find('width').text), G.SCREEN_W)
-            self.assertEqual(int(i.find('height').text), G.SCREEN_H)
-        self.assertIn('kscape.spot', back.find('visible').text)
+    def test_nothing_is_drawn_behind_the_panel(self):
+        # 0.18 to 0.22 put a fanart backdrop there, with a veil and then a pale scrim; none of
+        # it looked right, so the wall itself is what shows around the panel now.
+        ids_ = ids(self.xml)
+        self.assertNotIn('1009', ids_)                       # no backdrop group
+        self.assertNotIn('1010', ids_)                       # no second copy of the cover
+        for xml in (self.xml, shipped(NX2.NAME)):
+            self.assertNotIn('Property(fanart)', xml)
+        self.assertNotIn('kscape.spot', self.xml)            # nothing left for it to drive
 
     def test_nothing_in_relief_anywhere(self):
         # 0.18 to 0.21 tried a spotlight, shadows, a reflection, glass and plexiglas; the wall
@@ -125,9 +120,9 @@ class NewWallXmlTest(unittest.TestCase):
         for xml in (self.xml, fiche):
             self.assertEqual(xml.count('effect="zoom"'), xml.count('effect="zoom" start="106"'))
 
-    def test_the_amber_frame_is_flat_and_alone(self):
-        frame = NX.focus_frame(G.POSTER)
-        self.assertEqual(frame.count(f'colordiffuse="{NX.AMBER}">kscape-white.png'), 4)   # 4 bars
+    def test_the_focus_frame_is_the_classic_one(self):
+        frame = wallxml.focus_frame(G.POSTER)
+        self.assertIn(frame, self.xml)                           # four flat amber bars, as always
         self.assertNotIn('animation', frame)                     # nothing grows when selected
 
     def test_panel_is_solid(self):
@@ -211,22 +206,18 @@ class OrderTest(unittest.TestCase):
 
 
 class ArtTest(unittest.TestCase):
-    def test_logo_and_fanart_of_movie_set_and_show(self):
+    def test_clear_logo_of_movie_set_and_show(self):
         kinds = {n: types.SimpleNamespace(name=n) for n in ('movies', 'tv', 'music')}
         answers = {
-            'VideoLibrary.GetMovieDetails': {'moviedetails': {'art': {'clearlogo': 'image://m/',
-                                                                      'fanart': 'image://f/'}}},
-            'VideoLibrary.GetMovieSetDetails': {'setdetails': {'art': {'fanart': 'image://sf/'}}},
+            'VideoLibrary.GetMovieDetails': {'moviedetails': {'art': {'clearlogo': 'image://m/'}}},
+            'VideoLibrary.GetMovieSetDetails': {'setdetails': {'art': {}}},
             'VideoLibrary.GetTVShowDetails': {'tvshowdetails': {'art': {'clearlogo': 'image://t/'}}},
         }
         with mock.patch.object(NW, 'rpc', side_effect=lambda method, params: answers[method]):
-            self.assertEqual(NW.art_of(kinds['movies'], types.SimpleNamespace(movieid=4, key=4)),
-                             {'logo': 'image://m/', 'fanart': 'image://f/'})
-            self.assertEqual(NW.art_of(kinds['movies'], types.SimpleNamespace(movieid=-2, key=-2)),
-                             {'logo': '', 'fanart': 'image://sf/'})
-            self.assertEqual(NW.art_of(kinds['tv'], types.SimpleNamespace(tvshowid=9, key=9)),
-                             {'logo': 'image://t/', 'fanart': ''})
-            self.assertEqual(NW.art_of(kinds['music'], types.SimpleNamespace(key=1)), NW.NO_ART)
+            self.assertEqual(NW.clearlogo(kinds['movies'], types.SimpleNamespace(movieid=4, key=4)), 'image://m/')
+            self.assertEqual(NW.clearlogo(kinds['movies'], types.SimpleNamespace(movieid=-2, key=-2)), '')
+            self.assertEqual(NW.clearlogo(kinds['tv'], types.SimpleNamespace(tvshowid=9, key=9)), 'image://t/')
+            self.assertEqual(NW.clearlogo(kinds['music'], types.SimpleNamespace(key=1)), '')
 
     def test_sound_shipped(self):
         self.assertTrue(os.path.exists(os.path.join(os.path.dirname(__file__), '..', 'resources',

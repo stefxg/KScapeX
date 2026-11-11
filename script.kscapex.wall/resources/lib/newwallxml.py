@@ -15,17 +15,12 @@ is not touched. What changes, against wallxml's control map:
                column by column, when the window opens (wallxml.slot(opening=True); the
                kscape.opened property, set by newwall.py a moment later, keeps later
                activations from replaying it)
-  1992         hidden data list holding one item: the selected cover's poster, badge, favourite
-               mark, text, clear logo and fanart (newwall.py sets them; no GUI lock)
-  1009         backdrop while Window.Property(kscape.spot) is set: a pale scrim over the whole
-               view (VEIL), and the selected film's fanart on it (FANART_TINT). It sits inside the camera,
-               between the covers and the frame; newwall.py parks it at the camera's position
-               when the panel opens (the camera stands still while the panel is up), so it
-               fills the view
-  1001         focus frame: four flat amber bars, and 1010 a copy of the selected cover, which
-               has to be drawn again here to sit above the backdrop. No format badge on it:
-               the panel beside it already gives the format. The copy loads in the background,
-               like the slots: Kodi hands it the slot's texture, already loaded
+  1992         hidden data list holding one item: the selected film's clear logo, which the
+               panel shows in place of its title (newwall.py sets it; no GUI lock)
+  1001         focus frame: the classic one, four flat amber bars (wallxml.focus_frame).
+               There is nothing behind the panel any more - no fanart, no veil, no scrim - so
+               the wall itself stays visible, and the selected cover needs no second copy
+               drawn over it
   1900         info panel: a solid dark panel (kscape_bg), nothing along its top, the film's
                clear logo in place of the title when the library has one
                (1901 hides while there is one), and a synopsis that scrolls through its lines
@@ -37,18 +32,9 @@ No <visible> tags on Python-driven controls: a visibility condition overrides se
 from . import geometry as G
 from . import npchip as np_chip
 from . import wallxml as W
-from .wallxml import AMBER, CARD, HEART, HEART_BOX, x
+from .wallxml import x
 
-SPOT = '!String.IsEmpty(Window.Property(kscape.spot))'
-SPOT_SRC = 1992
-SPOT_IN_MS, SPOT_OUT_MS = 240, 160
-BACK_IN_MS, BACK_OUT_MS = 550, 350       # the fanart backdrop's fades
-FANART_TINT = '80E6E6E6'        # the fanart: 50% opaque (80), tinted 90% white (E6E6E6)
-VEIL = '99FFFFFF'               # a pale scrim UNDER the fanart (60% white): it puts the covers
-                                # behind a milky haze, so the fanart reads on a light ground
-                                # instead of mixing with poster detail, and the dark panel
-                                # detaches from both. Over the fanart, and black, it only made
-                                # everything darker and muddier (0.22.2)
+SPOT_SRC = 1992                 # the hidden list the panel reads the clear logo from
 PANEL_BG = 'kscape_bg'          # solid, not glass: translucency is depth too
 LOGO_H = 76
 
@@ -57,13 +43,9 @@ def spot(info):
     return f'$INFO[Container({SPOT_SRC}).ListItemAbsolute(0).{info}]'
 
 
-def spot_has(name):
-    return f'!String.IsEmpty(Container({SPOT_SRC}).ListItemAbsolute(0).Property({name}))'
-
-
 def spot_source():
     return f'''		<control type="list" id="{SPOT_SRC}">
-			<description>Data for the selected cover (newwall.py): poster, badge, mark, logo, fanart</description>
+			<description>Data for the panel (newwall.py): the selected film's clear logo</description>
 			<left>-4000</left>
 			<top>-4000</top>
 			<width>10</width>
@@ -72,105 +54,6 @@ def spot_source():
 			<focusedlayout width="10" height="10"/>
 		</control>
 '''
-
-
-def backdrop(L):
-    """The selected film's fanart filling the view while the panel is up, behind the frame:
-    a pale scrim puts the covers behind a milky haze first, then the fanart lies on it and
-    eases back from 106% once. With no fanart, the scrim alone pushes the wall back."""
-    vw, vh = G.view_size(L)
-    return f'''			<control type="group" id="1009">
-				<description>Backdrop: the film's fanart under an even veil (newwall.py parks it at the camera)</description>
-				<visible>{SPOT}</visible>
-				<animation effect="fade" start="0" end="100" time="{BACK_IN_MS}">Visible</animation>
-				<animation effect="fade" start="100" end="0" time="{BACK_OUT_MS}">Hidden</animation>
-				<control type="image">
-					<description>Pale scrim: the covers step back behind it</description>
-					<width>{vw}</width>
-					<height>{vh}</height>
-					<texture colordiffuse="{VEIL}">kscape-white.png</texture>
-				</control>
-				<control type="image">
-					<description>The film's fanart, on the scrim</description>
-					<width>{vw}</width>
-					<height>{vh}</height>
-					<aspectratio>scale</aspectratio>
-					<fadetime>400</fadetime>
-					<texture background="true" colordiffuse="{FANART_TINT}">{spot('Property(fanart)')}</texture>
-					<animation effect="zoom" start="106" end="100" center="auto" time="1600" tween="sine" easing="out" reversible="false" condition="{SPOT}">Conditional</animation>
-				</control>
-			</control>'''
-
-
-def focus_frame(L):
-    """Four flat amber bars around the focused cell, and a copy of the cover inside them: it
-    has to be drawn again here to sit above the backdrop, and it carries the favourite mark,
-    which the slots of the wall no longer show. No format badge: the panel gives the format."""
-    t, tx = L.frame, G.fx(L)
-    w, h = L.cover_w + 2 * tx, L.cover_h + 2 * t
-    cw, ch = L.cover_w, L.cover_h
-    bars = [(0, 0, w, t), (0, h - t, w, t), (0, t, tx, h - 2 * t), (w - tx, t, tx, h - 2 * t)]
-    out = [f'''			<control type="group" id="1001">
-				<description>Focus frame and the copy of the selected cover (newwallxml)</description>
-				<width>{w}</width>
-				<height>{h}</height>
-				<control type="group" id="1010">
-					<description>The selected cover, drawn again above the backdrop</description>
-					<left>{tx}</left>
-					<top>{t}</top>
-					<width>{cw}</width>
-					<height>{ch}</height>
-					<visible>{SPOT}</visible>
-					<control type="image">
-						<width>{cw}</width>
-						<height>{ch}</height>
-						<texture colordiffuse="{CARD}">kscape-white.png</texture>
-					</control>
-					<control type="textbox">
-						<left>{x(12)}</left>
-						<top>12</top>
-						<width>{cw - x(24)}</width>
-						<height>{ch - 24}</height>
-						<align>center</align>
-						<aligny>center</aligny>
-						<font>kscape_small</font>
-						<textcolor>FFC8C8D0</textcolor>
-						<label>{spot('Property(text)')}</label>
-					</control>
-					<control type="image">
-						<width>{cw}</width>
-						<height>{ch}</height>
-						<aspectratio>scale</aspectratio>
-						<texture background="true">{spot('Art(poster)')}</texture>
-					</control>
-					<control type="group">
-						<left>{cw - x(HEART_BOX) - x(8)}</left>
-						<top>8</top>
-						<visible>{spot_has('fav')}</visible>
-						<control type="image">
-							<width>{x(HEART_BOX)}</width>
-							<height>{HEART_BOX}</height>
-							<texture colordiffuse="C8141210">kscape-white.png</texture>
-						</control>
-						<control type="image">
-							<left>{(x(HEART_BOX) - x(HEART)) // 2}</left>
-							<top>{(HEART_BOX - HEART) // 2 + 1}</top>
-							<width>{x(HEART)}</width>
-							<height>{HEART}</height>
-							<texture colordiffuse="{AMBER}">kscape-heart.png</texture>
-						</control>
-					</control>
-				</control>''']
-    for n, (bx, by, bw, bh) in enumerate(bars):
-        out.append(f'''				<control type="image" id="{1002 + n}">
-					<left>{bx}</left>
-					<top>{by}</top>
-					<width>{bw}</width>
-					<height>{bh}</height>
-					<texture colordiffuse="{AMBER}">kscape-white.png</texture>
-				</control>''')
-    out.append('			</control>')
-    return '\n'.join(out)
 
 
 def panel_width(L):
@@ -296,8 +179,7 @@ def _build(L):
 			<description>Camera</description>
 {W.slot(10000, L, badge=False, opening=True)}
 {W.slot(20000, L, badge=False, opening=True)}
-{backdrop(L)}
-{focus_frame(L)}
+{W.focus_frame(L)}
 {panel(L)}
 		</control>
 		</control>

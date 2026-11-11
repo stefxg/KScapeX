@@ -37,7 +37,7 @@
 			<focusedlayout width="10" height="10"/>
 		</control>
 		<control type="list" id="1992">
-			<description>Data for the selected cover (newwall.py): poster, badge, mark, logo, fanart</description>
+			<description>Data for the panel (newwall.py): the selected film's clear logo</description>
 			<left>-4000</left>
 			<top>-4000</top>
 			<width>10</width>
@@ -7231,78 +7231,10 @@
 				</control>
 			</control>
 			</control>
-			<control type="group" id="1009">
-				<description>Backdrop: the film's fanart under an even veil (newwall.py parks it at the camera)</description>
-				<visible>!String.IsEmpty(Window.Property(kscape.spot))</visible>
-				<animation effect="fade" start="0" end="100" time="550">Visible</animation>
-				<animation effect="fade" start="100" end="0" time="350">Hidden</animation>
-				<control type="image">
-					<description>Pale scrim: the covers step back behind it</description>
-					<width>1920</width>
-					<height>1080</height>
-					<texture colordiffuse="99FFFFFF">kscape-white.png</texture>
-				</control>
-				<control type="image">
-					<description>The film's fanart, on the scrim</description>
-					<width>1920</width>
-					<height>1080</height>
-					<aspectratio>scale</aspectratio>
-					<fadetime>400</fadetime>
-					<texture background="true" colordiffuse="80E6E6E6">$INFO[Container(1992).ListItemAbsolute(0).Property(fanart)]</texture>
-					<animation effect="zoom" start="106" end="100" center="auto" time="1600" tween="sine" easing="out" reversible="false" condition="!String.IsEmpty(Window.Property(kscape.spot))">Conditional</animation>
-				</control>
-			</control>
 			<control type="group" id="1001">
-				<description>Focus frame and the copy of the selected cover (newwallxml)</description>
+				<description>Focus frame</description>
 				<width>230</width>
 				<height>323</height>
-				<control type="group" id="1010">
-					<description>The selected cover, drawn again above the backdrop</description>
-					<left>22</left>
-					<top>22</top>
-					<width>186</width>
-					<height>279</height>
-					<visible>!String.IsEmpty(Window.Property(kscape.spot))</visible>
-					<control type="image">
-						<width>186</width>
-						<height>279</height>
-						<texture colordiffuse="FF1A1A1F">kscape-white.png</texture>
-					</control>
-					<control type="textbox">
-						<left>12</left>
-						<top>12</top>
-						<width>162</width>
-						<height>255</height>
-						<align>center</align>
-						<aligny>center</aligny>
-						<font>kscape_small</font>
-						<textcolor>FFC8C8D0</textcolor>
-						<label>$INFO[Container(1992).ListItemAbsolute(0).Property(text)]</label>
-					</control>
-					<control type="image">
-						<width>186</width>
-						<height>279</height>
-						<aspectratio>scale</aspectratio>
-						<texture background="true">$INFO[Container(1992).ListItemAbsolute(0).Art(poster)]</texture>
-					</control>
-					<control type="group">
-						<left>138</left>
-						<top>8</top>
-						<visible>!String.IsEmpty(Container(1992).ListItemAbsolute(0).Property(fav))</visible>
-						<control type="image">
-							<width>40</width>
-							<height>40</height>
-							<texture colordiffuse="C8141210">kscape-white.png</texture>
-						</control>
-						<control type="image">
-							<left>7</left>
-							<top>8</top>
-							<width>26</width>
-							<height>26</height>
-							<texture colordiffuse="kscape_amber">kscape-heart.png</texture>
-						</control>
-					</control>
-				</control>
 				<control type="image" id="1002">
 					<left>0</left>
 					<top>0</top>

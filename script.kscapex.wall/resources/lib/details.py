@@ -123,9 +123,8 @@ class DetailsDialog(xbmcgui.WindowXMLDialog):
         self._mark_favourite()
         self.setProperty('poster', m.poster)
         self.setProperty('badge', m.badge)
-        art = d.get('art') or {}                     # KScapeX: the cinema fiche's backdrop and
-        self.setProperty('fanart', art.get('fanart') or '')     # logo (inert in the classic one)
-        self.setProperty('clearlogo', art.get('clearlogo') or '')
+        art = d.get('art') or {}                     # KScapeX: the new fiche's clear logo,
+        self.setProperty('clearlogo', art.get('clearlogo') or '')   # inert in the classic one
         self._layout()
         self._fill_menu()
         self._ask_provider()
@@ -563,7 +562,6 @@ class DetailsDialog(xbmcgui.WindowXMLDialog):
         art = fresh.get('art') or {}
         self.setProperty('title', fresh.get('title') or self.movie.title)
         self.setProperty('poster', art.get('poster') or self.movie.poster)
-        self.setProperty('fanart', art.get('fanart') or '')
         self.setProperty('clearlogo', art.get('clearlogo') or '')
         self.cast_people = []
         self.meta = {}

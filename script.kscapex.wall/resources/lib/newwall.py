@@ -9,12 +9,10 @@ C > New wall test switches a library's wall (movies or TV shows) to this look an
   Badges     no format badge on any cover: the panel beside the selected one already gives the
              format, so repeating it on the poster was noise (and two controls and one
              condition per slot that Kodi no longer processes every frame).
-  Backdrop   with the synopsis panel, the selected film's fanart fills the view behind the
-             covers, under an even veil, with a slow settle; the wall ghosts through. The
-             fanart comes with the clear logo, one JSON-RPC call per film, cached.
   Panel      a solid panel in the theme's colours, the film's clear logo in place of its title
-             when the library has one; a synopsis longer than its four lines scrolls slowly
-             through them (XML autoscroll, only while the panel is up).
+             when the library has one (one JSON-RPC call per film, cached); a synopsis longer
+             than its four lines scrolls slowly through them (XML autoscroll, only while the
+             panel is up). Nothing is drawn behind it: the wall stays visible around it.
   Counter    plain text, bottom right.
   Shuffle    the covers that change cross-fade where they stand, in a wave that spreads from
              the selected cover, instead of flying across the wall, which left empty cells on
@@ -24,14 +22,12 @@ C > New wall test switches a library's wall (movies or TV shows) to this look an
              scene lights up. When no wave is coming (automatic shuffle off, or the wall is
              already arranged around this film), the panel comes at 1.2 s instead.
 
-It is flat on purpose: 0.18 to 0.21 tried a spotlight, shadows, a reflection, polished glass
-and a sheet of plexiglas over the wall, and each of them fought the posters. Hierarchy now
+It is flat on purpose: 0.18 to 0.22 tried a spotlight, shadows, a reflection, polished glass,
+a sheet of plexiglas and a fanart backdrop, and each of them fought the posters. Hierarchy now
 comes from colour, weight and spacing alone.
 
-Cost on the AM6B+: the selected cover and the backdrop are one property write and one
-setPosition when the panel opens, one property write when it closes (everything else comes
-from a hidden list item, which takes no GUI lock); the wave makes the same number of control
-calls as the classic flight.
+Cost on the AM6B+: the clear logo goes into a hidden list item, which takes no GUI lock; the
+wave makes the same number of control calls as the classic flight.
 """
 import math
 import os
@@ -58,7 +54,6 @@ FADE_OUT_MS = 240               # the old cover fades away...
 FADE_IN_MS = 340                # ...as the new one fades in over it (an overlap: no gap)
 FADE_LAG_MS = 90                # how far the new cover trails the old one
 OPENED_AFTER_S = 3.0            # kscape.opened set this long after the open (opening cascade)
-NO_ART = {'logo': '', 'fanart': ''}
 
 
 def sound(name):
@@ -78,8 +73,8 @@ def play_sound(name):
             pass
 
 
-def art_of(kind, item):
-    """{'logo', 'fanart'} of a library movie, movie set or TV show ('' where it has none)."""
+def clearlogo(kind, item):
+    """The clear logo of a library movie, movie set or TV show ('' when it has none)."""
     try:
         if kind.name == 'movies' and MS.is_set(item):
             d = rpc('VideoLibrary.GetMovieSetDetails',
@@ -91,12 +86,11 @@ def art_of(kind, item):
             d = rpc('VideoLibrary.GetTVShowDetails',
                     {'tvshowid': item.tvshowid, 'properties': ['art']}).get('tvshowdetails') or {}
         else:
-            return dict(NO_ART)
+            return ''
     except (ValueError, TypeError, AttributeError) as e:
-        xbmc.log(f'kscape.newwall: no artwork for {getattr(item, "key", "?")}: {e}', xbmc.LOGWARNING)
-        return dict(NO_ART)
-    art = d.get('art') or {}
-    return {'logo': art.get('clearlogo') or '', 'fanart': art.get('fanart') or ''}
+        xbmc.log(f'kscape.newwall: no clear logo for {getattr(item, "key", "?")}: {e}', xbmc.LOGWARNING)
+        return ''
+    return (d.get('art') or {}).get('clearlogo') or ''
 
 
 def wave_plan(old, new, slot_cells, seen, centre, layout):
@@ -128,13 +122,11 @@ class NewWallWindow(WallWindow):
     def onInit(self):
         first = not self.ready
         if first:
-            # The spotlight's data: one offscreen item, updated without the GUI lock.
+            # The panel's data: one offscreen item, updated without the GUI lock.
             self.spot_item = xbmcgui.ListItem(offscreen=True)
             self.getControl(NX.SPOT_SRC).addItems([self.spot_item])
-            self.spot_on = False
-            self.backdrop = self.getControl(1009)    # parked at the camera when the panel opens
-            self.art = {}                    # item key -> {'logo', 'fanart'} ('' for none)
-            self.art_for = None              # the item whose artwork is wanted now
+            self.logos = {}                  # item key -> clear logo url ('' for none)
+            self.logo_for = None             # the item whose logo is wanted now
             self.wave_rest_until = 0.0       # the wave has settled; the panel waits until then
         super().onInit()
         if first:
@@ -169,7 +161,7 @@ class NewWallWindow(WallWindow):
             self.wave_rest_until = time.time() + PANEL_REST_S
         super()._finish_shuffle()
 
-    # ---- spotlight and panel ----------------------------------------------------------------
+    # ---- the panel ---------------------------------------------------------------------------
 
     def _show_panel(self):
         if self.shuffle_until or time.time() < self.wave_rest_until:
@@ -177,45 +169,25 @@ class NewWallWindow(WallWindow):
         item = self.wall.at(*self.focus)
         if not item:
             return
-        self._spot(item)
-        self.backdrop.setPosition(int(self.cam[0]), int(self.cam[1]))   # fill the view (camera
-        super()._show_panel()                                           # rests while it shows)
-        self.setProperty('kscape.spot', '1')
-        self.spot_on = True
+        self._logo(item)
+        super()._show_panel()
 
-    def _hide_panel(self):
-        if self.spot_on:
-            self.setProperty('kscape.spot', '')    # at once: the copy travels with the frame
-            self.spot_on = False
-        super()._hide_panel()
-
-    def _spot(self, item):
-        li = self.spot_item
-        li.setArt({'poster': item.poster})
-        li.setProperty('text', '' if item.poster else self.kind.fallback(item))
-        li.setProperty('fav', '1' if self._is_favourite(item) else '')
-        self.art_for = item.key
-        art = self.art.get(item.key)
-        if art is not None:
-            li.setProperty('logo', art['logo'])
-            li.setProperty('fanart', art['fanart'])
+    def _logo(self, item):
+        """The film's clear logo into the hidden item, for the panel to show in place of the
+        title. Unknown ones are fetched off the GUI thread and kept."""
+        self.logo_for = item.key
+        logo = self.logos.get(item.key)
+        if logo is not None:
+            self.spot_item.setProperty('logo', logo)
             return
-        li.setProperty('logo', '')
-        li.setProperty('fanart', '')
-        threading.Thread(target=self._fetch_art, args=(item,), daemon=True).start()
+        self.spot_item.setProperty('logo', '')
+        threading.Thread(target=self._fetch_logo, args=(item,), daemon=True).start()
 
-    def _fetch_art(self, item):
-        art = art_of(self.kind, item)
-        self.art[item.key] = art
-        if self.art_for == item.key and not self.closing:
-            self.spot_item.setProperty('logo', art['logo'])
-            self.spot_item.setProperty('fanart', art['fanart'])
-
-    def _favourites_changed(self):
-        super()._favourites_changed()
-        item = self.wall.at(*self.focus)
-        if self.spot_on and item:
-            self.spot_item.setProperty('fav', '1' if self._is_favourite(item) else '')
+    def _fetch_logo(self, item):
+        logo = clearlogo(self.kind, item)
+        self.logos[item.key] = logo
+        if self.logo_for == item.key and not self.closing:
+            self.spot_item.setProperty('logo', logo)
 
     # ---- shuffle: a wave ----------------------------------------------------------------------
 

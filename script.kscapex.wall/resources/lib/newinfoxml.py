@@ -7,10 +7,9 @@ details.py drives both without knowing which one is open; only the dressing chan
 
 It is flat, like the wall it belongs to: no gradient, no shadow, no gloss, no zoom.
 
-- the whole screen sits on the film's fanart (Window.Property(fanart), set by details.py)
-  under an even veil - with no fanart, the veil alone dims the wall behind;
 - the panel is solid dark (kscape_bg) instead of opaque blue, the left column a shade
-  darker, the header strip a quiet band with a line in the theme colour under it;
+  darker, the header strip a quiet band; nothing is drawn behind the fiche, so the wall
+  shows around it as it does for the classic one;
 - the clear logo (Window.Property(clearlogo)) replaces the title when the library has one;
 - it opens and closes as a plain fade instead of sliding up from the bottom - the wall
   behind already shows the same fanart, so the small panel reads as dissolving into the
@@ -22,27 +21,6 @@ keeps the classic one.
 
 NAME = 'script-kscape-info-new.xml'
 REDUCED = '!String.IsEqual(Window(Home).Property(kscape.reduced),1)'
-
-BACKDROP = '''			<control type="image">
-				<description>The film's fanart behind everything (details.py sets the property)</description>
-				<left>-120</left>
-				<top>-60</top>
-				<width>2160</width>
-				<height>1200</height>
-				<aspectratio>scale</aspectratio>
-				<fadetime>300</fadetime>
-				<texture background="true">$INFO[Window.Property(fanart)]</texture>
-			</control>
-			<control type="image">
-				<description>Veil over the fanart (alone, it dims the wall when there is no fanart)</description>
-				<left>-120</left>
-				<top>-60</top>
-				<width>2160</width>
-				<height>1200</height>
-				<texture colordiffuse="C8000000">kscape-white.png</texture>
-			</control>
-'''
-
 
 def _swap(xml, old, new, count=1):
     found = xml.count(old)
@@ -64,10 +42,6 @@ def transform(xml):
 				<animation effect="slide" start="0,0" end="0,1032" time="300" tween="cubic" easing="in" condition="{REDUCED}">WindowClose</animation>''',
                 f'''				<animation effect="fade" start="0" end="100" time="260" condition="{REDUCED}">WindowOpen</animation>
 				<animation effect="fade" start="100" end="0" time="200" condition="{REDUCED}">WindowClose</animation>''')
-    # The fanart backdrop, behind the panel.
-    out = _swap(out, '''			<include>KScapeDisplay</include>
-''', '''			<include>KScapeDisplay</include>
-''' + BACKDROP)
     # Smoked glass instead of opaque blue.
     out = _swap(out, '''				<control type="image">
 					<width>1728</width>
@@ -96,16 +70,10 @@ def transform(xml):
 					<height>64</height>
 					<texture colordiffuse="kscape_blue_head">kscape-white.png</texture>
 				</control>''', '''				<control type="image">
-					<description>Header strip (quiet, on the glass)</description>
+					<description>Header strip (quiet)</description>
 					<width>1728</width>
 					<height>64</height>
 					<texture colordiffuse="46000000">kscape-white.png</texture>
-				</control>
-				<control type="image">
-					<top>61</top>
-					<width>1728</width>
-					<height>3</height>
-					<texture colordiffuse="kscape_blue">kscape-white.png</texture>
 				</control>''')
     out = _swap(out, '''				<control type="label">
 					<left>30</left>

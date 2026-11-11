@@ -12,24 +12,6 @@
 		<control type="group">
 			<description>Display &amp; aspect ratio root (Includes_Display.xml)</description>
 			<include>KScapeDisplay</include>
-			<control type="image">
-				<description>The film's fanart behind everything (details.py sets the property)</description>
-				<left>-120</left>
-				<top>-60</top>
-				<width>2160</width>
-				<height>1200</height>
-				<aspectratio>scale</aspectratio>
-				<fadetime>300</fadetime>
-				<texture background="true">$INFO[Window.Property(fanart)]</texture>
-			</control>
-			<control type="image">
-				<description>Veil over the fanart (alone, it dims the wall when there is no fanart)</description>
-				<left>-120</left>
-				<top>-60</top>
-				<width>2160</width>
-				<height>1200</height>
-				<texture colordiffuse="C8000000">kscape-white.png</texture>
-			</control>
 			<control type="group">
 				<description>Panel: slides up from the bottom edge, as in the reference</description>
 				<left>96</left>
@@ -58,16 +40,10 @@
 					<texture colordiffuse="59000000">kscape-white.png</texture>
 				</control>
 				<control type="image">
-					<description>Header strip (quiet, on the glass)</description>
+					<description>Header strip (quiet)</description>
 					<width>1728</width>
 					<height>64</height>
 					<texture colordiffuse="46000000">kscape-white.png</texture>
-				</control>
-				<control type="image">
-					<top>61</top>
-					<width>1728</width>
-					<height>3</height>
-					<texture colordiffuse="kscape_blue">kscape-white.png</texture>
 				</control>
 				<control type="label">
 					<left>30</left>

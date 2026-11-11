@@ -1,3 +1,6 @@
+[B]0.23.0[/B] (11-11-2026)
+- Version alignée sur l'add-on du mur (fond fanart, voile et filet bleu retirés).
+
 [B]0.22.3[/B] (11-11-2026)
 - Version alignée sur l'add-on du mur (voile clair sous le fanart).
 
