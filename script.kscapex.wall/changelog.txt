@@ -1,3 +1,8 @@
+[B]0.24.1[/B] (12-11-2026)
+- Correction : dans le New wall test, en remontant depuis le bas du mur, les lignes du bas s'effaçaient une par une. Le réservoir de cases recyclées est passé de 6 à 7 lignes pour le mur jointif.
+- La cause : le réservoir est centré sur la caméra, ce qui laissait deux lignes d'avance au-dessus et aucune en dessous. Comme les jaquettes sont replacées pour la position visée pendant que le mur glisse encore, celles du bas étaient déjà recyclées vers le haut alors qu'on les voyait toujours. La descente, elle, avait sa ligne d'avance : c'est pour cela que le défaut ne se voyait que vers le haut.
+- Le mur classique n'est pas touché : il conserve ses 6 lignes et ses gouttières.
+
 [B]0.24.0[/B] (11-11-2026)
 - Les affiches du New wall test sont désormais jointives : plus aucune gouttière. Elles gardent exactement la même taille (186 x 279), donc les mêmes proportions ; il en tient davantage à l'écran, 10,3 colonnes sur 3,9 lignes au lieu de 9,1 sur 3,6.
 - Le cadre ambre reste autour de l'affiche sélectionnée et déborde donc sur ses voisines : la jaquette reste entière, et le cadre se lit comme une bordure posée sur la mosaïque.

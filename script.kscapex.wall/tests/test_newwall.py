@@ -14,7 +14,7 @@ from resources.lib import geometry as G  # noqa: E402
 from resources.lib import newinfoxml as NX2  # noqa: E402
 from resources.lib import newwallxml as NX  # noqa: E402
 from resources.lib import wallxml  # noqa: E402
-from resources.lib.wallmodel import Wall, wave_delay  # noqa: E402
+from resources.lib.wallmodel import Wall, camera_target, wave_delay  # noqa: E402
 
 # newwall.py needs Kodi's modules; import it against mocks, then put sys.modules back as it was.
 with mock.patch.dict(sys.modules, {n: mock.MagicMock() for n in ('xbmc', 'xbmcaddon', 'xbmcgui', 'xbmcvfs')}):
@@ -165,6 +165,45 @@ class NewWallXmlTest(unittest.TestCase):
             xml = NX.build(lay, stage.sx)
             self.assertIn('1992', ids(xml))
             self.assertEqual(wallxml.SX, 1.0)                    # restored after the build
+
+
+class PoolMarginTest(unittest.TestCase):
+    """The recycled pool must cover the view plus a margin on every side.
+
+    While the camera glides, the slots are already placed for where it is going, so the screen
+    shows one row (or column) beyond the target span in the direction of travel. With no margin
+    on that side, the covers there have been recycled to the opposite edge and the edge of the
+    wall goes blank - which is what happened at the bottom when moving up, and only there,
+    because centring the pool on the camera left two spare rows above and none below.
+    """
+
+    def margins(self, L):
+        wall = types.SimpleNamespace(cols=22, rows=7, layout=L)
+        vw, vh = G.view_size(L)
+        worst = [99, 99, 99, 99]                       # top, bottom, left, right
+        for row in range(1, 6):
+            for col in range(3, 12):
+                cx, cy = camera_target(wall, (col, row), current=(0, 0), centre_row=True)
+                c0 = int((cx + vw / 2.0) // L.pitch_x) - L.pool_cols // 2
+                r0 = int((cy + vh / 2.0) // L.pitch_y) - L.pool_rows // 2
+                first_r, last_r = int(cy // L.pitch_y), int((cy + vh - 1) // L.pitch_y)
+                first_c, last_c = int(cx // L.pitch_x), int((cx + vw - 1) // L.pitch_x)
+                worst = [min(worst[0], first_r - r0),
+                         min(worst[1], (r0 + L.pool_rows - 1) - last_r),
+                         min(worst[2], first_c - c0),
+                         min(worst[3], (c0 + L.pool_cols - 1) - last_c)]
+        return worst
+
+    def test_a_spare_row_and_column_on_every_side(self):
+        top, bottom, left, right = self.margins(G.POSTER_TIGHT)
+        self.assertGreaterEqual(bottom, 1, 'rows blank at the bottom while gliding up')
+        self.assertGreaterEqual(top, 1)
+        self.assertGreaterEqual(left, 1)
+        self.assertGreaterEqual(right, 1)
+
+    def test_six_rows_would_not_be_enough(self):
+        # Why the tight layout carries a seventh row of slots where the classic one has six.
+        self.assertEqual(self.margins(G.POSTER_TIGHT._replace(pool_rows=6))[1], 0)
 
 
 class WaveTest(unittest.TestCase):

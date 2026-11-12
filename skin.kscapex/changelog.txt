@@ -1,3 +1,6 @@
+[B]0.24.1[/B] (12-11-2026)
+- Version alignée sur l'add-on du mur (lignes du bas qui s'effaçaient en remontant).
+
 [B]0.24.0[/B] (11-11-2026)
 - Version alignée sur l'add-on du mur (affiches jointives dans le New wall test).
 

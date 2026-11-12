@@ -41,7 +41,12 @@ POSTER = Layout('poster', cover_w=186, cover_h=279, pitch_x=210, pitch_y=303, fr
 # with no gutter means it lies over the four neighbours: on screen that reads as a border drawn
 # on the grid, and it leaves the selected poster whole (the alternative, insetting the frame,
 # crops the artwork exactly where the eye is).
-POSTER_TIGHT = POSTER._replace(pitch_x=POSTER.cover_w, pitch_y=POSTER.cover_h, pool_cols=14)
+# pool_rows 7, not 6: with no gutter the view touches five rows (the fifth shows 121 px of
+# itself), and _origin centres the pool on the camera, which left two spare rows above and
+# none below - so a cover recycled to the top while the camera was still gliding up blanked
+# the bottom row. Seven rows leave a spare on both sides.
+POSTER_TIGHT = POSTER._replace(pitch_x=POSTER.cover_w, pitch_y=POSTER.cover_h,
+                               pool_cols=14, pool_rows=7)
 
 # Album covers (1:1): ~7.6 x 4.3 visible, as in the music reference (prompts/assets).
 SQUARE = Layout('square', cover_w=228, cover_h=228, pitch_x=254, pitch_y=254, frame=24,
